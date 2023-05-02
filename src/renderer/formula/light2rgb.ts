@@ -1,4 +1,4 @@
-import { normalization } from 'renderer/utils/norm';
+import { normalization } from 'renderer/utils/array';
 
 export function light2rgb(la: number): [number, number, number, number] {
   // ka 纳米
@@ -40,10 +40,9 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
   let rr = 0;
   let rg = 0;
   let rb = 0;
-  const newInstense = normalization(instense);
   for (let i = 0; i < wave.length; i++) {
     const w = wave[i];
-    const ins = newInstense[i];
+    const ins = instense[i];
     if (w < 420 || w >= 720) {
       // 不可见光
       continue;
@@ -54,8 +53,8 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
     g = g * ins;
     b = b * ins;
     rr = rr + r;
-    rg = rg + r;
-    rb = rb + r;
+    rg = rg + g;
+    rb = rb + b;
   }
   rr = rr / total;
   rg = rg / total;

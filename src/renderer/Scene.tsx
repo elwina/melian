@@ -4,7 +4,7 @@ import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
 import Len from './lab/Len';
 import 'antd/dist/reset.css';
-import { singleLight } from './formula/interference';
+import { mutiLightInter, singleLightInter } from './formula/interference';
 import {
   CartesianGrid,
   Legend,
@@ -14,7 +14,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { light2rgb } from './formula/light2rgb';
+import { light2rgb, mutiLight2rgb } from './formula/light2rgb';
+import { D65Specteum } from './formula/spectrum';
+import { multiplyArrays, normalization } from './utils/array';
 
 export interface scaleType {
   leftMargin: number;
@@ -87,17 +89,52 @@ export default function Scene() {
   const n = 1;
   const d = 0.2;
   // 一共分辨100个
+  // const data = [...Array(100)]
+  //   .map((e, i) => -10 + i / 5)
+  //   .map((v) => {
+  //     return {
+  //       x: v,
+  //       y: singleLightInter(d, r0, la, n)(v),
+  //     };
+  //   });
+  // const mainRGB = light2rgb(la * 1e6);
+  // const bitmapColArr = data.map((v) => {
+  //   return mainRGB.map((r) => r * v.y);
+  // });
+  const D65 = D65Specteum;
+  // D65.wave = [660, 665];
+  // D65.instense = [1, 0];
+  const po = [...Array(100)].map((e, i) => -10 + i / 5);
+  const inter = po.map((v) =>
+    mutiLightInter(
+      d,
+      r0,
+      D65.wave.map((v) => v * 1e-6),
+      n
+    )(v)
+  );
+  const oins = normalization(D65.instense);
+
   const data = [...Array(100)]
     .map((e, i) => -10 + i / 5)
     .map((v) => {
       return {
-        x: v,
-        y: singleLight(d, r0, la, n)(v),
+        position: v,
+        intense: multiplyArrays(
+          mutiLightInter(
+            d,
+            r0,
+            D65.wave.map((v) => v * 1e-6),
+            n
+          )(v),
+          normalization(D65.instense)
+        ),
       };
     });
-  const mainRGB = light2rgb(la * 1e6);
+
+  // const mainRGB = mutiLight2rgb(D65.wave,);
   const bitmapColArr = data.map((v) => {
-    return mainRGB.map((r) => r * v.y);
+    return mutiLight2rgb(D65.wave, v.intense);
   });
   const row = 20;
   const bitmapArr: Uint8ClampedArray = new Uint8ClampedArray(
@@ -116,7 +153,8 @@ export default function Scene() {
     if (ctx == null) return;
     const imagedata = new ImageData(bitmapArr, 100);
     ctx.putImageData(imagedata, 0, 0);
-    console.log(imagedata);
+    console.log(inter);
+    // console.log(oins);
   }, [bitmapArr]);
 
   const RenderLens = lens.map((len) => {

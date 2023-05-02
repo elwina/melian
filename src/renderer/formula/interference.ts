@@ -1,4 +1,4 @@
-export function singleLight(d: number, r0: number, la: number, n = 1) {
+export function singleLightInter(d: number, r0: number, la: number, n = 1) {
   // 单色光光强叠加
   // d 双缝间距
   // r0 双缝到光屏
@@ -12,5 +12,16 @@ export function singleLight(d: number, r0: number, la: number, n = 1) {
   };
   return (y: number) => {
     return 1 * Math.cos((((2 * pi) / la) * n * d * y) / r0 / 2) ** 2;
+  };
+}
+
+export function mutiLightInter(
+  d: number,
+  r0: number,
+  laArray: number[],
+  n = 1
+) {
+  return (y: number) => {
+    return laArray.map((la) => singleLightInter(d, r0, la, n)(y));
   };
 }
