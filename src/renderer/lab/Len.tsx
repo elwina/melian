@@ -1,34 +1,67 @@
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import type { scaleType } from 'renderer/Scene';
+import DragMove from './DragMove';
 
-export default function Len() {
-  const [le, setLe] = useState(10);
+interface propsType {
+  name: string;
+  scale: scaleType;
+  distance: number;
+  lenHeight: number;
+  lenWidth: number;
+  setDistance: () => (val: number) => void;
+}
+export default function Len({
+  name,
+  scale,
+  distance,
+  lenHeight,
+  lenWidth,
+  setDistance,
+}: propsType) {
+  const bottomCalc = scale.bottomMargin + scale.holderHeight;
+  const leftCalc = scale.leftMargin + distance * scale.xScale - lenWidth / 2;
+  const heightCalc = lenHeight * scale.hScale;
+
   const sty: React.CSSProperties = {
-    position: 'absolute',
-    bottom: 50,
-    height: 100,
-    left: le,
-    width: 20,
+    position: 'fixed',
+    bottom: bottomCalc,
+    left: leftCalc,
+    height: heightCalc,
+    width: lenWidth,
     backgroundColor: 'red',
   };
 
   return (
-    <div style={sty}>
-      <FontAwesomeIcon
-        icon={faArrowLeft}
-        onClick={() => {
-          setLe(le - 10);
-        }}
-      />
-      <FontAwesomeIcon
-        icon={faArrowRight}
-        onClick={() => {
-          setLe(le + 10);
-        }}
-      />
+    <Fragment>
+      <div style={sty}>
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          onClick={() => {
+            setDistance()(distance - 10);
+          }}
+        />
+        <FontAwesomeIcon
+          icon={faArrowRight}
+          onClick={() => {
+            setDistance()(distance + 10);
+          }}
+        />
 
-      <div>透镜</div>
-    </div>
+        <div>
+          {name}
+          {Math.floor(distance)}
+        </div>
+      </div>
+      <div>
+        <DragMove
+          scale={scale}
+          distance={distance}
+          lenWidth={lenWidth}
+          setDistance={setDistance}
+        />
+      </div>
+    </Fragment>
   );
 }
