@@ -181,7 +181,7 @@
   },
   "build": {
     "productName": "波动光学演示系统",
-    "appId": "org.erb.ElectronReact",
+    "appId": "com.elwina.melian",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
