@@ -174,7 +174,7 @@
     "webpack-merge": "^5.8.0"
   },
   "build": {
-    "productName": "波动光学演示系统",
+    "productName": "melian",
     "appId": "com.elwina.melian",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
