@@ -39,13 +39,13 @@ export default function Len({
         <FontAwesomeIcon
           icon={faArrowLeft}
           onClick={() => {
-            setDistance()(distance - 10);
+            setDistance()(distance - 5);
           }}
         />
         <FontAwesomeIcon
           icon={faArrowRight}
           onClick={() => {
-            setDistance()(distance + 10);
+            setDistance()(distance + 5);
           }}
         />
 
