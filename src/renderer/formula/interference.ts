@@ -3,7 +3,7 @@ export function singleLightInter(d: number, r0: number, la: number, n = 1) {
   // d 双缝间距
   // r0 双缝到光屏
   // n 折射率
-  // la 波长
+  // la 波长 所有单位毫米
 
   const pi = Math.PI;
   const k = (2 * pi) / la;

@@ -34,7 +34,7 @@ export default function Len({
   };
 
   return (
-    <Fragment>
+    <>
       <div style={sty}>
         <FontAwesomeIcon
           icon={faArrowLeft}
@@ -62,6 +62,6 @@ export default function Len({
           setDistance={setDistance}
         />
       </div>
-    </Fragment>
+    </>
   );
 }

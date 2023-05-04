@@ -8,7 +8,12 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-import-module-exports': 'off',
-    '@typescript-eslint/no-unused-vars': 'on',
+    'no-unused-vars': 'warn',
+    'prettier/prettier': 'off',
+    'operator-assignment': 'off',
+    'no-plusplus': 'off',
+    'default-case': 'off',
+    'object-shorthand': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

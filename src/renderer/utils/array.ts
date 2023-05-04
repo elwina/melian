@@ -1,14 +1,15 @@
+// 归一化函数，若全部为相同值则输出全1数组
 export function normalization(array: number[]) {
   const min = Math.min(...array);
   const max = Math.max(...array);
-  const re = array.map((v) => (v - min) / (max - min));
-  return re;
+  if (max === min) {
+    return array.map(() => 1);
+  } else {
+    return array.map((v) => (v - min) / (max - min));
+  }
 }
 
+// 数组逐个乘法
 export function multiplyArrays(arr1: number[], arr2: number[]) {
-  var result = [];
-  for (var i = 0; i < arr1.length; i++) {
-    result.push(arr1[i] * arr2[i]);
-  }
-  return result;
+  return arr1.map((v, i) => v * arr2[i]);
 }
