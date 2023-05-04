@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+permissions: write-all
+
 jobs:
   publish:
     # To enable auto publishing to github, update your electron publisher
