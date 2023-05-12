@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { Input, Radio, RadioChangeEvent, Space, Tooltip } from 'antd';
+import {
+  Input,
+  InputNumber,
+  Radio,
+  RadioChangeEvent,
+  Space,
+  Tooltip,
+} from 'antd';
 import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
 import Len from './lab/Len';
@@ -11,6 +18,7 @@ import { multiplyArrays, normalization } from './utils/array';
 import LightScreen from './lab/LightScreen';
 import FourSide, { fourSideProps } from './control/FourSide';
 import './Scene.css';
+import Measure1 from './lab/Measure1';
 
 export interface scaleType {
   leftMargin: number;
@@ -41,6 +49,27 @@ export interface screenType {
 
   seemm: number; // 目镜视野范围
   offsetmm: number;
+
+  leftMargin: number;
+  bottomMargin: number;
+}
+
+export interface measureType {
+  type: 1;
+  offsetmm: number;
+
+  mm2px: number;
+
+  upHeight: number;
+  downHeight: number;
+  dsHeight: number;
+  fontHeight: number;
+  sfontHeight: number;
+
+  fontSize: number;
+  sfontSize: number;
+  lineWidth: number;
+  leftPadding: number;
 
   leftMargin: number;
   bottomMargin: number;
@@ -264,6 +293,27 @@ export default function Scene() {
       },
     },
   };
+
+  const [measure, setMeasure] = useImmer<measureType>({
+    type: 1,
+    offsetmm: 0,
+
+    mm2px: 12,
+
+    upHeight: 50,
+    downHeight: 50,
+    dsHeight: 60,
+    fontHeight: 20,
+    sfontHeight: 20,
+
+    fontSize: 20,
+    sfontSize: 20,
+    lineWidth: 2,
+    leftPadding: 20,
+
+    leftMargin: 300,
+    bottomMargin: 400,
+  });
 
   // 确定模式
   const [mode, setMode] = useImmer<modeType>({
@@ -512,12 +562,18 @@ export default function Scene() {
               });
             }}
           />
-          <Input
+          <InputNumber
             addonBefore="offsetmm"
             value={screen.offsetmm}
-            onChange={(e) => {
+            step={0.01}
+            style={{ width: 100 }}
+            size="large"
+            onChange={(value) => {
               setScreen((draft) => {
-                draft.offsetmm = Number(e.target.value);
+                draft.offsetmm = Number(value);
+              });
+              setMeasure((draft) => {
+                draft.offsetmm = Number(value);
               });
             }}
           />
@@ -573,6 +629,7 @@ export default function Scene() {
 
       {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
       <LightScreen screenConf={screen} />
+      <Measure1 measureConfType={measure} />
 
       {RenderLens}
       <Holder scale={scale} />
