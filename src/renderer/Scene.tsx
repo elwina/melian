@@ -6,7 +6,9 @@ import {
   RadioChangeEvent,
   Space,
   Tooltip,
+  message,
 } from 'antd';
+import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
 import Len from './lab/Len';
@@ -57,6 +59,7 @@ export interface screenType {
 export interface measureType {
   type: 1;
   offsetmm: number;
+  initmm: number;
 
   mm2px: number;
 
@@ -70,6 +73,7 @@ export interface measureType {
   sfontSize: number;
   lineWidth: number;
   leftPadding: number;
+  upPadding: number;
 
   leftMargin: number;
   bottomMargin: number;
@@ -243,8 +247,8 @@ export default function Scene() {
     seemm: 10,
     offsetmm: 0,
 
-    leftMargin: 500,
-    bottomMargin: 350,
+    leftMargin: 200,
+    bottomMargin: 450,
   });
 
   const fourSide2: fourSideProps = {
@@ -297,23 +301,165 @@ export default function Scene() {
   const [measure, setMeasure] = useImmer<measureType>({
     type: 1,
     offsetmm: 0,
+    initmm: 10,
 
-    mm2px: 12,
+    mm2px: 8, // 6
 
-    upHeight: 50,
-    downHeight: 50,
-    dsHeight: 60,
-    fontHeight: 20,
-    sfontHeight: 20,
+    upHeight: 50, // 5
+    downHeight: 50, // 5
+    dsHeight: 45, // 4
+    fontHeight: 20, // 5
+    sfontHeight: 20, // 5
 
-    fontSize: 20,
-    sfontSize: 20,
-    lineWidth: 2,
-    leftPadding: 20,
+    fontSize: 20, // 6
+    sfontSize: 16, // 6
+    lineWidth: 2, // 6
+    leftPadding: 20, // 4
+    upPadding: 5,
 
-    leftMargin: 300,
-    bottomMargin: 400,
+    leftMargin: 600, // 4
+    bottomMargin: 200, // 4
   });
+
+  const fourSide4: fourSideProps = {
+    up: {
+      value: measure.bottomMargin,
+      step: 5,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.bottomMargin = fn(measure.bottomMargin);
+        });
+      },
+    },
+    left: {
+      value: measure.leftMargin,
+      step: 5,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.leftMargin = fn(measure.leftMargin);
+        });
+      },
+    },
+    side: {
+      value: measure.dsHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.dsHeight = fn(measure.dsHeight);
+        });
+      },
+    },
+    bottom: {
+      value: measure.leftPadding,
+      step: 4,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.leftPadding = fn(measure.leftPadding);
+        });
+      },
+    },
+  };
+  const fourSide5: fourSideProps = {
+    up: {
+      value: measure.upHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.upHeight = fn(measure.upHeight);
+        });
+      },
+    },
+    left: {
+      value: measure.downHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.downHeight = fn(measure.downHeight);
+        });
+      },
+    },
+    side: {
+      value: measure.fontHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.fontHeight = fn(measure.fontHeight);
+        });
+      },
+    },
+    bottom: {
+      value: measure.sfontHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.sfontHeight = fn(measure.sfontHeight);
+        });
+      },
+    },
+  };
+
+  const fourSide6: fourSideProps = {
+    up: {
+      value: measure.fontSize,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.fontSize = fn(measure.fontSize);
+        });
+      },
+    },
+    left: {
+      value: measure.sfontSize,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.sfontSize = fn(measure.sfontSize);
+        });
+      },
+    },
+    side: {
+      value: measure.lineWidth,
+      step: 2,
+      min: 2,
+      max: 100,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.lineWidth = fn(measure.lineWidth);
+        });
+      },
+    },
+    bottom: {
+      value: measure.mm2px,
+      step: 0.5,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.mm2px = fn(measure.mm2px);
+        });
+      },
+    },
+  };
 
   // 确定模式
   const [mode, setMode] = useImmer<modeType>({
@@ -462,6 +608,26 @@ export default function Scene() {
     );
   });
 
+  const moveLeft = () => {
+    const now = screen.offsetmm;
+    const target = now - 0.1;
+    setScreen((draft) => {
+      draft.offsetmm = target;
+    });
+    setMeasure((draft) => {
+      draft.offsetmm = target;
+    });
+  };
+  const moveRight = () => {
+    const now = screen.offsetmm;
+    const target = now + 0.1;
+    setScreen((draft) => {
+      draft.offsetmm = target;
+    });
+    setMeasure((draft) => {
+      draft.offsetmm = target;
+    });
+  };
   return (
     <>
       <div
@@ -475,9 +641,12 @@ export default function Scene() {
         <FourSide fourSideProps={fourSide1} />
         <FourSide fourSideProps={fourSide3} />
         <FourSide fourSideProps={fourSide2} />
+        <FourSide fourSideProps={fourSide4} />
+        <FourSide fourSideProps={fourSide5} />
+        <FourSide fourSideProps={fourSide6} />
       </div>
       <div>
-        <Space.Compact>
+        {/* <Space.Compact>
           <Input
             addonBefore="leftMargin"
             value={scale.leftMargin}
@@ -604,7 +773,7 @@ export default function Scene() {
               });
             }}
           />
-        </Space.Compact>
+        </Space.Compact> */}
 
         <Radio.Group
           value={interConf.light.filter}
@@ -630,6 +799,10 @@ export default function Scene() {
       {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
       <LightScreen screenConf={screen} />
       <Measure1 measureConfType={measure} />
+      <div>
+        <AiFillCaretLeft onClick={moveLeft} />
+        <AiFillCaretRight onClick={moveRight} />
+      </div>
 
       {RenderLens}
       <Holder scale={scale} />

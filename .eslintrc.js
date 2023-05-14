@@ -14,6 +14,7 @@ module.exports = {
     'no-plusplus': 'off',
     'default-case': 'off',
     'object-shorthand': 'off',
+    camelcase: 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
