@@ -21,6 +21,7 @@ import LightScreen from './lab/LightScreen';
 import FourSide, { fourSideProps } from './control/FourSide';
 import './Scene.css';
 import Measure1 from './lab/Measure1';
+import LightScreenFixed from './lab/LightScreenFixed';
 
 export interface scaleType {
   leftMargin: number;
@@ -797,7 +798,7 @@ export default function Scene() {
       </LineChart> */}
 
       {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
-      <LightScreen screenConf={screen} />
+      <LightScreenFixed screenConf={screen} />
       <Measure1 measureConfType={measure} />
       <div>
         <AiFillCaretLeft onClick={moveLeft} />

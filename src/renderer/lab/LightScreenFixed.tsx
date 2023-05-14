@@ -1,0 +1,112 @@
+import { CSSProperties, useEffect, useRef } from 'react';
+import type { screenType } from 'renderer/Scene';
+
+interface propsType {
+  screenConf: screenType;
+}
+
+export default function LightScreenFixed({ screenConf: sC }: propsType) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const R = sC.seemm * sC.mm2px * sC.scaleX;
+  const pa = 6;
+
+  useEffect(() => {
+    (async () => {
+      const { bitmapArr } = sC;
+      if (bitmapArr === null) return;
+
+      if (canvasRef.current == null) return;
+      const can: HTMLCanvasElement = canvasRef.current;
+      if (can == null) {
+        return;
+      }
+      const ctx = can.getContext('2d');
+      if (ctx == null) return;
+
+      // 重置画布
+      const cwidth = can.width;
+      const cheight = can.height;
+      can.width = cwidth;
+      can.height = cheight;
+
+      ctx.save();
+      ctx.fillStyle = '#757474';
+      ctx.fillRect(0, 0, cwidth, cheight);
+      ctx.restore();
+
+      ctx.save();
+      const picw = sC.mmwidth * sC.mm2px;
+      const pich = sC.mmheight * sC.mm2px;
+
+      const sx = picw / 2 - R + sC.offsetmm * sC.mm2px;
+      const sy = 0;
+      const swidth = picw - sx;
+      const sheight = pich;
+      const dx = pa;
+      const dy = pa;
+      const dwidth = swidth * sC.scaleX;
+      const dheight = sheight * sC.scaleY;
+
+      try {
+        const imagedata = new ImageData(bitmapArr, sC.mmwidth * sC.mm2px);
+        const imagebmp = await createImageBitmap(imagedata);
+        // ctx.putImageData(imagedata, imageleft, 0, 0, 0, sw, sh);
+        ctx.drawImage(
+          imagebmp,
+          sx,
+          sy,
+          swidth,
+          sheight,
+          dx,
+          dy,
+          dwidth,
+          dheight
+        );
+      } catch {
+        return;
+      }
+      ctx.restore();
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-in';
+      const circleX = R + pa;
+      const circleY = R + pa;
+      const circleR = R;
+      ctx.beginPath();
+      ctx.arc(circleX, circleY, circleR, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // 画边框
+      ctx.save();
+      ctx.strokeStyle = '#cc99ff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(circleX, circleY, circleR, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+    })();
+  }, [sC, R]);
+
+  const fullWidth = 2 * R + 2 * pa;
+  const canvasHeight = 2 * R + 2 * pa;
+  const sty: CSSProperties = {
+    position: 'fixed',
+    bottom: sC.bottomMargin,
+    left: sC.leftMargin,
+    height: canvasHeight,
+    width: fullWidth,
+  };
+
+  return (
+    <canvas
+      width={fullWidth}
+      height={canvasHeight}
+      ref={canvasRef}
+      style={sty}
+    />
+  );
+}
