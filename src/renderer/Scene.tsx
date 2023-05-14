@@ -1,5 +1,19 @@
 import React, { useEffect, useRef } from 'react';
-import { Input, Radio, RadioChangeEvent, Space, Tooltip } from 'antd';
+import {
+  Button,
+  Input,
+  InputNumber,
+  Radio,
+  RadioChangeEvent,
+  Slider,
+  Space,
+  Tooltip,
+  Typography,
+  message,
+} from 'antd';
+import { BsFillBoxFill } from 'react-icons/bs';
+import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons';
+import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
 import Len from './lab/Len';
@@ -11,6 +25,8 @@ import { multiplyArrays, normalization } from './utils/array';
 import LightScreen from './lab/LightScreen';
 import FourSide, { fourSideProps } from './control/FourSide';
 import './Scene.css';
+import Measure1 from './lab/Measure1';
+import LightScreenFixed from './lab/LightScreenFixed';
 
 export interface scaleType {
   leftMargin: number;
@@ -46,6 +62,29 @@ export interface screenType {
   bottomMargin: number;
 }
 
+export interface measureType {
+  type: 1;
+  offsetmm: number;
+  initmm: number;
+
+  mm2px: number;
+
+  upHeight: number;
+  downHeight: number;
+  dsHeight: number;
+  fontHeight: number;
+  sfontHeight: number;
+
+  fontSize: number;
+  sfontSize: number;
+  lineWidth: number;
+  leftPadding: number;
+  upPadding: number;
+
+  leftMargin: number;
+  bottomMargin: number;
+}
+
 export interface modeType {
   mode: 0 | 1 | 2; // 0 干涉
 }
@@ -54,7 +93,8 @@ export interface interConfType {
   light: {
     name: string;
     type: 'D65';
-    filter: 'none' | 'red' | 'green';
+    filter: 'none' | 'red' | 'green' | 'custom';
+    custom: number;
   };
   d: number;
   wave: number[];
@@ -214,8 +254,8 @@ export default function Scene() {
     seemm: 10,
     offsetmm: 0,
 
-    leftMargin: 500,
-    bottomMargin: 350,
+    leftMargin: 200,
+    bottomMargin: 450,
   });
 
   const fourSide2: fourSideProps = {
@@ -265,6 +305,169 @@ export default function Scene() {
     },
   };
 
+  const [measure, setMeasure] = useImmer<measureType>({
+    type: 1,
+    offsetmm: 0,
+    initmm: 10,
+
+    mm2px: 8, // 6
+
+    upHeight: 50, // 5
+    downHeight: 50, // 5
+    dsHeight: 45, // 4
+    fontHeight: 20, // 5
+    sfontHeight: 20, // 5
+
+    fontSize: 20, // 6
+    sfontSize: 16, // 6
+    lineWidth: 2, // 6
+    leftPadding: 20, // 4
+    upPadding: 5,
+
+    leftMargin: 600, // 4
+    bottomMargin: 200, // 4
+  });
+
+  const fourSide4: fourSideProps = {
+    up: {
+      value: measure.bottomMargin,
+      step: 5,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.bottomMargin = fn(measure.bottomMargin);
+        });
+      },
+    },
+    left: {
+      value: measure.leftMargin,
+      step: 5,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.leftMargin = fn(measure.leftMargin);
+        });
+      },
+    },
+    side: {
+      value: measure.dsHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.dsHeight = fn(measure.dsHeight);
+        });
+      },
+    },
+    bottom: {
+      value: measure.leftPadding,
+      step: 4,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.leftPadding = fn(measure.leftPadding);
+        });
+      },
+    },
+  };
+  const fourSide5: fourSideProps = {
+    up: {
+      value: measure.upHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.upHeight = fn(measure.upHeight);
+        });
+      },
+    },
+    left: {
+      value: measure.downHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.downHeight = fn(measure.downHeight);
+        });
+      },
+    },
+    side: {
+      value: measure.fontHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.fontHeight = fn(measure.fontHeight);
+        });
+      },
+    },
+    bottom: {
+      value: measure.sfontHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.sfontHeight = fn(measure.sfontHeight);
+        });
+      },
+    },
+  };
+
+  const fourSide6: fourSideProps = {
+    up: {
+      value: measure.fontSize,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.fontSize = fn(measure.fontSize);
+        });
+      },
+    },
+    left: {
+      value: measure.sfontSize,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.sfontSize = fn(measure.sfontSize);
+        });
+      },
+    },
+    side: {
+      value: measure.lineWidth,
+      step: 2,
+      min: 2,
+      max: 100,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.lineWidth = fn(measure.lineWidth);
+        });
+      },
+    },
+    bottom: {
+      value: measure.mm2px,
+      step: 0.5,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setMeasure((draft) => {
+          draft.mm2px = fn(measure.mm2px);
+        });
+      },
+    },
+  };
+
   // 确定模式
   const [mode, setMode] = useImmer<modeType>({
     mode: 0,
@@ -275,6 +478,7 @@ export default function Scene() {
       name: '白炽灯',
       type: 'D65',
       filter: 'red',
+      custom: 660,
     },
     d: 0.2,
     wave: [660],
@@ -313,10 +517,16 @@ export default function Scene() {
           draft[2].option.color = 'green';
         });
         break;
-      default:
+      case 'custom':
+        setLens((draft) => {
+          // 更改滤光片
+          draft[2].hide = false;
+          draft[2].option.color = 'custom';
+          draft[2].option.lambda = interConf.light.custom;
+        });
         break;
     }
-  }, [interConf.light.filter, setLens]);
+  }, [interConf.light.custom, interConf.light.filter, setLens]);
 
   // 以下为托马斯杨干涉内容
   useEffect(() => {
@@ -337,6 +547,12 @@ export default function Scene() {
         case 'green':
           setInterConf((draft) => {
             draft.wave = [535];
+            draft.instense = [1];
+          });
+          break;
+        case 'custom':
+          setInterConf((draft) => {
+            draft.wave = [interConf.light.custom];
             draft.instense = [1];
           });
           break;
@@ -412,22 +628,89 @@ export default function Scene() {
     );
   });
 
+  const moveLeft = () => {
+    const now = screen.offsetmm;
+    const target = now - 0.1;
+    setScreen((draft) => {
+      draft.offsetmm = target;
+    });
+    setMeasure((draft) => {
+      draft.offsetmm = target;
+    });
+  };
+  const moveRight = () => {
+    const now = screen.offsetmm;
+    const target = now + 0.1;
+    setScreen((draft) => {
+      draft.offsetmm = target;
+    });
+    setMeasure((draft) => {
+      draft.offsetmm = target;
+    });
+  };
   return (
     <>
-      <div
+      <Space
         style={{
           position: 'fixed',
           bottom: 10,
           left: 20,
-          display: 'inline-flex',
+          // width: document.body.clientWidth - 40,
+          zIndex: 100,
+          // display: 'flex',
         }}
       >
         <FourSide fourSideProps={fourSide1} />
         <FourSide fourSideProps={fourSide3} />
         <FourSide fourSideProps={fourSide2} />
-      </div>
-      <div>
+        <FourSide fourSideProps={fourSide4} />
+        <FourSide fourSideProps={fourSide5} />
+        <FourSide fourSideProps={fourSide6} />
         <Space.Compact>
+          <Radio.Group
+            value={interConf.light.filter}
+            onChange={(e: RadioChangeEvent) => {
+              setInterConf((draft) => {
+                draft.light.filter = e.target.value;
+              });
+            }}
+          >
+            <Radio.Button value="none">None</Radio.Button>
+            <Radio.Button value="red">Red</Radio.Button>
+            <Radio.Button value="green">Green</Radio.Button>
+            <Radio.Button value="custom">Custom</Radio.Button>
+            {interConf.light.filter === 'custom' && (
+              <Slider
+                min={420}
+                max={719}
+                value={interConf.light.custom}
+                onChange={(v) => {
+                  setInterConf((draft) => {
+                    draft.light.custom = v;
+                  });
+                }}
+              />
+            )}
+          </Radio.Group>
+        </Space.Compact>
+
+        <Space>
+          <Button
+            type="primary"
+            icon={<CaretLeftFilled />}
+            onClick={moveLeft}
+            size="large"
+          />{' '}
+          <Button
+            type="primary"
+            icon={<CaretRightFilled />}
+            onClick={moveRight}
+            size="large"
+          />
+        </Space>
+      </Space>
+      <div>
+        {/* <Space.Compact>
           <Input
             addonBefore="leftMargin"
             value={scale.leftMargin}
@@ -512,12 +795,18 @@ export default function Scene() {
               });
             }}
           />
-          <Input
+          <InputNumber
             addonBefore="offsetmm"
             value={screen.offsetmm}
-            onChange={(e) => {
+            step={0.01}
+            style={{ width: 100 }}
+            size="large"
+            onChange={(value) => {
               setScreen((draft) => {
-                draft.offsetmm = Number(e.target.value);
+                draft.offsetmm = Number(value);
+              });
+              setMeasure((draft) => {
+                draft.offsetmm = Number(value);
               });
             }}
           />
@@ -548,20 +837,7 @@ export default function Scene() {
               });
             }}
           />
-        </Space.Compact>
-
-        <Radio.Group
-          value={interConf.light.filter}
-          onChange={(e: RadioChangeEvent) => {
-            setInterConf((draft) => {
-              draft.light.filter = e.target.value;
-            });
-          }}
-        >
-          <Radio.Button value="none">None</Radio.Button>
-          <Radio.Button value="red">Red</Radio.Button>
-          <Radio.Button value="green">Green</Radio.Button>
-        </Radio.Group>
+        </Space.Compact> */}
       </div>
 
       {/* <LineChart width={500} height={300} data={data}>
@@ -572,7 +848,8 @@ export default function Scene() {
       </LineChart> */}
 
       {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
-      <LightScreen screenConf={screen} />
+      <LightScreenFixed screenConf={screen} />
+      <Measure1 measureConfType={measure} />
 
       {RenderLens}
       <Holder scale={scale} />
