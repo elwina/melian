@@ -79,6 +79,41 @@ export default function LightScreenFixed({ screenConf: sC }: propsType) {
       ctx.fill();
       ctx.restore();
 
+      // 画十字叉丝
+      ctx.save();
+      ctx.strokeStyle = '#282828ce';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      // 横线
+      ctx.moveTo(pa, pa + R);
+      ctx.lineTo(pa + R * 2, pa + R);
+      // 中心竖线
+      ctx.moveTo(pa + R, pa);
+      ctx.lineTo(pa + R, pa + 2 * R);
+      // 左竖线
+      const lineLR = 0.2;
+      ctx.moveTo(
+        pa + R - lineLR * R,
+        pa + R * (1 - Math.sqrt(1 - lineLR ** 2))
+      );
+      ctx.lineTo(
+        pa + R - lineLR * R,
+        pa + 2 * R - R * (1 - Math.sqrt(1 - lineLR ** 2))
+      );
+      // 右竖线
+      ctx.moveTo(
+        pa + R + lineLR * R,
+        pa + R * (1 - Math.sqrt(1 - lineLR ** 2))
+      );
+      ctx.lineTo(
+        pa + R + lineLR * R,
+        pa + 2 * R - R * (1 - Math.sqrt(1 - lineLR ** 2))
+      );
+
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+
       // 画边框
       ctx.save();
       ctx.strokeStyle = '#cc99ff';

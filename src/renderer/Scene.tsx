@@ -1,13 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import {
+  Button,
   Input,
   InputNumber,
   Radio,
   RadioChangeEvent,
+  Slider,
   Space,
   Tooltip,
+  Typography,
   message,
 } from 'antd';
+import { BsFillBoxFill } from 'react-icons/bs';
+import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
@@ -88,7 +93,8 @@ export interface interConfType {
   light: {
     name: string;
     type: 'D65';
-    filter: 'none' | 'red' | 'green';
+    filter: 'none' | 'red' | 'green' | 'custom';
+    custom: number;
   };
   d: number;
   wave: number[];
@@ -472,6 +478,7 @@ export default function Scene() {
       name: '白炽灯',
       type: 'D65',
       filter: 'red',
+      custom: 660,
     },
     d: 0.2,
     wave: [660],
@@ -510,10 +517,16 @@ export default function Scene() {
           draft[2].option.color = 'green';
         });
         break;
-      default:
+      case 'custom':
+        setLens((draft) => {
+          // 更改滤光片
+          draft[2].hide = false;
+          draft[2].option.color = 'custom';
+          draft[2].option.lambda = interConf.light.custom;
+        });
         break;
     }
-  }, [interConf.light.filter, setLens]);
+  }, [interConf.light.custom, interConf.light.filter, setLens]);
 
   // 以下为托马斯杨干涉内容
   useEffect(() => {
@@ -534,6 +547,12 @@ export default function Scene() {
         case 'green':
           setInterConf((draft) => {
             draft.wave = [535];
+            draft.instense = [1];
+          });
+          break;
+        case 'custom':
+          setInterConf((draft) => {
+            draft.wave = [interConf.light.custom];
             draft.instense = [1];
           });
           break;
@@ -631,12 +650,14 @@ export default function Scene() {
   };
   return (
     <>
-      <div
+      <Space
         style={{
           position: 'fixed',
           bottom: 10,
           left: 20,
-          display: 'inline-flex',
+          // width: document.body.clientWidth - 40,
+          zIndex: 100,
+          // display: 'flex',
         }}
       >
         <FourSide fourSideProps={fourSide1} />
@@ -645,7 +666,49 @@ export default function Scene() {
         <FourSide fourSideProps={fourSide4} />
         <FourSide fourSideProps={fourSide5} />
         <FourSide fourSideProps={fourSide6} />
-      </div>
+        <Space.Compact>
+          <Radio.Group
+            value={interConf.light.filter}
+            onChange={(e: RadioChangeEvent) => {
+              setInterConf((draft) => {
+                draft.light.filter = e.target.value;
+              });
+            }}
+          >
+            <Radio.Button value="none">None</Radio.Button>
+            <Radio.Button value="red">Red</Radio.Button>
+            <Radio.Button value="green">Green</Radio.Button>
+            <Radio.Button value="custom">Custom</Radio.Button>
+            {interConf.light.filter === 'custom' && (
+              <Slider
+                min={420}
+                max={719}
+                value={interConf.light.custom}
+                onChange={(v) => {
+                  setInterConf((draft) => {
+                    draft.light.custom = v;
+                  });
+                }}
+              />
+            )}
+          </Radio.Group>
+        </Space.Compact>
+
+        <Space>
+          <Button
+            type="primary"
+            icon={<CaretLeftFilled />}
+            onClick={moveLeft}
+            size="large"
+          />{' '}
+          <Button
+            type="primary"
+            icon={<CaretRightFilled />}
+            onClick={moveRight}
+            size="large"
+          />
+        </Space>
+      </Space>
       <div>
         {/* <Space.Compact>
           <Input
@@ -775,19 +838,6 @@ export default function Scene() {
             }}
           />
         </Space.Compact> */}
-
-        <Radio.Group
-          value={interConf.light.filter}
-          onChange={(e: RadioChangeEvent) => {
-            setInterConf((draft) => {
-              draft.light.filter = e.target.value;
-            });
-          }}
-        >
-          <Radio.Button value="none">None</Radio.Button>
-          <Radio.Button value="red">Red</Radio.Button>
-          <Radio.Button value="green">Green</Radio.Button>
-        </Radio.Group>
       </div>
 
       {/* <LineChart width={500} height={300} data={data}>
@@ -800,10 +850,6 @@ export default function Scene() {
       {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
       <LightScreenFixed screenConf={screen} />
       <Measure1 measureConfType={measure} />
-      <div>
-        <AiFillCaretLeft onClick={moveLeft} />
-        <AiFillCaretRight onClick={moveRight} />
-      </div>
 
       {RenderLens}
       <Holder scale={scale} />

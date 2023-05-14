@@ -2,11 +2,13 @@ import { normalization } from 'renderer/utils/array';
 
 export function light2rgb(la: number): [number, number, number, number] {
   // ka 纳米
-  let r, g, b;
+  let r;
+  let g;
+  let b;
   if (la >= 420 && la <= 440) {
     r = (-255 * (la - 440)) / (440 - 420);
     g = 0;
-    b = 0;
+    b = 255;
   } else if (la > 440 && la <= 490) {
     r = 0;
     g = (255 * (la - 440)) / (490 - 440);
@@ -49,6 +51,7 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
     }
     total++;
     let [r, g, b, a] = light2rgb(w);
+    a = 255;
     r = r * ins;
     g = g * ins;
     b = b * ins;
