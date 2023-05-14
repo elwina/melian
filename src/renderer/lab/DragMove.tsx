@@ -8,6 +8,7 @@ import Draggable, {
   DraggableEvent,
   DraggableEventHandler,
 } from 'react-draggable';
+import { CSSProperties } from 'react';
 
 interface propsType {
   scale: scaleType;
@@ -24,11 +25,11 @@ export default function DragMove({
 }: propsType) {
   const leftCalc = scale.leftMargin + distance * scale.xScale - lenWidth / 2;
 
-  const sty: React.CSSProperties = {
+  const sty: CSSProperties = {
     position: 'fixed',
     bottom: scale.bottomMargin,
-    left: leftCalc, //镜子的中心
-    height: scale.holderHeight, //光具座的height
+    left: leftCalc, // 镜子的中心
+    height: scale.holderHeight, // 光具座的height
     width: lenWidth,
     backgroundColor: 'green',
     zIndex: 5,

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   Input,
@@ -12,7 +12,18 @@ import {
   message,
 } from 'antd';
 import { BsFillBoxFill } from 'react-icons/bs';
-import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons';
+import {
+  CaretLeftFilled,
+  CaretRightFilled,
+  DownloadOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
+import {
+  VscChromeMaximize,
+  VscChromeMinimize,
+  VscChromeRestore,
+  VscChromeClose,
+} from 'react-icons/vsc';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
@@ -101,7 +112,18 @@ export interface interConfType {
   instense: number[];
 }
 
+export interface confType {
+  scale: scaleType;
+  lens: lenType[];
+  screen: screenType;
+  measure: measureType;
+  mode: modeType;
+  interConf: interConfType;
+}
+
 export default function Scene() {
+  const { ipcRenderer } = window.electron;
+
   const [scale, setScale] = useImmer<scaleType>({
     leftMargin: 50,
     bottomMargin: 150,
@@ -254,8 +276,8 @@ export default function Scene() {
     seemm: 10,
     offsetmm: 0,
 
-    leftMargin: 200,
-    bottomMargin: 450,
+    leftMargin: 205,
+    bottomMargin: 475,
   });
 
   const fourSide2: fourSideProps = {
@@ -310,22 +332,22 @@ export default function Scene() {
     offsetmm: 0,
     initmm: 10,
 
-    mm2px: 8, // 6
+    mm2px: 5.5, // 6
 
-    upHeight: 50, // 5
-    downHeight: 50, // 5
-    dsHeight: 45, // 4
+    upHeight: 42, // 5
+    downHeight: 44, // 5
+    dsHeight: 39, // 4
     fontHeight: 20, // 5
     sfontHeight: 20, // 5
 
     fontSize: 20, // 6
     sfontSize: 16, // 6
     lineWidth: 2, // 6
-    leftPadding: 20, // 4
+    leftPadding: 12, // 4
     upPadding: 5,
 
-    leftMargin: 600, // 4
-    bottomMargin: 200, // 4
+    leftMargin: 660, // 4
+    bottomMargin: 390, // 4
   });
 
   const fourSide4: fourSideProps = {
@@ -648,16 +670,52 @@ export default function Scene() {
       draft.offsetmm = target;
     });
   };
+
+  const [dpath, setDpath] = useState('');
+  const download = async () => {
+    const config: confType = {
+      lens,
+      screen: {
+        ...screen,
+        bitmapArr: null,
+      },
+      interConf,
+      measure,
+      mode,
+      scale,
+    };
+    const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
+    if (path !== '') {
+      setDpath(path);
+    }
+  };
+  const load = async () => {
+    const { status, config } = await ipcRenderer.invoke('loadConf', [dpath]);
+    if (!status) {
+      // 加载失败
+      console.error('加载失败');
+    } else {
+      // 加载成功
+      setLens(config.lens);
+      setScreen(config.screen);
+      setInterConf(config.interConf);
+      setMeasure(config.measure);
+      setMode(config.mode);
+      setScale(config.scale);
+    }
+  };
+
   return (
     <>
-      <Space
+      <div
         style={{
           position: 'fixed',
           bottom: 10,
-          left: 20,
-          // width: document.body.clientWidth - 40,
+          left: 0,
+          width: '100%',
           zIndex: 100,
-          // display: 'flex',
+          display: 'flex',
+          justifyContent: 'space-around',
         }}
       >
         <FourSide fourSideProps={fourSide1} />
@@ -679,22 +737,49 @@ export default function Scene() {
             <Radio.Button value="red">Red</Radio.Button>
             <Radio.Button value="green">Green</Radio.Button>
             <Radio.Button value="custom">Custom</Radio.Button>
-            {interConf.light.filter === 'custom' && (
-              <Slider
-                min={420}
-                max={719}
-                value={interConf.light.custom}
-                onChange={(v) => {
-                  setInterConf((draft) => {
-                    draft.light.custom = v;
-                  });
-                }}
-              />
-            )}
+            <Slider
+              min={420}
+              max={720}
+              value={interConf.light.custom}
+              disabled={interConf.light.filter !== 'custom'}
+              onChange={(v) => {
+                setInterConf((draft) => {
+                  draft.light.custom = v;
+                });
+              }}
+            />
           </Radio.Group>
         </Space.Compact>
 
-        <Space>
+        <div>
+          <Space.Compact>
+            <Button icon={<DownloadOutlined />} onClick={download} />
+            <Button icon={<UploadOutlined />} onClick={load} />
+          </Space.Compact>
+          <br />
+          <Space.Compact>
+            <Button
+              icon={<VscChromeMaximize />}
+              onClick={() => {
+                ipcRenderer.maximize();
+              }}
+            />{' '}
+            <Button
+              icon={<VscChromeRestore />}
+              onClick={() => {
+                ipcRenderer.unmaximize();
+              }}
+            />{' '}
+            <Button
+              icon={<VscChromeClose />}
+              onClick={() => {
+                ipcRenderer.close();
+              }}
+            />
+          </Space.Compact>
+        </div>
+
+        <Space.Compact>
           <Button
             type="primary"
             icon={<CaretLeftFilled />}
@@ -707,8 +792,8 @@ export default function Scene() {
             onClick={moveRight}
             size="large"
           />
-        </Space>
-      </Space>
+        </Space.Compact>
+      </div>
       <div>
         {/* <Space.Compact>
           <Input

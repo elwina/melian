@@ -17,15 +17,15 @@ export function light2rgb(la: number): [number, number, number, number] {
     r = 0;
     g = 255;
     b = (-255 * (la - 510)) / (510 - 490);
-  } else if (la > 510 && la < 580) {
+  } else if (la > 510 && la <= 580) {
     r = (255 * (la - 510)) / (580 - 510);
     g = 255;
     b = 0;
-  } else if (la > 580 && la < 645) {
+  } else if (la > 580 && la <= 645) {
     r = 255;
     g = (-255 * (la - 645)) / (645 - 580);
     b = 0;
-  } else if (la > 645 && la < 720) {
+  } else if (la > 645 && la <= 720) {
     r = 255;
     g = 0;
     b = 0;
@@ -45,7 +45,7 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
   for (let i = 0; i < wave.length; i++) {
     const w = wave[i];
     const ins = instense[i];
-    if (w < 420 || w >= 720) {
+    if (w < 420 || w > 720) {
       // 不可见光
       continue;
     }
