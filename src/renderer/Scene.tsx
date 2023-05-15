@@ -38,6 +38,7 @@ import FourSide, { fourSideProps } from './control/FourSide';
 import './Scene.css';
 import Measure1 from './lab/Measure1';
 import LightScreenFixed from './lab/LightScreenFixed';
+import Ctrl from './lab/Ctrl';
 
 export interface holderType {
   leftMargin: number;
@@ -62,6 +63,11 @@ export interface lenType {
   lenWidth: number;
   hide: boolean;
   option: Record<string, unknown>;
+}
+
+export interface ctrlType {
+  showmm: number[];
+  move: number[];
 }
 
 export interface screenType {
@@ -119,108 +125,171 @@ export interface interConfType {
 }
 
 export interface confType {
+  holder: holderType;
   lens: lenType[];
+  ctrl: ctrlType;
   screen: screenType;
   measure: measureType;
   mode: modeType;
   interConf: interConfType;
 }
 
+export enum sideControlEnum {
+  HOLDER,
+  SCREEN,
+  MEASURE,
+}
+
 export default function Scene() {
   const { ipcRenderer } = window.electron;
 
   const [holder, setHolder] = useImmer<holderType>({
-    leftMargin: 50,
-    bottomMargin: 150,
-    holderHeight: 20,
-    holderWidthmm: 1000,
-    leftPadding: 10,
-    xScale: 1,
-    upHeight: 200,
-    fontSize: 15,
-    baselineHeight: 100,
-    lenScaleX: 2,
-    lenScaleY: 2,
+    leftMargin: 50, // 1
+    bottomMargin: 185, // 1
+    holderHeight: 28, // 1
+    holderWidthmm: 1000, // 1
+    leftPadding: 10, // 2
+    xScale: 1.1, // 2
+    upHeight: 246, // 2
+    fontSize: 18, // 2
+    baselineHeight: 116, // 7
+    lenScaleX: 2, // 7
+    lenScaleY: 2.6, // 7
   });
 
-  // const fourSide1: fourSideProps = {
-  //   up: {
-  //     value: scale.bottomMargin,
-  //     step: 5,
-  //     min: 0,
-  //     max: document.body.clientHeight,
-  //     set: (fn) => {
-  //       setScale((draft) => {
-  //         draft.bottomMargin = fn(scale.bottomMargin);
-  //       });
-  //     },
-  //   },
-  //   left: {
-  //     value: scale.leftMargin,
-  //     step: 5,
-  //     min: 0,
-  //     max: document.body.clientWidth,
-  //     set: (fn) => {
-  //       setScale((draft) => {
-  //         draft.leftMargin = fn(scale.leftMargin);
-  //       });
-  //     },
-  //   },
-  //   side: {
-  //     value: scale.hScale,
-  //     step: 0.1,
-  //     min: 1,
-  //     max: 3,
-  //     set: (fn) => {
-  //       setScale((draft) => {
-  //         draft.hScale = fn(scale.hScale);
-  //       });
-  //     },
-  //   },
-  //   bottom: {
-  //     value: scale.xScale,
-  //     step: 0.1,
-  //     min: 1,
-  //     max: 3,
-  //     set: (fn) => {
-  //       setScale((draft) => {
-  //         draft.xScale = fn(scale.xScale);
-  //       });
-  //     },
-  //   },
-  // };
-
-  // const fourSide3: fourSideProps = {
-  //   side: {
-  //     value: scale.holderHeight,
-  //     step: 5,
-  //     min: 0,
-  //     max: document.body.clientHeight,
-  //     set: (fn) => {
-  //       setScale((draft) => {
-  //         draft.holderHeight = fn(scale.holderHeight);
-  //       });
-  //     },
-  //   },
-  //   bottom: {
-  //     value: scale.holderWidth,
-  //     step: 5,
-  //     min: 0,
-  //     max: document.body.clientWidth,
-  //     set: (fn) => {
-  //       setScale((draft) => {
-  //         draft.holderWidth = fn(scale.holderWidth);
-  //       });
-  //     },
-  //   },
-  // };
+  const fourSide1: fourSideProps = {
+    up: {
+      value: holder.bottomMargin,
+      step: 5,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.bottomMargin = fn(holder.bottomMargin);
+        });
+      },
+    },
+    left: {
+      value: holder.leftMargin,
+      step: 5,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.leftMargin = fn(holder.leftMargin);
+        });
+      },
+    },
+    side: {
+      value: holder.holderHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.holderHeight = fn(holder.holderHeight);
+        });
+      },
+    },
+    bottom: {
+      value: holder.holderWidthmm,
+      step: 20,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.holderWidthmm = fn(holder.holderWidthmm);
+        });
+      },
+    },
+  };
+  const fourSide2: fourSideProps = {
+    up: {
+      value: holder.upHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.upHeight = fn(holder.upHeight);
+        });
+      },
+    },
+    left: {
+      value: holder.leftPadding,
+      step: 2,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.leftPadding = fn(holder.leftPadding);
+        });
+      },
+    },
+    side: {
+      value: holder.fontSize,
+      step: 2,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.fontSize = fn(holder.fontSize);
+        });
+      },
+    },
+    bottom: {
+      value: holder.xScale,
+      step: 0.1,
+      min: 0,
+      max: 100,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.xScale = fn(holder.xScale);
+        });
+      },
+    },
+  };
+  const fourSide7: fourSideProps = {
+    up: {
+      value: holder.baselineHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.baselineHeight = fn(holder.baselineHeight);
+        });
+      },
+    },
+    bottom: {
+      value: holder.lenScaleX,
+      step: 0.2,
+      min: 0,
+      max: 100,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.lenScaleX = fn(holder.lenScaleX);
+        });
+      },
+    },
+    side: {
+      value: holder.lenScaleY,
+      step: 0.2,
+      min: 0,
+      max: 100,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.lenScaleY = fn(holder.lenScaleY);
+        });
+      },
+    },
+  };
 
   // distance 毫米
   const [lens, setLens] = useImmer<lenType[]>([
     {
       id: 0,
-      // uname: 'light01',
-      uname: 'convex_lens01',
+      uname: 'light01',
       name: '光源',
       distancemm: 0,
       lenHeight: 50,
@@ -240,9 +309,7 @@ export default function Scene() {
     },
     {
       id: 2,
-      // uname: 'filter01',
-      uname: 'convex_lens01',
-
+      uname: 'filter01',
       name: '滤光片',
       distancemm: 150,
       lenHeight: 50,
@@ -255,8 +322,7 @@ export default function Scene() {
     {
       id: 3,
       name: '单缝',
-      // uname: 'single_slit01',
-      uname: 'convex_lens01',
+      uname: 'single_slit01',
 
       distancemm: 200,
       lenHeight: 50,
@@ -266,9 +332,7 @@ export default function Scene() {
     },
     {
       id: 4,
-      // uname: 'double_slit01',
-      uname: 'convex_lens01',
-
+      uname: 'double_slit01',
       name: '双缝',
       distancemm: 300,
       lenHeight: 50,
@@ -278,10 +342,8 @@ export default function Scene() {
     },
     {
       id: 5,
-      name: '光屏',
-      uname: 'convex_lens01',
-
-      // uname: 'screen01',
+      name: '测量头',
+      uname: 'measure_head01',
       distancemm: 900,
       lenHeight: 50,
       lenWidth: 20,
@@ -289,6 +351,11 @@ export default function Scene() {
       option: {},
     },
   ]);
+
+  const [ctrl, setCtrl] = useImmer<ctrlType>({
+    showmm: lens.map((item) => item.id),
+    move: [3, 4, 5],
+  });
 
   const [screen, setScreen] = useImmer<screenType>({
     bitmapArr: null,
@@ -302,10 +369,10 @@ export default function Scene() {
     offsetmm: 0,
 
     leftMargin: 205,
-    bottomMargin: 475,
+    bottomMargin: 515,
   });
 
-  const fourSide2: fourSideProps = {
+  const fourSide3: fourSideProps = {
     up: {
       value: screen.bottomMargin,
       step: 5,
@@ -372,7 +439,7 @@ export default function Scene() {
     upPadding: 5,
 
     leftMargin: 660, // 4
-    bottomMargin: 390, // 4
+    bottomMargin: 415, // 4
   });
 
   const fourSide4: fourSideProps = {
@@ -679,7 +746,9 @@ export default function Scene() {
   const [dpath, setDpath] = useState('');
   const download = async () => {
     const config: confType = {
+      holder,
       lens,
+      ctrl,
       screen: {
         ...screen,
         bitmapArr: null,
@@ -701,14 +770,30 @@ export default function Scene() {
       console.error('加载失败');
     } else {
       // 加载成功
+      setHolder(config.holder);
       setLens(config.lens);
+      setCtrl(config.ctrl);
       setScreen(config.screen);
       setInterConf(config.interConf);
       setMeasure(config.measure);
       setMode(config.mode);
-      // setScale(config.scale);
     }
   };
+
+  useEffect(() => {
+    ipcRenderer.on('exportConfig', async () => {
+      await download();
+    });
+    ipcRenderer.on('importConfig', async () => {
+      await load();
+    });
+  }, []);
+
+  // 左下角控制区
+
+  const [sideControl, setSideControl] = useState<sideControlEnum>(
+    sideControlEnum.HOLDER
+  );
 
   return (
     <>
@@ -723,12 +808,35 @@ export default function Scene() {
           justifyContent: 'space-around',
         }}
       >
-        {/* <FourSide fourSideProps={fourSide1} />
-        <FourSide fourSideProps={fourSide3} /> */}
-        <FourSide fourSideProps={fourSide2} />
-        <FourSide fourSideProps={fourSide4} />
-        <FourSide fourSideProps={fourSide5} />
-        <FourSide fourSideProps={fourSide6} />
+        <Radio.Group
+          onChange={(e) => {
+            setSideControl(e.target.value);
+          }}
+          value={sideControl}
+        >
+          <Space.Compact direction="vertical">
+            <Radio value={sideControlEnum.HOLDER}>光具台</Radio>
+            <Radio value={sideControlEnum.SCREEN}>视线</Radio>
+            <Radio value={sideControlEnum.MEASURE}>测量头</Radio>
+          </Space.Compact>
+        </Radio.Group>
+        {sideControl === sideControlEnum.HOLDER && (
+          <>
+            <FourSide fourSideProps={fourSide1} />
+            <FourSide fourSideProps={fourSide2} />
+            <FourSide fourSideProps={fourSide7} />
+          </>
+        )}
+        {sideControl === sideControlEnum.SCREEN && (
+          <FourSide fourSideProps={fourSide3} />
+        )}
+        {sideControl === sideControlEnum.MEASURE && (
+          <>
+            <FourSide fourSideProps={fourSide4} />
+            <FourSide fourSideProps={fourSide5} />
+            <FourSide fourSideProps={fourSide6} />
+          </>
+        )}
         <Space.Compact>
           <Radio.Group
             value={interConf.light.filter}
@@ -755,7 +863,6 @@ export default function Scene() {
             />
           </Radio.Group>
         </Space.Compact>
-
         <div>
           <Space.Compact>
             <Button icon={<DownloadOutlined />} onClick={download} />
@@ -783,7 +890,6 @@ export default function Scene() {
             />
           </Space.Compact>
         </div>
-
         <Space.Compact>
           <Button
             type="primary"
@@ -805,6 +911,12 @@ export default function Scene() {
       {lens.map((len, i) => {
         return <Len key={len.id} lenConf={len} holderConf={holder} />;
       })}
+      <Ctrl
+        ctrlConf={ctrl}
+        holderConf={holder}
+        lensConf={lens}
+        setLens={setLens}
+      />
     </>
   );
 }

@@ -18,7 +18,7 @@ interface propsType {
   lenConf: lenType;
 }
 export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
-  const lenConfig = lensConfig[lF.uname];
+  const lenConfig = lensConfig.get(lF.uname);
   if (lenConfig === undefined) {
     return <div />;
   }
@@ -62,8 +62,8 @@ export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
     canvaRef.current.height = cheight;
 
     // 画镜筒
-    const t_w = 0.05 * cwidth;
-    const tubeStartX = (cwidth - t_w) / 2 - t_w;
+    const t_w = 2.5 * hF.xScale;
+    const tubeStartX = cwidth / 2 - t_w;
     const tubeStartY =
       cheight - hF.baselineHeight + (lenHeight * hF.lenScaleY) / 2;
     const tubeWidth = 2 * t_w;

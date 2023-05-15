@@ -1,7 +1,7 @@
 import { faLeftRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { scaleType } from 'renderer/Scene';
-import { useImmer } from 'use-immer';
+import { TbHandMove } from 'react-icons/tb';
+import type { holderType, lenType } from 'renderer/Scene';
+import { Updater, useImmer } from 'use-immer';
 import Draggable, {
   DraggableCore,
   DraggableData,
@@ -11,41 +11,29 @@ import Draggable, {
 import { CSSProperties } from 'react';
 
 interface propsType {
-  scale: scaleType;
-  distance: number;
-  lenWidth: number;
-  setDistance: () => (val: number) => void;
+  id: number;
+  lensConf: lenType[];
+  holderConf: holderType;
+  setLens: Updater<lenType[]>;
 }
 
 export default function DragMove({
-  scale,
-  distance,
-  lenWidth,
-  setDistance,
+  id,
+  holderConf: hF,
+  lensConf: lF,
+  setLens,
 }: propsType) {
-  const leftCalc = scale.leftMargin + distance * scale.xScale - lenWidth / 2;
-
-  const sty: CSSProperties = {
-    position: 'fixed',
-    bottom: scale.bottomMargin,
-    left: leftCalc, // 镜子的中心
-    height: scale.holderHeight, // 光具座的height
-    width: lenWidth,
-    backgroundColor: 'green',
-    zIndex: 5,
-  };
-
   const dragHandler = (e: DraggableEvent, data: DraggableData) => {
-    const newDistance =
-      (data.x - scale.leftMargin + lenWidth / 2) / scale.xScale;
-    setDistance()(newDistance);
+    let newDistance = (data.x - hF.leftMargin - hF.leftPadding) / hF.xScale;
+    newDistance = Math.round(newDistance);
+    setLens((draft) => {
+      draft[id].distancemm = newDistance;
+    });
   };
 
   return (
     <DraggableCore onDrag={dragHandler}>
-      <div style={sty}>
-        <FontAwesomeIcon icon={faLeftRight} />
-      </div>
+      <TbHandMove />
     </DraggableCore>
   );
 }

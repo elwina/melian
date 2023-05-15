@@ -6,7 +6,7 @@ interface propsType {
 }
 export default function Holder({ holderConf: hF }: propsType) {
   const heightCalc = hF.holderHeight;
-  const widthCalc = hF.holderWidthmm * hF.xScale;
+  const widthCalc = 2 * hF.leftPadding + hF.holderWidthmm * hF.xScale;
 
   const canvaRef = useRef<HTMLCanvasElement>(null);
 
@@ -23,6 +23,31 @@ export default function Holder({ holderConf: hF }: propsType) {
     const cheight = canvaRef.current.height;
     canvaRef.current.width = cwidth;
     canvaRef.current.height = cheight;
+
+    // 画背景
+    ctx.save();
+    ctx.fillStyle = '#dddada';
+    ctx.fillRect(0, 0, cwidth, cheight);
+    ctx.restore();
+
+    // 画刻度
+    const totalmm = hF.holderWidthmm;
+    ctx.save();
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= totalmm; i++) {
+      const x = hF.leftPadding + i * hF.xScale;
+      if (i % 10 !== 0) {
+        continue;
+      }
+      const endH = i % 10 ? hF.holderHeight : 0.6 * hF.holderHeight;
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, endH);
+    }
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
   });
 
   return (
@@ -34,7 +59,7 @@ export default function Holder({ holderConf: hF }: propsType) {
         position: 'fixed',
         left: hF.leftMargin,
         bottom: hF.bottomMargin,
-        backgroundColor: 'yellow',
+        backgroundColor: '#e4e4e4',
       }}
     />
   );

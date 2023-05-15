@@ -1,0 +1,22 @@
+<svg id="组_2" data-name="组 2" xmlns="http://www.w3.org/2000/svg" width="234" height="263" viewBox="0 0 234 263">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 3px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="形状_4" data-name="形状 4" class="cls-1" d="M20,117L155,1V148L20,263V117Z"/>
+  <path id="形状_5" data-name="形状 5" class="cls-1" d="M21,262H0V116L135,0"/>
+  <path id="形状_5_拷贝" data-name="形状 5 拷贝" class="cls-1" d="M135,0h20"/>
+  <path id="形状_5_拷贝_3" data-name="形状 5 拷贝 3" class="cls-1" d="M3,114H22"/>
+  <path id="形状_9" data-name="形状 9" class="cls-1" d="M22,158L153,46"/>
+  <path id="形状_10" data-name="形状 10" class="cls-1" d="M45,124v34l85-74V51Z"/>
+  <path id="形状_12" data-name="形状 12" class="cls-1" d="M216,165v3H117v-3h99Z"/>
+  <path id="形状_13" data-name="形状 13" class="cls-1" d="M217,102v3H117v-3H217Z"/>
+  <path id="椭圆_1" data-name="椭圆 1" class="cls-1" d="M216.5,102c9.009-.012,17.418,17.54,17.5,32.5,0.086,15.641-8.908,33.648-18,33.5-9.031-.147-17.228-18.195-17-33.5C199.222,119.622,207.481,102.012,216.5,102Z"/>
+  <path id="形状_11" data-name="形状 11" class="cls-1" d="M117.5,104a39.737,39.737,0,0,0,.5,62"/>
+</svg>

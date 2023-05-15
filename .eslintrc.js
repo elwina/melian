@@ -16,6 +16,8 @@ module.exports = {
     'object-shorthand': 'off',
     camelcase: 'off',
     'no-continue': 'off',
+    'no-shadow': 'off',
+    'react-hooks/exhaustive-deps': 'warn',
   },
   parserOptions: {
     ecmaVersion: 2020,
