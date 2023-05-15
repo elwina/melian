@@ -39,23 +39,29 @@ import './Scene.css';
 import Measure1 from './lab/Measure1';
 import LightScreenFixed from './lab/LightScreenFixed';
 
-export interface scaleType {
+export interface holderType {
   leftMargin: number;
   bottomMargin: number;
   holderHeight: number;
-  holderWidth: number;
+  holderWidthmm: number;
+  leftPadding: number;
   xScale: number;
-  hScale: number;
+  upHeight: number;
+  fontSize: number;
+  baselineHeight: number;
+  lenScaleX: number;
+  lenScaleY: number;
 }
 
 export interface lenType {
   id: number;
+  uname: string;
   name: string;
-  distance: number;
+  distancemm: number;
   lenHeight: number;
   lenWidth: number;
   hide: boolean;
-  option: any;
+  option: Record<string, unknown>;
 }
 
 export interface screenType {
@@ -113,7 +119,6 @@ export interface interConfType {
 }
 
 export interface confType {
-  scale: scaleType;
   lens: lenType[];
   screen: screenType;
   measure: measureType;
@@ -124,93 +129,100 @@ export interface confType {
 export default function Scene() {
   const { ipcRenderer } = window.electron;
 
-  const [scale, setScale] = useImmer<scaleType>({
+  const [holder, setHolder] = useImmer<holderType>({
     leftMargin: 50,
     bottomMargin: 150,
     holderHeight: 20,
-    holderWidth: 1000,
+    holderWidthmm: 1000,
+    leftPadding: 10,
     xScale: 1,
-    hScale: 1,
+    upHeight: 200,
+    fontSize: 15,
+    baselineHeight: 100,
+    lenScaleX: 2,
+    lenScaleY: 2,
   });
 
-  const fourSide1: fourSideProps = {
-    up: {
-      value: scale.bottomMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setScale((draft) => {
-          draft.bottomMargin = fn(scale.bottomMargin);
-        });
-      },
-    },
-    left: {
-      value: scale.leftMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setScale((draft) => {
-          draft.leftMargin = fn(scale.leftMargin);
-        });
-      },
-    },
-    side: {
-      value: scale.hScale,
-      step: 0.1,
-      min: 1,
-      max: 3,
-      set: (fn) => {
-        setScale((draft) => {
-          draft.hScale = fn(scale.hScale);
-        });
-      },
-    },
-    bottom: {
-      value: scale.xScale,
-      step: 0.1,
-      min: 1,
-      max: 3,
-      set: (fn) => {
-        setScale((draft) => {
-          draft.xScale = fn(scale.xScale);
-        });
-      },
-    },
-  };
+  // const fourSide1: fourSideProps = {
+  //   up: {
+  //     value: scale.bottomMargin,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setScale((draft) => {
+  //         draft.bottomMargin = fn(scale.bottomMargin);
+  //       });
+  //     },
+  //   },
+  //   left: {
+  //     value: scale.leftMargin,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setScale((draft) => {
+  //         draft.leftMargin = fn(scale.leftMargin);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: scale.hScale,
+  //     step: 0.1,
+  //     min: 1,
+  //     max: 3,
+  //     set: (fn) => {
+  //       setScale((draft) => {
+  //         draft.hScale = fn(scale.hScale);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: scale.xScale,
+  //     step: 0.1,
+  //     min: 1,
+  //     max: 3,
+  //     set: (fn) => {
+  //       setScale((draft) => {
+  //         draft.xScale = fn(scale.xScale);
+  //       });
+  //     },
+  //   },
+  // };
 
-  const fourSide3: fourSideProps = {
-    side: {
-      value: scale.holderHeight,
-      step: 5,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setScale((draft) => {
-          draft.holderHeight = fn(scale.holderHeight);
-        });
-      },
-    },
-    bottom: {
-      value: scale.holderWidth,
-      step: 5,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setScale((draft) => {
-          draft.holderWidth = fn(scale.holderWidth);
-        });
-      },
-    },
-  };
+  // const fourSide3: fourSideProps = {
+  //   side: {
+  //     value: scale.holderHeight,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setScale((draft) => {
+  //         draft.holderHeight = fn(scale.holderHeight);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: scale.holderWidth,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setScale((draft) => {
+  //         draft.holderWidth = fn(scale.holderWidth);
+  //       });
+  //     },
+  //   },
+  // };
 
   // distance 毫米
   const [lens, setLens] = useImmer<lenType[]>([
     {
       id: 0,
+      // uname: 'light01',
+      uname: 'convex_lens01',
       name: '光源',
-      distance: 0,
+      distancemm: 0,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -218,8 +230,9 @@ export default function Scene() {
     },
     {
       id: 1,
+      uname: 'convex_lens01',
       name: '透镜',
-      distance: 100,
+      distancemm: 100,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -227,8 +240,11 @@ export default function Scene() {
     },
     {
       id: 2,
+      // uname: 'filter01',
+      uname: 'convex_lens01',
+
       name: '滤光片',
-      distance: 100,
+      distancemm: 150,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -239,7 +255,10 @@ export default function Scene() {
     {
       id: 3,
       name: '单缝',
-      distance: 200,
+      // uname: 'single_slit01',
+      uname: 'convex_lens01',
+
+      distancemm: 200,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -247,8 +266,11 @@ export default function Scene() {
     },
     {
       id: 4,
+      // uname: 'double_slit01',
+      uname: 'convex_lens01',
+
       name: '双缝',
-      distance: 300,
+      distancemm: 300,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -257,7 +279,10 @@ export default function Scene() {
     {
       id: 5,
       name: '光屏',
-      distance: 900,
+      uname: 'convex_lens01',
+
+      // uname: 'screen01',
+      distancemm: 900,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -585,7 +610,7 @@ export default function Scene() {
   useEffect(() => {
     const { d } = interConf;
     const n = 1;
-    const r0 = lens[5].distance - lens[4].distance;
+    const r0 = lens[5].distancemm - lens[4].distancemm;
     const { wave } = interConf;
     const { instense } = interConf;
 
@@ -630,26 +655,6 @@ export default function Scene() {
     setScreen,
   ]);
 
-  const RenderLens = lens.map((len) => {
-    return (
-      <Len
-        key={len.id}
-        name={len.name}
-        scale={scale}
-        distance={len.distance}
-        lenHeight={len.lenHeight}
-        lenWidth={len.lenWidth}
-        setDistance={() => {
-          return (val: number) => {
-            setLens((draft) => {
-              draft[len.id].distance = val;
-            });
-          };
-        }}
-      />
-    );
-  });
-
   const moveLeft = () => {
     const now = screen.offsetmm;
     const target = now - 0.1;
@@ -682,7 +687,7 @@ export default function Scene() {
       interConf,
       measure,
       mode,
-      scale,
+      // scale,
     };
     const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
     if (path !== '') {
@@ -701,7 +706,7 @@ export default function Scene() {
       setInterConf(config.interConf);
       setMeasure(config.measure);
       setMode(config.mode);
-      setScale(config.scale);
+      // setScale(config.scale);
     }
   };
 
@@ -718,8 +723,8 @@ export default function Scene() {
           justifyContent: 'space-around',
         }}
       >
-        <FourSide fourSideProps={fourSide1} />
-        <FourSide fourSideProps={fourSide3} />
+        {/* <FourSide fourSideProps={fourSide1} />
+        <FourSide fourSideProps={fourSide3} /> */}
         <FourSide fourSideProps={fourSide2} />
         <FourSide fourSideProps={fourSide4} />
         <FourSide fourSideProps={fourSide5} />
@@ -794,150 +799,18 @@ export default function Scene() {
           />
         </Space.Compact>
       </div>
-      <div>
-        {/* <Space.Compact>
-          <Input
-            addonBefore="leftMargin"
-            value={scale.leftMargin}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.leftMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="bottomMargin"
-            value={scale.bottomMargin}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.bottomMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="holderHeight"
-            value={scale.holderHeight}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.holderHeight = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="holderWidth"
-            value={scale.holderWidth}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.holderWidth = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="xScale"
-            value={scale.xScale}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.xScale = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="hScale"
-            value={scale.hScale}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.hScale = Number(e.target.value);
-              });
-            }}
-          />
-        </Space.Compact>
-
-        <Space.Compact>
-          <Input
-            addonBefore="leftMargin"
-            value={screen.leftMargin}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.leftMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="bottomMargin"
-            value={screen.bottomMargin}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.bottomMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="mm2px"
-            value={screen.mm2px}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.mm2px = Number(e.target.value);
-              });
-            }}
-          />
-          <InputNumber
-            addonBefore="offsetmm"
-            value={screen.offsetmm}
-            step={0.01}
-            style={{ width: 100 }}
-            size="large"
-            onChange={(value) => {
-              setScreen((draft) => {
-                draft.offsetmm = Number(value);
-              });
-              setMeasure((draft) => {
-                draft.offsetmm = Number(value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="seemm"
-            value={screen.seemm}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.seemm = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="scaleX"
-            value={screen.scaleX}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.scaleX = Number(e.target.value);
-              });
-            }}
-          />{' '}
-          <Input
-            addonBefore="scaleY"
-            value={screen.scaleY}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.scaleY = Number(e.target.value);
-              });
-            }}
-          />
-        </Space.Compact> */}
-      </div>
-
-      {/* <LineChart width={500} height={300} data={data}>
-        <XAxis dataKey="x" padding={{ left: 30, right: 30 }} />
-        <YAxis />
-        <Tooltip />
-        <Line type="monotone" dataKey="y" stroke="#82ca9d" dot={false} />
-      </LineChart> */}
-
-      {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
       <LightScreenFixed screenConf={screen} />
       <Measure1 measureConfType={measure} />
-
-      {RenderLens}
-      <Holder scale={scale} />
+      <Holder holderConf={holder} />
+      {lens.map((len, i) => {
+        return <Len key={len.id} lenConf={len} holderConf={holder} />;
+      })}
     </>
   );
 }
+
+// const setLenDistance= (id:number) => {
+//   return (val:number)=>{
+//     setLenDistance()
+//   }
+// }
