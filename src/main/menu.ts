@@ -4,6 +4,8 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  dialog,
+  ipcMain,
 } from 'electron';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -53,33 +55,36 @@ export default class MenuBuilder {
   }
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
-    const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'Electron',
+    const subMenuProgram: DarwinMenuItemConstructorOptions = {
+      label: 'Melian',
       submenu: [
         {
-          label: 'About ElectronReact',
-          selector: 'orderFrontStandardAboutPanel:',
-        },
-        { type: 'separator' },
-        { label: 'Services', submenu: [] },
-        { type: 'separator' },
-        {
-          label: 'Hide ElectronReact',
-          accelerator: 'Command+H',
-          selector: 'hide:',
-        },
-        {
-          label: 'Hide Others',
-          accelerator: 'Command+Shift+H',
-          selector: 'hideOtherApplications:',
-        },
-        { label: 'Show All', selector: 'unhideAllApplications:' },
-        { type: 'separator' },
-        {
-          label: 'Quit',
-          accelerator: 'Command+Q',
+          label: '导入配置',
+          accelerator: 'Ctrl+I',
           click: () => {
-            app.quit();
+            this.mainWindow.webContents.send('importConfig');
+          },
+        },
+        {
+          label: '导出配置',
+          accelerator: 'Ctrl+E',
+          click: () => {
+            this.mainWindow.webContents.send('exportConfig');
+          },
+        },
+        { label: '分割线', type: 'separator' },
+        {
+          label: '重新加载',
+          accelerator: 'Ctrl+R',
+          click: () => {
+            this.mainWindow.webContents.reload();
+          },
+        },
+        {
+          label: '退出',
+          accelerator: 'Ctrl+W',
+          click: () => {
+            this.mainWindow.close();
           },
         },
       ],
@@ -151,33 +156,24 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' },
       ],
     };
-    const subMenuHelp: MenuItemConstructorOptions = {
-      label: 'Help',
+    const subMenuAbout: MenuItemConstructorOptions = {
+      label: 'About',
       submenu: [
         {
-          label: 'Learn More',
+          label: 'Github',
           click() {
-            shell.openExternal('https://electronjs.org');
+            shell.openExternal('https://github.com/elwina/melian');
           },
         },
         {
-          label: 'Documentation',
+          label: '关于作者',
           click() {
-            shell.openExternal(
-              'https://github.com/electron/electron/tree/main/docs#readme'
-            );
-          },
-        },
-        {
-          label: 'Community Discussions',
-          click() {
-            shell.openExternal('https://www.electronjs.org/community');
-          },
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
+            dialog.showMessageBox({
+              message:
+                '作者: 王宇轩\nDeveloer: Elwina\nEmail: elwina@yeah.net\n图形设计: 开欣\n鸣谢: 马楷晴 赵雨奇\nCopyRight: 2023-now',
+              type: 'info',
+              title: '关于作者',
+            });
           },
         },
       ],
@@ -189,20 +185,38 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [subMenuProgram, subMenuAbout];
   }
 
   buildDefaultTemplate() {
     const templateDefault = [
       {
-        label: '&File',
+        label: '程序',
         submenu: [
           {
-            label: '&Open',
-            accelerator: 'Ctrl+O',
+            label: '导入配置',
+            accelerator: 'Ctrl+I',
+            click: () => {
+              this.mainWindow.webContents.send('importConfig');
+            },
           },
           {
-            label: '&Close',
+            label: '导出配置',
+            accelerator: 'Ctrl+E',
+            click: () => {
+              this.mainWindow.webContents.send('exportConfig');
+            },
+          },
+          { label: '分割线', type: 'separator' },
+          {
+            label: '重新加载',
+            accelerator: 'Ctrl+R',
+            click: () => {
+              this.mainWindow.webContents.reload();
+            },
+          },
+          {
+            label: '退出',
             accelerator: 'Ctrl+W',
             click: () => {
               this.mainWindow.close();
@@ -210,75 +224,66 @@ export default class MenuBuilder {
           },
         ],
       },
+      // {
+      //   label: '&View',
+      //   submenu:
+      //     process.env.NODE_ENV === 'development' ||
+      //     process.env.DEBUG_PROD === 'true'
+      //       ? [
+      //           {
+      //             label: '&Reload',
+      //             accelerator: 'Ctrl+R',
+      //             click: () => {
+      //               this.mainWindow.webContents.reload();
+      //             },
+      //           },
+      //           {
+      //             label: 'Toggle &Full Screen',
+      //             accelerator: 'F11',
+      //             click: () => {
+      //               this.mainWindow.setFullScreen(
+      //                 !this.mainWindow.isFullScreen()
+      //               );
+      //             },
+      //           },
+      //           {
+      //             label: 'Toggle &Developer Tools',
+      //             accelerator: 'Alt+Ctrl+I',
+      //             click: () => {
+      //               this.mainWindow.webContents.toggleDevTools();
+      //             },
+      //           },
+      //         ]
+      //       : [
+      //           {
+      //             label: 'Toggle &Full Screen',
+      //             accelerator: 'F11',
+      //             click: () => {
+      //               this.mainWindow.setFullScreen(
+      //                 !this.mainWindow.isFullScreen()
+      //               );
+      //             },
+      //           },
+      //         ],
+      // },
       {
-        label: '&View',
-        submenu:
-          process.env.NODE_ENV === 'development' ||
-          process.env.DEBUG_PROD === 'true'
-            ? [
-                {
-                  label: '&Reload',
-                  accelerator: 'Ctrl+R',
-                  click: () => {
-                    this.mainWindow.webContents.reload();
-                  },
-                },
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click: () => {
-                    this.mainWindow.setFullScreen(
-                      !this.mainWindow.isFullScreen()
-                    );
-                  },
-                },
-                {
-                  label: 'Toggle &Developer Tools',
-                  accelerator: 'Alt+Ctrl+I',
-                  click: () => {
-                    this.mainWindow.webContents.toggleDevTools();
-                  },
-                },
-              ]
-            : [
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click: () => {
-                    this.mainWindow.setFullScreen(
-                      !this.mainWindow.isFullScreen()
-                    );
-                  },
-                },
-              ],
-      },
-      {
-        label: 'Help',
+        label: '关于',
         submenu: [
           {
-            label: 'Learn More',
+            label: 'Github',
             click() {
-              shell.openExternal('https://electronjs.org');
+              shell.openExternal('https://github.com/elwina/melian');
             },
           },
           {
-            label: 'Documentation',
+            label: '关于作者',
             click() {
-              shell.openExternal(
-                'https://github.com/electron/electron/tree/main/docs#readme'
-              );
-            },
-          },
-          {
-            label: 'Community Discussions',
-            click() {
-              shell.openExternal('https://www.electronjs.org/community');
-            },
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/electron/electron/issues');
+              dialog.showMessageBox({
+                message:
+                  '作者: 王宇轩\nDeveloer: Elwina\nEmail: elwina@yeah.net\n图形设计: 开欣\n鸣谢: 马楷晴 赵雨奇\nCopyRight: 2023-now',
+                type: 'info',
+                title: '关于作者',
+              });
             },
           },
         ],

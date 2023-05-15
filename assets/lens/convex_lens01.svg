@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="366" height="702" viewBox="0 0 366 702">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 3px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="形状_1" data-name="形状 1" class="cls-1" d="M217,0.187C141.533,0.187,68.024,188.818,68,351c-0.025,162.282,73.52,351,149,351S366.024,513.282,366,351C365.976,188.818,292.467.187,217,.187Z"/>
+  <path id="形状_2" data-name="形状 2" class="cls-1" d="M151,0C73.195,0.688,0,189.937,0,351S73.195,701.311,151,702c77.9,0.689,156-187.691,156-351S228.9-.689,151,0Z"/>
+  <path id="形状_3" data-name="形状 3" class="cls-1" d="M154,0h63"/>
+</svg>

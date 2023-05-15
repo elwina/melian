@@ -1,0 +1,20 @@
+<svg id="组_1" data-name="组 1" xmlns="http://www.w3.org/2000/svg" width="328" height="601" viewBox="0 0 328 601">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 3px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="形状_1" data-name="形状 1" class="cls-1" d="M178,0C100.911,0,25.794,166.871,29,311c2.955,132.848,73.294,290,149,290S324.045,443.848,327,311C330.206,166.871,255.089,0,178,0Z"/>
+  <path id="形状_2" data-name="形状 2" class="cls-1" d="M145,0C67.231,2.111-2.063,169.709,1,311,3.812,440.7,68.555,598.819,145,601c76.984,2.2,154.848-154.059,158-290C306.406,164.084,223.413-2.129,145,0Z"/>
+  <path id="形状_3" data-name="形状 3" class="cls-1" d="M140,0h38"/>
+  <path id="形状_3_拷贝" data-name="形状 3 拷贝" class="cls-1" d="M140,598h38"/>
+  <path id="形状_4" data-name="形状 4" class="cls-1" d="M158,147l40-30V501l-40,28V147Z"/>
+  <path id="形状_5" data-name="形状 5" class="cls-1" d="M159,528H138q-0.5-190.5-1-381l39-29"/>
+  <path id="形状_5_拷贝" data-name="形状 5 拷贝" class="cls-1" d="M176,117h21"/>
+  <path id="形状_5_拷贝_3" data-name="形状 5 拷贝 3" class="cls-1" d="M139,147h19"/>
+</svg>

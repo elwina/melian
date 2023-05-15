@@ -9,9 +9,11 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { readFile, writeFile } from 'node:fs/promises';
+import { DateTime } from 'luxon';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -96,6 +98,93 @@ const createWindow = async () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+  });
+
+  // 自定义部分
+
+  const saveFileDialog = async (oldPath: string): Promise<string> => {
+    if (!mainWindow) return '';
+
+    const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+      title: '选择保存位置',
+      defaultPath: oldPath,
+      filters: [{ name: '配置文件', extensions: ['melian.json'] }],
+    });
+
+    if (!filePath) return '';
+    return !canceled ? filePath : '';
+  };
+
+  ipcMain.handle(
+    'saveConf',
+    async (event, [oldPath, config]: [string, Record<string, any>]) => {
+      let opath = app.getPath('downloads');
+      if (oldPath !== '') opath = oldPath;
+      const newpath = await saveFileDialog(opath);
+
+      const wconfig = {
+        version: app.getVersion(),
+        ...config,
+      };
+
+      if (newpath === '') return '';
+      writeFile(newpath, JSON.stringify(wconfig, null, 2), {
+        encoding: 'utf-8',
+      });
+
+      return newpath;
+    }
+  );
+
+  const openFileDialog = async (oldPath: string): Promise<string> => {
+    if (!mainWindow) return '';
+
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+      title: '选择保存位置',
+      defaultPath: oldPath,
+      filters: [{ name: '配置文件', extensions: ['melian.json'] }],
+    });
+
+    return !canceled ? filePaths[0] : '';
+  };
+  ipcMain.handle('loadConf', async (event, [oldPath]: [string]) => {
+    let opath = app.getPath('downloads');
+    if (oldPath !== '') opath = oldPath;
+    const newpath = await openFileDialog(opath);
+
+    if (newpath === '') return { status: false, config: {} };
+    const filedata = await readFile(newpath, {
+      encoding: 'utf-8',
+    });
+
+    try {
+      const data = JSON.parse(filedata);
+      console.log(data);
+      return { status: true, config: data };
+    } catch {
+      return { status: false, config: {} };
+    }
+  });
+
+  ipcMain.on('minimize', () => {
+    mainWindow?.minimize();
+  });
+
+  ipcMain.on('maximize', () => {
+    mainWindow?.maximize();
+  });
+
+  ipcMain.on('unmaximize', () => {
+    mainWindow?.unmaximize();
+  });
+
+  ipcMain.on('restore', () => {
+    mainWindow?.restore();
+  });
+
+  ipcMain.on('close', () => {
+    mainWindow?.close();
+    app.quit();
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   Input,
@@ -12,7 +12,18 @@ import {
   message,
 } from 'antd';
 import { BsFillBoxFill } from 'react-icons/bs';
-import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons';
+import {
+  CaretLeftFilled,
+  CaretRightFilled,
+  DownloadOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
+import {
+  VscChromeMaximize,
+  VscChromeMinimize,
+  VscChromeRestore,
+  VscChromeClose,
+} from 'react-icons/vsc';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { useImmer } from 'use-immer';
 import Holder from './lab/Holder';
@@ -27,24 +38,36 @@ import FourSide, { fourSideProps } from './control/FourSide';
 import './Scene.css';
 import Measure1 from './lab/Measure1';
 import LightScreenFixed from './lab/LightScreenFixed';
+import Ctrl from './lab/Ctrl';
 
-export interface scaleType {
+export interface holderType {
   leftMargin: number;
   bottomMargin: number;
   holderHeight: number;
-  holderWidth: number;
+  holderWidthmm: number;
+  leftPadding: number;
   xScale: number;
-  hScale: number;
+  upHeight: number;
+  fontSize: number;
+  baselineHeight: number;
+  lenScaleX: number;
+  lenScaleY: number;
 }
 
 export interface lenType {
   id: number;
+  uname: string;
   name: string;
-  distance: number;
+  distancemm: number;
   lenHeight: number;
   lenWidth: number;
   hide: boolean;
-  option: any;
+  option: Record<string, unknown>;
+}
+
+export interface ctrlType {
+  showmm: number[];
+  move: number[];
 }
 
 export interface screenType {
@@ -101,83 +124,162 @@ export interface interConfType {
   instense: number[];
 }
 
+export interface confType {
+  holder: holderType;
+  lens: lenType[];
+  ctrl: ctrlType;
+  screen: screenType;
+  measure: measureType;
+  mode: modeType;
+  interConf: interConfType;
+}
+
+export enum sideControlEnum {
+  HOLDER,
+  SCREEN,
+  MEASURE,
+}
+
 export default function Scene() {
-  const [scale, setScale] = useImmer<scaleType>({
-    leftMargin: 50,
-    bottomMargin: 150,
-    holderHeight: 20,
-    holderWidth: 1000,
-    xScale: 1,
-    hScale: 1,
+  const { ipcRenderer } = window.electron;
+
+  const [holder, setHolder] = useImmer<holderType>({
+    leftMargin: 50, // 1
+    bottomMargin: 185, // 1
+    holderHeight: 28, // 1
+    holderWidthmm: 1000, // 1
+    leftPadding: 10, // 2
+    xScale: 1.1, // 2
+    upHeight: 246, // 2
+    fontSize: 18, // 2
+    baselineHeight: 116, // 7
+    lenScaleX: 2, // 7
+    lenScaleY: 2.6, // 7
   });
 
   const fourSide1: fourSideProps = {
     up: {
-      value: scale.bottomMargin,
+      value: holder.bottomMargin,
       step: 5,
       min: 0,
       max: document.body.clientHeight,
       set: (fn) => {
-        setScale((draft) => {
-          draft.bottomMargin = fn(scale.bottomMargin);
+        setHolder((draft) => {
+          draft.bottomMargin = fn(holder.bottomMargin);
         });
       },
     },
     left: {
-      value: scale.leftMargin,
+      value: holder.leftMargin,
       step: 5,
       min: 0,
       max: document.body.clientWidth,
       set: (fn) => {
-        setScale((draft) => {
-          draft.leftMargin = fn(scale.leftMargin);
+        setHolder((draft) => {
+          draft.leftMargin = fn(holder.leftMargin);
         });
       },
     },
     side: {
-      value: scale.hScale,
-      step: 0.1,
-      min: 1,
-      max: 3,
+      value: holder.holderHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientWidth,
       set: (fn) => {
-        setScale((draft) => {
-          draft.hScale = fn(scale.hScale);
+        setHolder((draft) => {
+          draft.holderHeight = fn(holder.holderHeight);
         });
       },
     },
     bottom: {
-      value: scale.xScale,
-      step: 0.1,
-      min: 1,
-      max: 3,
+      value: holder.holderWidthmm,
+      step: 20,
+      min: 0,
+      max: document.body.clientWidth,
       set: (fn) => {
-        setScale((draft) => {
-          draft.xScale = fn(scale.xScale);
+        setHolder((draft) => {
+          draft.holderWidthmm = fn(holder.holderWidthmm);
         });
       },
     },
   };
-
-  const fourSide3: fourSideProps = {
-    side: {
-      value: scale.holderHeight,
-      step: 5,
+  const fourSide2: fourSideProps = {
+    up: {
+      value: holder.upHeight,
+      step: 2,
       min: 0,
       max: document.body.clientHeight,
       set: (fn) => {
-        setScale((draft) => {
-          draft.holderHeight = fn(scale.holderHeight);
+        setHolder((draft) => {
+          draft.upHeight = fn(holder.upHeight);
+        });
+      },
+    },
+    left: {
+      value: holder.leftPadding,
+      step: 2,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.leftPadding = fn(holder.leftPadding);
+        });
+      },
+    },
+    side: {
+      value: holder.fontSize,
+      step: 2,
+      min: 0,
+      max: document.body.clientWidth,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.fontSize = fn(holder.fontSize);
         });
       },
     },
     bottom: {
-      value: scale.holderWidth,
-      step: 5,
+      value: holder.xScale,
+      step: 0.1,
       min: 0,
-      max: document.body.clientWidth,
+      max: 100,
       set: (fn) => {
-        setScale((draft) => {
-          draft.holderWidth = fn(scale.holderWidth);
+        setHolder((draft) => {
+          draft.xScale = fn(holder.xScale);
+        });
+      },
+    },
+  };
+  const fourSide7: fourSideProps = {
+    up: {
+      value: holder.baselineHeight,
+      step: 2,
+      min: 0,
+      max: document.body.clientHeight,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.baselineHeight = fn(holder.baselineHeight);
+        });
+      },
+    },
+    bottom: {
+      value: holder.lenScaleX,
+      step: 0.2,
+      min: 0,
+      max: 100,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.lenScaleX = fn(holder.lenScaleX);
+        });
+      },
+    },
+    side: {
+      value: holder.lenScaleY,
+      step: 0.2,
+      min: 0,
+      max: 100,
+      set: (fn) => {
+        setHolder((draft) => {
+          draft.lenScaleY = fn(holder.lenScaleY);
         });
       },
     },
@@ -187,8 +289,9 @@ export default function Scene() {
   const [lens, setLens] = useImmer<lenType[]>([
     {
       id: 0,
+      uname: 'light01',
       name: '光源',
-      distance: 0,
+      distancemm: 0,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -196,8 +299,9 @@ export default function Scene() {
     },
     {
       id: 1,
+      uname: 'convex_lens01',
       name: '透镜',
-      distance: 100,
+      distancemm: 100,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -205,8 +309,9 @@ export default function Scene() {
     },
     {
       id: 2,
+      uname: 'filter01',
       name: '滤光片',
-      distance: 100,
+      distancemm: 150,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -217,7 +322,9 @@ export default function Scene() {
     {
       id: 3,
       name: '单缝',
-      distance: 200,
+      uname: 'single_slit01',
+
+      distancemm: 200,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -225,8 +332,9 @@ export default function Scene() {
     },
     {
       id: 4,
+      uname: 'double_slit01',
       name: '双缝',
-      distance: 300,
+      distancemm: 300,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
@@ -234,14 +342,20 @@ export default function Scene() {
     },
     {
       id: 5,
-      name: '光屏',
-      distance: 900,
+      name: '测量头',
+      uname: 'measure_head01',
+      distancemm: 900,
       lenHeight: 50,
       lenWidth: 20,
       hide: false,
       option: {},
     },
   ]);
+
+  const [ctrl, setCtrl] = useImmer<ctrlType>({
+    showmm: lens.map((item) => item.id),
+    move: [3, 4, 5],
+  });
 
   const [screen, setScreen] = useImmer<screenType>({
     bitmapArr: null,
@@ -254,11 +368,11 @@ export default function Scene() {
     seemm: 10,
     offsetmm: 0,
 
-    leftMargin: 200,
-    bottomMargin: 450,
+    leftMargin: 205,
+    bottomMargin: 515,
   });
 
-  const fourSide2: fourSideProps = {
+  const fourSide3: fourSideProps = {
     up: {
       value: screen.bottomMargin,
       step: 5,
@@ -310,22 +424,22 @@ export default function Scene() {
     offsetmm: 0,
     initmm: 10,
 
-    mm2px: 8, // 6
+    mm2px: 5.5, // 6
 
-    upHeight: 50, // 5
-    downHeight: 50, // 5
-    dsHeight: 45, // 4
+    upHeight: 42, // 5
+    downHeight: 44, // 5
+    dsHeight: 39, // 4
     fontHeight: 20, // 5
     sfontHeight: 20, // 5
 
     fontSize: 20, // 6
     sfontSize: 16, // 6
     lineWidth: 2, // 6
-    leftPadding: 20, // 4
+    leftPadding: 12, // 4
     upPadding: 5,
 
-    leftMargin: 600, // 4
-    bottomMargin: 200, // 4
+    leftMargin: 660, // 4
+    bottomMargin: 415, // 4
   });
 
   const fourSide4: fourSideProps = {
@@ -563,7 +677,7 @@ export default function Scene() {
   useEffect(() => {
     const { d } = interConf;
     const n = 1;
-    const r0 = lens[5].distance - lens[4].distance;
+    const r0 = lens[5].distancemm - lens[4].distancemm;
     const { wave } = interConf;
     const { instense } = interConf;
 
@@ -608,26 +722,6 @@ export default function Scene() {
     setScreen,
   ]);
 
-  const RenderLens = lens.map((len) => {
-    return (
-      <Len
-        key={len.id}
-        name={len.name}
-        scale={scale}
-        distance={len.distance}
-        lenHeight={len.lenHeight}
-        lenWidth={len.lenWidth}
-        setDistance={() => {
-          return (val: number) => {
-            setLens((draft) => {
-              draft[len.id].distance = val;
-            });
-          };
-        }}
-      />
-    );
-  });
-
   const moveLeft = () => {
     const now = screen.offsetmm;
     const target = now - 0.1;
@@ -648,24 +742,101 @@ export default function Scene() {
       draft.offsetmm = target;
     });
   };
+
+  const [dpath, setDpath] = useState('');
+  const download = async () => {
+    const config: confType = {
+      holder,
+      lens,
+      ctrl,
+      screen: {
+        ...screen,
+        bitmapArr: null,
+      },
+      interConf,
+      measure,
+      mode,
+      // scale,
+    };
+    const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
+    if (path !== '') {
+      setDpath(path);
+    }
+  };
+  const load = async () => {
+    const { status, config } = await ipcRenderer.invoke('loadConf', [dpath]);
+    if (!status) {
+      // 加载失败
+      console.error('加载失败');
+    } else {
+      // 加载成功
+      setHolder(config.holder);
+      setLens(config.lens);
+      setCtrl(config.ctrl);
+      setScreen(config.screen);
+      setInterConf(config.interConf);
+      setMeasure(config.measure);
+      setMode(config.mode);
+    }
+  };
+
+  useEffect(() => {
+    ipcRenderer.on('exportConfig', async () => {
+      await download();
+    });
+    ipcRenderer.on('importConfig', async () => {
+      await load();
+    });
+  }, []);
+
+  // 左下角控制区
+
+  const [sideControl, setSideControl] = useState<sideControlEnum>(
+    sideControlEnum.HOLDER
+  );
+
   return (
     <>
-      <Space
+      <div
         style={{
           position: 'fixed',
           bottom: 10,
-          left: 20,
-          // width: document.body.clientWidth - 40,
+          left: 0,
+          width: '100%',
           zIndex: 100,
-          // display: 'flex',
+          display: 'flex',
+          justifyContent: 'space-around',
         }}
       >
-        <FourSide fourSideProps={fourSide1} />
-        <FourSide fourSideProps={fourSide3} />
-        <FourSide fourSideProps={fourSide2} />
-        <FourSide fourSideProps={fourSide4} />
-        <FourSide fourSideProps={fourSide5} />
-        <FourSide fourSideProps={fourSide6} />
+        <Radio.Group
+          onChange={(e) => {
+            setSideControl(e.target.value);
+          }}
+          value={sideControl}
+        >
+          <Space.Compact direction="vertical">
+            <Radio value={sideControlEnum.HOLDER}>光具台</Radio>
+            <Radio value={sideControlEnum.SCREEN}>视线</Radio>
+            <Radio value={sideControlEnum.MEASURE}>测量头</Radio>
+          </Space.Compact>
+        </Radio.Group>
+        {sideControl === sideControlEnum.HOLDER && (
+          <>
+            <FourSide fourSideProps={fourSide1} />
+            <FourSide fourSideProps={fourSide2} />
+            <FourSide fourSideProps={fourSide7} />
+          </>
+        )}
+        {sideControl === sideControlEnum.SCREEN && (
+          <FourSide fourSideProps={fourSide3} />
+        )}
+        {sideControl === sideControlEnum.MEASURE && (
+          <>
+            <FourSide fourSideProps={fourSide4} />
+            <FourSide fourSideProps={fourSide5} />
+            <FourSide fourSideProps={fourSide6} />
+          </>
+        )}
         <Space.Compact>
           <Radio.Group
             value={interConf.light.filter}
@@ -679,22 +850,47 @@ export default function Scene() {
             <Radio.Button value="red">Red</Radio.Button>
             <Radio.Button value="green">Green</Radio.Button>
             <Radio.Button value="custom">Custom</Radio.Button>
-            {interConf.light.filter === 'custom' && (
-              <Slider
-                min={420}
-                max={719}
-                value={interConf.light.custom}
-                onChange={(v) => {
-                  setInterConf((draft) => {
-                    draft.light.custom = v;
-                  });
-                }}
-              />
-            )}
+            <Slider
+              min={420}
+              max={720}
+              value={interConf.light.custom}
+              disabled={interConf.light.filter !== 'custom'}
+              onChange={(v) => {
+                setInterConf((draft) => {
+                  draft.light.custom = v;
+                });
+              }}
+            />
           </Radio.Group>
         </Space.Compact>
-
-        <Space>
+        <div>
+          <Space.Compact>
+            <Button icon={<DownloadOutlined />} onClick={download} />
+            <Button icon={<UploadOutlined />} onClick={load} />
+          </Space.Compact>
+          <br />
+          <Space.Compact>
+            <Button
+              icon={<VscChromeMaximize />}
+              onClick={() => {
+                ipcRenderer.maximize();
+              }}
+            />{' '}
+            <Button
+              icon={<VscChromeRestore />}
+              onClick={() => {
+                ipcRenderer.unmaximize();
+              }}
+            />{' '}
+            <Button
+              icon={<VscChromeClose />}
+              onClick={() => {
+                ipcRenderer.close();
+              }}
+            />
+          </Space.Compact>
+        </div>
+        <Space.Compact>
           <Button
             type="primary"
             icon={<CaretLeftFilled />}
@@ -707,152 +903,26 @@ export default function Scene() {
             onClick={moveRight}
             size="large"
           />
-        </Space>
-      </Space>
-      <div>
-        {/* <Space.Compact>
-          <Input
-            addonBefore="leftMargin"
-            value={scale.leftMargin}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.leftMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="bottomMargin"
-            value={scale.bottomMargin}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.bottomMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="holderHeight"
-            value={scale.holderHeight}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.holderHeight = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="holderWidth"
-            value={scale.holderWidth}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.holderWidth = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="xScale"
-            value={scale.xScale}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.xScale = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="hScale"
-            value={scale.hScale}
-            onChange={(e) => {
-              setScale((draft) => {
-                draft.hScale = Number(e.target.value);
-              });
-            }}
-          />
         </Space.Compact>
-
-        <Space.Compact>
-          <Input
-            addonBefore="leftMargin"
-            value={screen.leftMargin}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.leftMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="bottomMargin"
-            value={screen.bottomMargin}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.bottomMargin = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="mm2px"
-            value={screen.mm2px}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.mm2px = Number(e.target.value);
-              });
-            }}
-          />
-          <InputNumber
-            addonBefore="offsetmm"
-            value={screen.offsetmm}
-            step={0.01}
-            style={{ width: 100 }}
-            size="large"
-            onChange={(value) => {
-              setScreen((draft) => {
-                draft.offsetmm = Number(value);
-              });
-              setMeasure((draft) => {
-                draft.offsetmm = Number(value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="seemm"
-            value={screen.seemm}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.seemm = Number(e.target.value);
-              });
-            }}
-          />
-          <Input
-            addonBefore="scaleX"
-            value={screen.scaleX}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.scaleX = Number(e.target.value);
-              });
-            }}
-          />{' '}
-          <Input
-            addonBefore="scaleY"
-            value={screen.scaleY}
-            onChange={(e) => {
-              setScreen((draft) => {
-                draft.scaleY = Number(e.target.value);
-              });
-            }}
-          />
-        </Space.Compact> */}
       </div>
-
-      {/* <LineChart width={500} height={300} data={data}>
-        <XAxis dataKey="x" padding={{ left: 30, right: 30 }} />
-        <YAxis />
-        <Tooltip />
-        <Line type="monotone" dataKey="y" stroke="#82ca9d" dot={false} />
-      </LineChart> */}
-
-      {/* <canvas width={500} height={300} ref={canvasRef}></canvas> */}
       <LightScreenFixed screenConf={screen} />
       <Measure1 measureConfType={measure} />
-
-      {RenderLens}
-      <Holder scale={scale} />
+      <Holder holderConf={holder} />
+      {lens.map((len, i) => {
+        return <Len key={len.id} lenConf={len} holderConf={holder} />;
+      })}
+      <Ctrl
+        ctrlConf={ctrl}
+        holderConf={holder}
+        lensConf={lens}
+        setLens={setLens}
+      />
     </>
   );
 }
+
+// const setLenDistance= (id:number) => {
+//   return (val:number)=>{
+//     setLenDistance()
+//   }
+// }
