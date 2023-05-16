@@ -18,9 +18,13 @@ interface propsType {
   lenConf: lenType;
 }
 export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
-  const lenConfig = lensConfig.get(lF.uname);
+  let lenConfig = lensConfig.get(lF.uname);
   if (lenConfig === undefined) {
-    return <div />;
+    lenConfig = {
+      width: 0,
+      height: 0,
+      imgurl: '',
+    };
   }
 
   const canvaRef = useRef<HTMLCanvasElement>(null);
@@ -126,6 +130,7 @@ export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
           height={lenHeight}
           width={lenWidth}
           style={{ backgroundColor: '#ffffff00' }}
+          alt=" "
           onLoad={() => {
             setImageReady(true);
           }}
