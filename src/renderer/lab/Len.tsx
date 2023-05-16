@@ -7,8 +7,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import type { holderType, lenType } from 'renderer/Scene';
 import DragMove from './DragMove';
 import { lensConfig } from './lensConfig';
