@@ -39,6 +39,7 @@ import './Scene.css';
 import Measure1 from './lab/Measure1';
 import LightScreenFixed from './lab/LightScreenFixed';
 import Ctrl from './lab/Ctrl';
+import CustomButton from './control/CustomButton';
 
 export interface holderType {
   leftMargin: number;
@@ -599,6 +600,8 @@ export default function Scene() {
     instense: [1],
   });
 
+  const [customD, setCustomD] = useState<number>(0.2);
+
   useEffect(() => {
     if (interConf.light.type === 'D65') {
       setLens((draft) => {
@@ -837,6 +840,20 @@ export default function Scene() {
             <FourSide fourSideProps={fourSide6} />
           </>
         )}
+        <CustomButton
+          value={interConf.d}
+          min={0.02}
+          max={0.3}
+          step={0.01}
+          options={[0.2, 0.25]}
+          unit="mm"
+          toFixedPoint={2}
+          onChange={(v) => {
+            setInterConf((draft) => {
+              draft.d = v;
+            });
+          }}
+        />
         <Space.Compact>
           <Radio.Group
             value={interConf.light.filter}
@@ -846,10 +863,10 @@ export default function Scene() {
               });
             }}
           >
-            <Radio.Button value="none">None</Radio.Button>
-            <Radio.Button value="red">Red</Radio.Button>
-            <Radio.Button value="green">Green</Radio.Button>
-            <Radio.Button value="custom">Custom</Radio.Button>
+            <Radio.Button value="none">无</Radio.Button>
+            <Radio.Button value="red">红</Radio.Button>
+            <Radio.Button value="green">绿</Radio.Button>
+            <Radio.Button value="custom">自定义</Radio.Button>
             <Slider
               min={420}
               max={720}

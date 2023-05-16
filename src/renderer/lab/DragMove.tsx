@@ -1,4 +1,3 @@
-import { faLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { TbHandMove } from 'react-icons/tb';
 import type { holderType, lenType } from 'renderer/Scene';
 import { Updater, useImmer } from 'use-immer';
