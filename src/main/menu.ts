@@ -160,9 +160,9 @@ export default class MenuBuilder {
       label: 'About',
       submenu: [
         {
-          label: 'Github',
+          label: "Elwina's Github",
           click() {
-            shell.openExternal('https://github.com/elwina/melian');
+            shell.openExternal('https://github.com/elwina');
           },
         },
         {
@@ -270,9 +270,9 @@ export default class MenuBuilder {
         label: '关于',
         submenu: [
           {
-            label: 'Github',
+            label: "Elwina's Github",
             click() {
-              shell.openExternal('https://github.com/elwina/melian');
+              shell.openExternal('https://github.com/elwina');
             },
           },
           {
