@@ -39,7 +39,7 @@ export default function LightScreenFixed({ screenConf: sC }: propsType) {
       const picw = sC.mmwidth * sC.mm2px;
       const pich = sC.mmheight * sC.mm2px;
 
-      const sx = picw / 2 - R + sC.offsetmm * sC.mm2px;
+      const sx = picw / 2 - sC.seemm * sC.mm2px + sC.offsetmm * sC.mm2px;
       const sy = 0;
       const swidth = picw - sx;
       const sheight = pich;
