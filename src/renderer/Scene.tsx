@@ -9,6 +9,7 @@ import {
   Space,
   Tooltip,
   Typography,
+  Upload,
   message,
 } from 'antd';
 import { BsFillBoxFill } from 'react-icons/bs';
@@ -26,6 +27,8 @@ import {
 } from 'react-icons/vsc';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { useImmer } from 'use-immer';
+import { Channels } from 'main/preload';
+import { DateTime } from 'luxon';
 import Holder from './lab/Holder';
 import Len from './lab/Len';
 import 'antd/dist/reset.css';
@@ -142,7 +145,26 @@ export enum sideControlEnum {
 }
 
 export default function Scene() {
-  const { ipcRenderer } = window.electron;
+  let ipcRenderer: {
+    sendMessage(channel: Channels, args: unknown[]): void;
+    on(channel: Channels, func: (...args: unknown[]) => void): () => void;
+    once(channel: Channels, func: (...args: unknown[]) => void): void;
+    invoke(channel: Channels, args: unknown[]): Promise<any>;
+    minimize(): void;
+    maximize(): void;
+    unmaximize(): void;
+    restore(): void;
+    close(): void;
+  } | null;
+  try {
+    ipcRenderer = window.electron.ipcRenderer
+      ? window.electron.ipcRenderer
+      : null;
+  } catch {
+    ipcRenderer = null;
+  }
+
+  const web = !ipcRenderer;
 
   const [holder, setHolder] = useImmer<holderType>({
     leftMargin: 50, // 1
@@ -761,12 +783,26 @@ export default function Scene() {
       mode,
       // scale,
     };
-    const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
-    if (path !== '') {
-      setDpath(path);
+
+    if (web) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(config, null, 2)]));
+      a.download = `${DateTime.now().toFormat(
+        'yyyyLLdd-HH:mm:ss'
+      )}.melian.json`;
+      a.click();
+    }
+
+    if (!web) {
+      if (!ipcRenderer) return;
+      const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
+      if (path !== '') {
+        setDpath(path);
+      }
     }
   };
   const load = async () => {
+    if (!ipcRenderer) return;
     const { status, config } = await ipcRenderer.invoke('loadConf', [dpath]);
     if (!status) {
       // 加载失败
@@ -784,12 +820,14 @@ export default function Scene() {
   };
 
   useEffect(() => {
-    ipcRenderer.on('exportConfig', async () => {
-      await download();
-    });
-    ipcRenderer.on('importConfig', async () => {
-      await load();
-    });
+    if (ipcRenderer) {
+      ipcRenderer.on('exportConfig', async () => {
+        await download();
+      });
+      ipcRenderer.on('importConfig', async () => {
+        await load();
+      });
+    }
   }, []);
 
   // 左下角控制区
@@ -894,26 +932,55 @@ export default function Scene() {
         <div>
           <Space.Compact>
             <Button icon={<DownloadOutlined />} onClick={download} />
-            <Button icon={<UploadOutlined />} onClick={load} />
+            {web ? (
+              <Upload
+                beforeUpload={(file) => {
+                  if (file.type !== 'application/json') {
+                    message.error('请上传json文件');
+                  }
+                  const reader = new FileReader();
+                  reader.readAsText(file);
+                  reader.onload = (e) => {
+                    if (e.target) {
+                      const config = JSON.parse(e.target.result as string);
+                      setHolder(config.holder);
+                      setLens(config.lens);
+                      setCtrl(config.ctrl);
+                      setScreen(config.screen);
+                      setInterConf(config.interConf);
+                      setMeasure(config.measure);
+                      setMode(config.mode);
+                    }
+                  };
+                  return false;
+                }}
+                accept=".melian.json"
+                showUploadList={false}
+              >
+                <Button icon={<UploadOutlined />} />
+              </Upload>
+            ) : (
+              <Button icon={<UploadOutlined />} onClick={load} />
+            )}
           </Space.Compact>
           <br />
           <Space.Compact>
             <Button
               icon={<VscChromeMaximize />}
               onClick={() => {
-                ipcRenderer.maximize();
+                if (ipcRenderer) ipcRenderer.maximize();
               }}
             />{' '}
             <Button
               icon={<VscChromeRestore />}
               onClick={() => {
-                ipcRenderer.unmaximize();
+                if (ipcRenderer) ipcRenderer.unmaximize();
               }}
             />{' '}
             <Button
               icon={<VscChromeClose />}
               onClick={() => {
-                ipcRenderer.close();
+                if (ipcRenderer) ipcRenderer.close();
               }}
             />
           </Space.Compact>

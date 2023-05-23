@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A foundation for scalable desktop apps",
   "keywords": [
     "electron",
@@ -43,7 +43,9 @@
     "test": "jest",
     "version": "node ./.auto/version.js",
     "build:contest": "cross-env NODE_ENV=production CONTEST=true TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
-    "package:contest": "ts-node ./.erb/scripts/clean.js dist && concurrently \"npm run build:main\" \"npm run build:contest\" && electron-builder build -c.productName=\"波动光学演示系统竞赛样品\" --publish never"
+    "package:contest": "ts-node ./.erb/scripts/clean.js dist && concurrently \"npm run build:main\" \"npm run build:contest\" && electron-builder build -c.productName=\"波动光学演示系统竞赛样品\" --publish never",
+    "build:web": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.web.prod.ts",
+    "clean": "ts-node ./.erb/scripts/clean.js dist"
   },
   "browserslist": [],
   "prettier": {
@@ -150,6 +152,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
+    "filemanager-webpack-plugin": "^8.0.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.4.2",
