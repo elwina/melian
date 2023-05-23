@@ -6,6 +6,7 @@ import {
   MenuItemConstructorOptions,
   dialog,
   ipcMain,
+  MenuItem,
 } from 'electron';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -178,6 +179,14 @@ export default class MenuBuilder {
         },
       ],
     };
+    const subMenuContest: MenuItemConstructorOptions = {
+      label: 'About',
+      submenu: [
+        {
+          label: '仅供竞赛使用!',
+        },
+      ],
+    };
 
     const subMenuView =
       process.env.NODE_ENV === 'development' ||
@@ -185,11 +194,16 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
+    console.log(process.env.CONTEST);
+    if (process.env.CONTEST) {
+      return [subMenuProgram];
+    }
+
     return [subMenuProgram, subMenuAbout];
   }
 
   buildDefaultTemplate() {
-    const templateDefault = [
+    const templateDefault: Array<unknown> = [
       {
         label: '程序',
         submenu: [
@@ -224,49 +238,53 @@ export default class MenuBuilder {
           },
         ],
       },
-      // {
-      //   label: '&View',
-      //   submenu:
-      //     process.env.NODE_ENV === 'development' ||
-      //     process.env.DEBUG_PROD === 'true'
-      //       ? [
-      //           {
-      //             label: '&Reload',
-      //             accelerator: 'Ctrl+R',
-      //             click: () => {
-      //               this.mainWindow.webContents.reload();
-      //             },
-      //           },
-      //           {
-      //             label: 'Toggle &Full Screen',
-      //             accelerator: 'F11',
-      //             click: () => {
-      //               this.mainWindow.setFullScreen(
-      //                 !this.mainWindow.isFullScreen()
-      //               );
-      //             },
-      //           },
-      //           {
-      //             label: 'Toggle &Developer Tools',
-      //             accelerator: 'Alt+Ctrl+I',
-      //             click: () => {
-      //               this.mainWindow.webContents.toggleDevTools();
-      //             },
-      //           },
-      //         ]
-      //       : [
-      //           {
-      //             label: 'Toggle &Full Screen',
-      //             accelerator: 'F11',
-      //             click: () => {
-      //               this.mainWindow.setFullScreen(
-      //                 !this.mainWindow.isFullScreen()
-      //               );
-      //             },
-      //           },
-      //         ],
-      // },
-      {
+    ];
+    // {
+    //   label: '&View',
+    //   submenu:
+    //     process.env.NODE_ENV === 'development' ||
+    //     process.env.DEBUG_PROD === 'true'
+    //       ? [
+    //           {
+    //             label: '&Reload',
+    //             accelerator: 'Ctrl+R',
+    //             click: () => {
+    //               this.mainWindow.webContents.reload();
+    //             },
+    //           },
+    //           {
+    //             label: 'Toggle &Full Screen',
+    //             accelerator: 'F11',
+    //             click: () => {
+    //               this.mainWindow.setFullScreen(
+    //                 !this.mainWindow.isFullScreen()
+    //               );
+    //             },
+    //           },
+    //           {
+    //             label: 'Toggle &Developer Tools',
+    //             accelerator: 'Alt+Ctrl+I',
+    //             click: () => {
+    //               this.mainWindow.webContents.toggleDevTools();
+    //             },
+    //           },
+    //         ]
+    //       : [
+    //           {
+    //             label: 'Toggle &Full Screen',
+    //             accelerator: 'F11',
+    //             click: () => {
+    //               this.mainWindow.setFullScreen(
+    //                 !this.mainWindow.isFullScreen()
+    //               );
+    //             },
+    //           },
+    //         ],
+    // },
+
+    console.log(process.env.CONTEST);
+    if (process.env.CONTEST)
+      templateDefault.push({
         label: '关于',
         submenu: [
           {
@@ -287,8 +305,17 @@ export default class MenuBuilder {
             },
           },
         ],
-      },
-    ];
+      });
+    else {
+      templateDefault.push({
+        label: '关于',
+        submenu: [
+          {
+            label: '仅供竞赛使用!',
+          },
+        ],
+      });
+    }
 
     return templateDefault;
   }

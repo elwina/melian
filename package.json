@@ -1,5 +1,5 @@
 {
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "A foundation for scalable desktop apps",
   "keywords": [
     "electron",
@@ -41,7 +41,9 @@
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
-    "version": "node ./.auto/version.js"
+    "version": "node ./.auto/version.js",
+    "build:contest": "cross-env NODE_ENV=production CONTEST=true TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
+    "package:contest": "ts-node ./.erb/scripts/clean.js dist && concurrently \"npm run build:main\" \"npm run build:contest\" && electron-builder build -c.productName=\"波动光学演示系统竞赛样品\" --publish never"
   },
   "browserslist": [],
   "prettier": {

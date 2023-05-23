@@ -35,7 +35,7 @@ import { D65Specteum } from './formula/spectrum';
 import { multiplyArrays, normalization } from './utils/array';
 import LightScreen from './lab/LightScreen';
 import FourSide, { fourSideProps } from './control/FourSide';
-import './Scene.css';
+import styles from './Scene.module.css';
 import Measure1 from './lab/Measure1';
 import LightScreenFixed from './lab/LightScreenFixed';
 import Ctrl from './lab/Ctrl';
@@ -840,46 +840,57 @@ export default function Scene() {
             <FourSide fourSideProps={fourSide6} />
           </>
         )}
-        <CustomButton
-          value={interConf.d}
-          min={0.02}
-          max={0.3}
-          step={0.01}
-          options={[0.2, 0.25]}
-          unit="mm"
-          toFixedPoint={2}
-          onChange={(v) => {
-            setInterConf((draft) => {
-              draft.d = v;
-            });
-          }}
-        />
-        <Space.Compact>
-          <Radio.Group
-            value={interConf.light.filter}
-            onChange={(e: RadioChangeEvent) => {
+        <div>
+          <div style={{ textAlign: 'center', paddingBottom: 10, fontSize: 15 }}>
+            双缝间距
+          </div>
+          <CustomButton
+            value={interConf.d}
+            min={0.02}
+            max={0.3}
+            step={0.01}
+            options={[0.2, 0.25]}
+            unit="mm"
+            toFixedPoint={2}
+            onChange={(v) => {
               setInterConf((draft) => {
-                draft.light.filter = e.target.value;
+                draft.d = v;
               });
             }}
-          >
-            <Radio.Button value="none">无</Radio.Button>
-            <Radio.Button value="red">红</Radio.Button>
-            <Radio.Button value="green">绿</Radio.Button>
-            <Radio.Button value="custom">自定义</Radio.Button>
-            <Slider
-              min={420}
-              max={720}
-              value={interConf.light.custom}
-              disabled={interConf.light.filter !== 'custom'}
-              onChange={(v) => {
+          />
+        </div>
+        <div>
+          <div style={{ textAlign: 'center', paddingBottom: 10, fontSize: 15 }}>
+            滤光片
+          </div>
+          <Space.Compact>
+            <Radio.Group
+              value={interConf.light.filter}
+              onChange={(e: RadioChangeEvent) => {
                 setInterConf((draft) => {
-                  draft.light.custom = v;
+                  draft.light.filter = e.target.value;
                 });
               }}
-            />
-          </Radio.Group>
-        </Space.Compact>
+            >
+              <Radio.Button value="none">无</Radio.Button>
+              <Radio.Button value="red">红</Radio.Button>
+              <Radio.Button value="green">绿</Radio.Button>
+              <Radio.Button value="custom">自定义</Radio.Button>
+              <Slider
+                min={420}
+                max={720}
+                step={0.1}
+                value={interConf.light.custom}
+                disabled={interConf.light.filter !== 'custom'}
+                onChange={(v) => {
+                  setInterConf((draft) => {
+                    draft.light.custom = v;
+                  });
+                }}
+              />
+            </Radio.Group>
+          </Space.Compact>
+        </div>
         <div>
           <Space.Compact>
             <Button icon={<DownloadOutlined />} onClick={download} />
@@ -907,20 +918,25 @@ export default function Scene() {
             />
           </Space.Compact>
         </div>
-        <Space.Compact>
-          <Button
-            type="primary"
-            icon={<CaretLeftFilled />}
-            onClick={moveLeft}
-            size="large"
-          />{' '}
-          <Button
-            type="primary"
-            icon={<CaretRightFilled />}
-            onClick={moveRight}
-            size="large"
-          />
-        </Space.Compact>
+        <div>
+          <div style={{ textAlign: 'center', paddingBottom: 10, fontSize: 15 }}>
+            目镜控制
+          </div>
+          <Space.Compact>
+            <Button
+              type="primary"
+              icon={<CaretLeftFilled />}
+              onClick={moveLeft}
+              size="large"
+            />{' '}
+            <Button
+              type="primary"
+              icon={<CaretRightFilled />}
+              onClick={moveRight}
+              size="large"
+            />
+          </Space.Compact>
+        </div>
       </div>
       <LightScreenFixed screenConf={screen} />
       <Measure1 measureConfType={measure} />
