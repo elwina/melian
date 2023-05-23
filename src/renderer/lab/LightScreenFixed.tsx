@@ -116,7 +116,7 @@ export default function LightScreenFixed({ screenConf: sC }: propsType) {
 
       // 画边框
       ctx.save();
-      ctx.strokeStyle = '#cc99ff';
+      ctx.strokeStyle = '#282828';
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.arc(circleX, circleY, circleR, 0, Math.PI * 2, false);
