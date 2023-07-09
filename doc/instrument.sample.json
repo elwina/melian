@@ -1,0 +1,76 @@
+{
+  "lens": [
+    {
+      "id": "0",
+      "uname": "light01",
+      "name": "光源",
+      "distancemm": 0,
+      "hide": false,
+      "option": {
+        "type": "D65"
+      }
+    },
+    {
+      "id": "1",
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": "2",
+      "uname": "filter01",
+      "name": "滤光片",
+      "distancemm": 220,
+      "hide": false,
+      "option": {
+        "wave": "660"
+      }
+    },
+    {
+      "id": "3",
+      "uname": "single_slit01",
+      "name": "单缝",
+      "distancemm": 245,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": "4",
+      "uname": "double_slit01",
+      "name": "双缝",
+      "distancemm": 365,
+      "hide": false,
+      "option": {
+        "d": 0.1
+      }
+    },
+    {
+      "id": "5",
+      "uname": "measure_head01",
+      "name": "测量头",
+      "distancemm": 965,
+      "hide": false,
+      "option": {}
+    }
+  ],
+  "screen":{
+    "type":"horizontal",
+    "light":"{0}.type",
+    "filter":"{2}.wave",
+    "require":[
+      {
+        "d":"{4}.d",
+        "r0_2":"[5].distancemm",
+        "r0_1":"[4].distancemm",
+        "l":"lambda",
+        "y":"y"
+      }
+    ],
+    "function":"cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+  },
+  "measure":{
+    "type": 0
+  }
+}

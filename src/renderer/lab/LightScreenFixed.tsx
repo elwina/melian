@@ -51,6 +51,16 @@ export default function LightScreenFixed({ screenConf: sC }: propsType) {
       try {
         const imagedata = new ImageData(bitmapArr, sC.mmwidth * sC.mm2px);
         const imagebmp = await createImageBitmap(imagedata);
+
+        const ncanva = document.createElement('canvas');
+        ncanva.width = picw;
+        ncanva.height = pich;
+        const nctx = ncanva.getContext('2d');
+        if (nctx == null) return;
+        nctx.putImageData(imagedata, 0, 0);
+        const base64 = ncanva.toDataURL('image/png');
+        console.log(base64);
+
         // ctx.putImageData(imagedata, imageleft, 0, 0, 0, sw, sh);
         ctx.drawImage(
           imagebmp,
