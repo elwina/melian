@@ -1,5 +1,5 @@
 export interface LenConfig {
-  [key:string]:any;
+  [key: string]: any;
   id: number;
   uname: string;
   name: string;
@@ -8,28 +8,37 @@ export interface LenConfig {
   option: Record<string, any>;
 }
 
-export type LightType = "D65"
+export type LightType = 'D65';
 
-export interface LightConfig{
-  type:LightType;
-  filter:number
+export interface LightConfig {
+  type: LightType;
+  filter: number;
 }
 
 export interface ScreenConfig {
-  type: 0|1;
+  type: 0 | 1;
   seemm: number;
   require: Record<string, string>;
   func: string;
 }
 
 export interface MeasureConfig {
-  type: 0|1;
+  type: 0 | 1;
   initmm: number;
 }
 
 export interface ControlConfig {
   showmm: number[];
   move: number[];
+}
+
+export type SettingType = 'ButtonSlider';
+
+export interface SettingConfig {
+  name: string;
+  type: SettingType;
+  target: string[];
+  options: Record<string, any>;
 }
 
 export interface StatusConfig {
@@ -43,6 +52,7 @@ export interface InstrumentConfig {
   screen: ScreenConfig;
   measure: MeasureConfig;
   control: ControlConfig;
+  setting: SettingConfig[];
   status: StatusConfig;
 }
 

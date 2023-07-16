@@ -78,6 +78,38 @@
     "showmm":[0,1,2,3,4,5],
     "move":[3,4,5]
   },
+  "setting":[
+    {
+      "name":"滤光片",
+      "type":"ButtonSlider",
+      "target":["light.filter","{4}.d"],
+      "options":{
+        "options":[
+          {
+            "name":"无",
+            "value":[-1,-1]
+          },
+          {
+            "name":"红",
+            "value":[660,660]
+          },
+          {
+            "name":"绿",
+            "value":[550,660]
+          },
+          {
+            "name":"蓝",
+            "value":[450,660]
+          }
+        ],
+        "min":0,
+        "max":3,
+        "step":1,
+        "toFixedPoint":0,
+        "unit":"nm"
+      }
+    }
+  ],
   "status":{
     "offsetmm":0
   }

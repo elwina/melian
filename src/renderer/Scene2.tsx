@@ -10,78 +10,7 @@ import LightScreenFixed2 from './lab/LightScreenFixed2';
 import { InstrumentConfig, StyleConfig } from './config.type';
 import LenGene from './lab/LenGene';
 import Ctrl from './lab/Ctrl';
-
-export interface holderType {
-  leftMargin: number;
-  bottomMargin: number;
-  holderHeight: number;
-  holderWidthmm: number;
-  leftPadding: number;
-  xScale: number;
-  upHeight: number;
-  fontSize: number;
-  baselineHeight: number;
-  lenScaleX: number;
-  lenScaleY: number;
-}
-
-export interface lenType {
-  id: number;
-  uname: string;
-  name: string;
-  distancemm: number;
-  lenHeight: number;
-  lenWidth: number;
-  hide: boolean;
-  option: Record<string, unknown>;
-}
-
-export interface ctrlType {
-  showmm: number[];
-  move: number[];
-}
-
-export interface screenType {
-  bitmapArr: Uint8ClampedArray | null;
-  mmwidth: number;
-  mmheight: number;
-  mm2px: number; // 1个mm转换为x像素
-  scaleX: number;
-  scaleY: number;
-
-  seemm: number; // 目镜视野范围
-  offsetmm: number;
-
-  leftMargin: number;
-  bottomMargin: number;
-}
-
-export interface measureType {
-  type: 1;
-  offsetmm: number;
-  initmm: number;
-
-  mm2px: number;
-
-  upHeight: number;
-  downHeight: number;
-  dsHeight: number;
-  fontHeight: number;
-  sfontHeight: number;
-
-  fontSize: number;
-  sfontSize: number;
-  lineWidth: number;
-  leftPadding: number;
-  upPadding: number;
-
-  leftMargin: number;
-  bottomMargin: number;
-}
-
-export interface modeType {
-  mode: 0 | 1 | 2; // 0 干涉
-}
+import LoadSetting from './setting/LoadSetting';
 
 export interface interConfType {
   light: {
@@ -93,16 +22,6 @@ export interface interConfType {
   d: number;
   wave: number[];
   instense: number[];
-}
-
-export interface confType {
-  holder: holderType;
-  lens: lenType[];
-  ctrl: ctrlType;
-  screen: screenType;
-  measure: measureType;
-  mode: modeType;
-  interConf: interConfType;
 }
 
 export enum sideControlEnum {
@@ -133,682 +52,421 @@ export default function Scene() {
 
   const web = !ipcRenderer;
 
-  const [holder, setHolder] = useImmer<holderType>({
-    leftMargin: 50, // 1
-    bottomMargin: 185, // 1
-    holderHeight: 28, // 1
-    holderWidthmm: 1000, // 1
-    leftPadding: 10, // 2
-    xScale: 1.1, // 2
-    upHeight: 246, // 2
-    fontSize: 18, // 2
-    baselineHeight: 116, // 7
-    lenScaleX: 2, // 7
-    lenScaleY: 2.6, // 7
-  });
-
-  // const fourSide1: fourSideProps = {
+  // const fourSide3: fourSideProps = {
   //   up: {
-  //     value: holder.bottomMargin,
+  //     value: screen.bottomMargin,
   //     step: 5,
   //     min: 0,
   //     max: document.body.clientHeight,
   //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.bottomMargin = fn(holder.bottomMargin);
+  //       setScreen((draft) => {
+  //         draft.bottomMargin = fn(screen.bottomMargin);
   //       });
   //     },
   //   },
   //   left: {
-  //     value: holder.leftMargin,
+  //     value: screen.leftMargin,
   //     step: 5,
   //     min: 0,
   //     max: document.body.clientWidth,
   //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.leftMargin = fn(holder.leftMargin);
+  //       setScreen((draft) => {
+  //         draft.leftMargin = fn(screen.leftMargin);
   //       });
   //     },
   //   },
   //   side: {
-  //     value: holder.holderHeight,
-  //     step: 2,
-  //     min: 0,
-  //     max: document.body.clientWidth,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.holderHeight = fn(holder.holderHeight);
-  //       });
-  //     },
-  //   },
-  //   bottom: {
-  //     value: holder.holderWidthmm,
-  //     step: 20,
-  //     min: 0,
-  //     max: document.body.clientWidth,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.holderWidthmm = fn(holder.holderWidthmm);
-  //       });
-  //     },
-  //   },
-  // };
-  // const fourSide2: fourSideProps = {
-  //   up: {
-  //     value: holder.upHeight,
-  //     step: 2,
-  //     min: 0,
-  //     max: document.body.clientHeight,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.upHeight = fn(holder.upHeight);
-  //       });
-  //     },
-  //   },
-  //   left: {
-  //     value: holder.leftPadding,
-  //     step: 2,
-  //     min: 0,
-  //     max: document.body.clientWidth,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.leftPadding = fn(holder.leftPadding);
-  //       });
-  //     },
-  //   },
-  //   side: {
-  //     value: holder.fontSize,
-  //     step: 2,
-  //     min: 0,
-  //     max: document.body.clientWidth,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.fontSize = fn(holder.fontSize);
-  //       });
-  //     },
-  //   },
-  //   bottom: {
-  //     value: holder.xScale,
+  //     value: screen.scaleY,
   //     step: 0.1,
-  //     min: 0,
-  //     max: 100,
+  //     min: 1,
+  //     max: 3,
   //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.xScale = fn(holder.xScale);
-  //       });
-  //     },
-  //   },
-  // };
-  // const fourSide7: fourSideProps = {
-  //   up: {
-  //     value: holder.baselineHeight,
-  //     step: 2,
-  //     min: 0,
-  //     max: document.body.clientHeight,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.baselineHeight = fn(holder.baselineHeight);
+  //       setScreen((draft) => {
+  //         draft.scaleY = fn(screen.scaleY);
   //       });
   //     },
   //   },
   //   bottom: {
-  //     value: holder.lenScaleX,
-  //     step: 0.2,
-  //     min: 0,
-  //     max: 100,
+  //     value: screen.scaleX,
+  //     step: 0.1,
+  //     min: 1,
+  //     max: 3,
   //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.lenScaleX = fn(holder.lenScaleX);
-  //       });
-  //     },
-  //   },
-  //   side: {
-  //     value: holder.lenScaleY,
-  //     step: 0.2,
-  //     min: 0,
-  //     max: 100,
-  //     set: (fn) => {
-  //       setHolder((draft) => {
-  //         draft.lenScaleY = fn(holder.lenScaleY);
+  //       setScreen((draft) => {
+  //         draft.scaleX = fn(screen.scaleX);
   //       });
   //     },
   //   },
   // };
 
-  // distance 毫米
-  const [lens, setLens] = useImmer<lenType[]>([
-    {
-      id: 0,
-      uname: 'light01',
-      name: '光源',
-      distancemm: 0,
-      lenHeight: 50,
-      lenWidth: 20,
-      hide: false,
-      option: {},
-    },
-    {
-      id: 1,
-      uname: 'convex_lens01',
-      name: '透镜',
-      distancemm: 110,
-      lenHeight: 50,
-      lenWidth: 20,
-      hide: false,
-      option: {},
-    },
-    {
-      id: 2,
-      uname: 'filter01',
-      name: '滤光片',
-      distancemm: 220,
-      lenHeight: 50,
-      lenWidth: 20,
-      hide: false,
-      option: {
-        color: 'red',
-      },
-    },
-    {
-      id: 3,
-      name: '单缝',
-      uname: 'single_slit01',
+  // const fourSide4: fourSideProps = {
+  //   up: {
+  //     value: measure.bottomMargin,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.bottomMargin = fn(measure.bottomMargin);
+  //       });
+  //     },
+  //   },
+  //   left: {
+  //     value: measure.leftMargin,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.leftMargin = fn(measure.leftMargin);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: measure.dsHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.dsHeight = fn(measure.dsHeight);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: measure.leftPadding,
+  //     step: 4,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.leftPadding = fn(measure.leftPadding);
+  //       });
+  //     },
+  //   },
+  // };
+  // const fourSide5: fourSideProps = {
+  //   up: {
+  //     value: measure.upHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.upHeight = fn(measure.upHeight);
+  //       });
+  //     },
+  //   },
+  //   left: {
+  //     value: measure.downHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.downHeight = fn(measure.downHeight);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: measure.fontHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.fontHeight = fn(measure.fontHeight);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: measure.sfontHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.sfontHeight = fn(measure.sfontHeight);
+  //       });
+  //     },
+  //   },
+  // };
 
-      distancemm: 245,
-      lenHeight: 50,
-      lenWidth: 20,
-      hide: false,
-      option: {},
-    },
-    {
-      id: 4,
-      uname: 'double_slit01',
-      name: '双缝',
-      distancemm: 365,
-      lenHeight: 50,
-      lenWidth: 20,
-      hide: false,
-      option: {},
-    },
-    {
-      id: 5,
-      name: '测量头',
-      uname: 'measure_head01',
-      distancemm: 965,
-      lenHeight: 50,
-      lenWidth: 20,
-      hide: false,
-      option: {},
-    },
-  ]);
-
-  const [ctrl, setCtrl] = useImmer<ctrlType>({
-    showmm: lens.map((item) => item.id),
-    move: [3, 4, 5],
-  });
-
-  const [screen, setScreen] = useImmer<screenType>({
-    bitmapArr: null,
-    mmwidth: 20,
-    mmheight: 20,
-    mm2px: 10,
-    scaleX: 1.2,
-    scaleY: 1.2,
-
-    seemm: 8,
-    offsetmm: 0,
-
-    leftMargin: 205,
-    bottomMargin: 515,
-  });
-
-  const fourSide3: fourSideProps = {
-    up: {
-      value: screen.bottomMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setScreen((draft) => {
-          draft.bottomMargin = fn(screen.bottomMargin);
-        });
-      },
-    },
-    left: {
-      value: screen.leftMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setScreen((draft) => {
-          draft.leftMargin = fn(screen.leftMargin);
-        });
-      },
-    },
-    side: {
-      value: screen.scaleY,
-      step: 0.1,
-      min: 1,
-      max: 3,
-      set: (fn) => {
-        setScreen((draft) => {
-          draft.scaleY = fn(screen.scaleY);
-        });
-      },
-    },
-    bottom: {
-      value: screen.scaleX,
-      step: 0.1,
-      min: 1,
-      max: 3,
-      set: (fn) => {
-        setScreen((draft) => {
-          draft.scaleX = fn(screen.scaleX);
-        });
-      },
-    },
-  };
-
-  const [measure, setMeasure] = useImmer<measureType>({
-    type: 1,
-    offsetmm: 0,
-    initmm: 10,
-
-    mm2px: 5.5, // 6
-
-    upHeight: 42, // 5
-    downHeight: 44, // 5
-    dsHeight: 39, // 4
-    fontHeight: 20, // 5
-    sfontHeight: 20, // 5
-
-    fontSize: 20, // 6
-    sfontSize: 16, // 6
-    lineWidth: 2, // 6
-    leftPadding: 12, // 4
-    upPadding: 5,
-
-    leftMargin: 660, // 4
-    bottomMargin: 415, // 4
-  });
-
-  const fourSide4: fourSideProps = {
-    up: {
-      value: measure.bottomMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.bottomMargin = fn(measure.bottomMargin);
-        });
-      },
-    },
-    left: {
-      value: measure.leftMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.leftMargin = fn(measure.leftMargin);
-        });
-      },
-    },
-    side: {
-      value: measure.dsHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.dsHeight = fn(measure.dsHeight);
-        });
-      },
-    },
-    bottom: {
-      value: measure.leftPadding,
-      step: 4,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.leftPadding = fn(measure.leftPadding);
-        });
-      },
-    },
-  };
-  const fourSide5: fourSideProps = {
-    up: {
-      value: measure.upHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.upHeight = fn(measure.upHeight);
-        });
-      },
-    },
-    left: {
-      value: measure.downHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.downHeight = fn(measure.downHeight);
-        });
-      },
-    },
-    side: {
-      value: measure.fontHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.fontHeight = fn(measure.fontHeight);
-        });
-      },
-    },
-    bottom: {
-      value: measure.sfontHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.sfontHeight = fn(measure.sfontHeight);
-        });
-      },
-    },
-  };
-
-  const fourSide6: fourSideProps = {
-    up: {
-      value: measure.fontSize,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.fontSize = fn(measure.fontSize);
-        });
-      },
-    },
-    left: {
-      value: measure.sfontSize,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.sfontSize = fn(measure.sfontSize);
-        });
-      },
-    },
-    side: {
-      value: measure.lineWidth,
-      step: 2,
-      min: 2,
-      max: 100,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.lineWidth = fn(measure.lineWidth);
-        });
-      },
-    },
-    bottom: {
-      value: measure.mm2px,
-      step: 0.5,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setMeasure((draft) => {
-          draft.mm2px = fn(measure.mm2px);
-        });
-      },
-    },
-  };
+  // const fourSide6: fourSideProps = {
+  //   up: {
+  //     value: measure.fontSize,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.fontSize = fn(measure.fontSize);
+  //       });
+  //     },
+  //   },
+  //   left: {
+  //     value: measure.sfontSize,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.sfontSize = fn(measure.sfontSize);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: measure.lineWidth,
+  //     step: 2,
+  //     min: 2,
+  //     max: 100,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.lineWidth = fn(measure.lineWidth);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: measure.mm2px,
+  //     step: 0.5,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setMeasure((draft) => {
+  //         draft.mm2px = fn(measure.mm2px);
+  //       });
+  //     },
+  //   },
+  // };
 
   // 确定模式
-  const [mode, setMode] = useImmer<modeType>({
-    mode: 0,
-  });
 
   const [styleConfig, setStyleConfig] = useImmer<StyleConfig>({
-    "holder":{
-      "leftMargin": 50,
-      "bottomMargin": 185,
-      "holderHeight": 28,
-      "holderWidthmm": 1000,
-      "leftPadding": 10,
-      "xScale": 1.1,
-      "upHeight": 246,
-      "fontSize": 18,
-      "baselineHeight": 116,
-      "lenScaleX": 2,
-      "lenScaleY": 2.6
+    holder: {
+      leftMargin: 50,
+      bottomMargin: 185,
+      holderHeight: 28,
+      holderWidthmm: 1000,
+      leftPadding: 10,
+      xScale: 1.1,
+      upHeight: 246,
+      fontSize: 18,
+      baselineHeight: 116,
+      lenScaleX: 2,
+      lenScaleY: 2.6,
     },
-    "screen":{
-      "mmwidth": 20,
-      "mmheight": 20,
-      "mm2px": 10,
-      "scaleX": 1.2,
-      "scaleY": 1.2,
-      "leftMargin": 205,
-      "bottomMargin": 515
+    screen: {
+      mmwidth: 20,
+      mmheight: 20,
+      mm2px: 10,
+      scaleX: 1.2,
+      scaleY: 1.2,
+      leftMargin: 205,
+      bottomMargin: 515,
     },
-    "measure":{
-      "mm2px": 5.5,
+    measure: {
+      mm2px: 5.5,
 
-      "upHeight": 42,
-      "downHeight": 44,
-      "dsHeight": 39,
-      "fontHeight": 20,
-      "sfontHeight":20,
+      upHeight: 42,
+      downHeight: 44,
+      dsHeight: 39,
+      fontHeight: 20,
+      sfontHeight: 20,
 
-      "fontSize": 20,
-      "sfontSize": 16,
-      "lineWidth": 2,
-      "leftPadding": 12,
-      "upPadding": 5,
+      fontSize: 20,
+      sfontSize: 16,
+      lineWidth: 2,
+      leftPadding: 12,
+      upPadding: 5,
 
-      "leftMargin": 660,
-      "bottomMargin": 415
-    }
-  })
+      leftMargin: 660,
+      bottomMargin: 415,
+    },
+  });
 
   const [instrumentConfig, setInstrumentConfig] = useImmer<InstrumentConfig>({
-    "name":"杨氏双缝干涉",
-    "lens": [
+    name: '杨氏双缝干涉',
+    lens: [
       {
-        "id": 0,
-        "uname": "light01",
-        "name": "光源",
-        "distancemm": 0,
-        "hide": false,
-        "option": {}
+        id: 0,
+        uname: 'light01',
+        name: '光源',
+        distancemm: 0,
+        hide: false,
+        option: {},
       },
       {
-        "id": 1,
-        "uname": "convex_lens01",
-        "name": "透镜",
-        "distancemm": 100,
-        "hide": false,
-        "option": {}
+        id: 1,
+        uname: 'convex_lens01',
+        name: '透镜',
+        distancemm: 100,
+        hide: false,
+        option: {},
       },
       {
-        "id": 2,
-        "uname": "filter01",
-        "name": "滤光片",
-        "distancemm": 220,
-        "hide": false,
-        "option": {
-          "wave": "660"
-        }
+        id: 2,
+        uname: 'filter01',
+        name: '滤光片',
+        distancemm: 220,
+        hide: false,
+        option: {
+          wave: '660',
+        },
       },
       {
-        "id": 3,
-        "uname": "single_slit01",
-        "name": "单缝",
-        "distancemm": 245,
-        "hide": false,
-        "option": {}
+        id: 3,
+        uname: 'single_slit01',
+        name: '单缝',
+        distancemm: 245,
+        hide: false,
+        option: {},
       },
       {
-        "id": 4,
-        "uname": "double_slit01",
-        "name": "双缝",
-        "distancemm": 365,
-        "hide": false,
-        "option": {
-          "d": 0.1
-        }
+        id: 4,
+        uname: 'double_slit01',
+        name: '双缝',
+        distancemm: 365,
+        hide: false,
+        option: {
+          d: 0.1,
+        },
       },
       {
-        "id": 5,
-        "uname": "measure_head01",
-        "name": "测量头",
-        "distancemm": 965,
-        "hide": false,
-        "option": {}
-      }
+        id: 5,
+        uname: 'measure_head01',
+        name: '测量头',
+        distancemm: 965,
+        hide: false,
+        option: {},
+      },
     ],
-    "light":{
-      "type":"D65",
-      "filter":-1
-    },
-    "screen":{
-      "type":0,
-      "seemm":8,
-      "require":
-        {
-          "d":"{4}.d",
-          "r0_2":"[5]",
-          "r0_1":"[4]"
-        }
-      ,
-      "func":"cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
-    },
-    "measure":{
-      "type": 0,
-      "initmm": 10
-    },
-    "control":{
-      "showmm":[0,1,2,3,4,5],
-      "move":[3,4,5]
-    },
-    "status":{
-      "offsetmm":0
-    }
-  }
-  )
-
-  const [interConf, setInterConf] = useImmer<interConfType>({
     light: {
-      name: '白炽灯',
       type: 'D65',
-      filter: 'red',
-      custom: 660,
+      filter: -1,
     },
-    d: 0.2,
-    wave: [660],
-    instense: [1],
+    screen: {
+      type: 0,
+      seemm: 8,
+      require: {
+        d: '{4}.d',
+        r0_2: '[5]',
+        r0_1: '[4]',
+      },
+      func: 'cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2',
+    },
+    measure: {
+      type: 0,
+      initmm: 10,
+    },
+    control: {
+      showmm: [0, 1, 2, 3, 4, 5],
+      move: [3, 4, 5],
+    },
+    setting: [
+      {
+        name: '滤光片',
+        type: 'ButtonSlider',
+        target: ['light.filter', '{2}.wave'],
+        options: {
+          options: [
+            {
+              name: '无',
+              value: -1,
+            },
+            {
+              name: '红',
+              value: 660,
+            },
+            {
+              name: '绿',
+              value: 550,
+            },
+          ],
+          min: 420,
+          max: 720,
+          step: 1,
+          toFixedPoint: 0,
+          unit: 'nm',
+        },
+      },
+    ],
+    status: {
+      offsetmm: 0,
+    },
   });
 
   const [customD, setCustomD] = useState<number>(0.2);
 
+  // const moveLeft = () => {
+  //   const now = screen.offsetmm;
+  //   const target = now - 0.1;
+  //   setScreen((draft) => {
+  //     draft.offsetmm = target;
+  //   });
+  //   setMeasure((draft) => {
+  //     draft.offsetmm = target;
+  //   });
+  // };
+  // const moveRight = () => {
+  //   const now = screen.offsetmm;
+  //   const target = now + 0.1;
+  //   setScreen((draft) => {
+  //     draft.offsetmm = target;
+  //   });
+  //   setMeasure((draft) => {
+  //     draft.offsetmm = target;
+  //   });
+  // };
 
-  const moveLeft = () => {
-    const now = screen.offsetmm;
-    const target = now - 0.1;
-    setScreen((draft) => {
-      draft.offsetmm = target;
-    });
-    setMeasure((draft) => {
-      draft.offsetmm = target;
-    });
-  };
-  const moveRight = () => {
-    const now = screen.offsetmm;
-    const target = now + 0.1;
-    setScreen((draft) => {
-      draft.offsetmm = target;
-    });
-    setMeasure((draft) => {
-      draft.offsetmm = target;
-    });
-  };
+  // const [dpath, setDpath] = useState('');
+  // const download = async () => {
 
-  const [dpath, setDpath] = useState('');
-  const download = async () => {
-    const config: confType = {
-      holder,
-      lens,
-      ctrl,
-      screen: {
-        ...screen,
-        bitmapArr: null,
-      },
-      interConf,
-      measure,
-      mode,
-      // scale,
-    };
+  //   };
 
-    if (web) {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([JSON.stringify(config, null, 2)]));
-      a.download = `${DateTime.now().toFormat(
-        'yyyyLLdd-HH:mm:ss'
-      )}.melian.json`;
-      a.click();
-    }
+  //   if (web) {
+  //     const a = document.createElement('a');
+  //     a.href = URL.createObjectURL(new Blob([JSON.stringify(config, null, 2)]));
+  //     a.download = `${DateTime.now().toFormat(
+  //       'yyyyLLdd-HH:mm:ss'
+  //     )}.melian.json`;
+  //     a.click();
+  //   }
 
-    if (!web) {
-      if (!ipcRenderer) return;
-      const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
-      if (path !== '') {
-        setDpath(path);
-      }
-    }
-  };
-  const load = async () => {
-    if (!ipcRenderer) return;
-    const { status, config } = await ipcRenderer.invoke('loadConf', [dpath]);
-    if (!status) {
-      // 加载失败
-      console.error('加载失败');
-    } else {
-      // 加载成功
-      setHolder(config.holder);
-      setLens(config.lens);
-      setCtrl(config.ctrl);
-      setScreen(config.screen);
-      setInterConf(config.interConf);
-      setMeasure(config.measure);
-      setMode(config.mode);
-    }
-  };
+  //   if (!web) {
+  //     if (!ipcRenderer) return;
+  //     const path = await ipcRenderer.invoke('saveConf', [dpath, config]);
+  //     if (path !== '') {
+  //       setDpath(path);
+  //     }
+  //   }
+  // };
+  // const load = async () => {
+  //   if (!ipcRenderer) return;
+  //   const { status, config } = await ipcRenderer.invoke('loadConf', [dpath]);
+  //   if (!status) {
+  //     // 加载失败
+  //     console.error('加载失败');
+  //   } else {
+  //     // 加载成功
+  //   }
+  // };
 
-  useEffect(() => {
-    if (ipcRenderer) {
-      ipcRenderer.on('exportConfig', async () => {
-        await download();
-      });
-      ipcRenderer.on('importConfig', async () => {
-        await load();
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (ipcRenderer) {
+  //     ipcRenderer.on('exportConfig', async () => {
+  //       await download();
+  //     });
+  //     ipcRenderer.on('importConfig', async () => {
+  //       await load();
+  //     });
+  //   }
+  // }, []);
 
   // 左下角控制区
 
-  const [sideControl, setSideControl] = useState<sideControlEnum>(
-    sideControlEnum.HOLDER
-  );
+  // const [sideControl, setSideControl] = useState<sideControlEnum>(
+  //   sideControlEnum.HOLDER
+  // );
 
   return (
     <>
@@ -979,20 +637,26 @@ export default function Scene() {
           </Space.Compact>
         </div>
       </div> */}
-      <LightScreenFixed2 instrumentConfig={instrumentConfig} styleConfig={styleConfig}/>
+      <LoadSetting
+        styleConfig={styleConfig}
+        instrumentConfig={instrumentConfig}
+        setInstrumentConfig={setInstrumentConfig}
+      />
+      <LightScreenFixed2
+        instrumentConfig={instrumentConfig}
+        styleConfig={styleConfig}
+      />
       <Measure1 instrumentConfig={instrumentConfig} styleConfig={styleConfig} />
       <Holder styleConfig={styleConfig} />
-      <LenGene instrumentConfig={instrumentConfig} styleConfig={styleConfig}/>
+      <LenGene instrumentConfig={instrumentConfig} styleConfig={styleConfig} />
       <Ctrl
-        instrumentConfig={instrumentConfig} styleConfig={styleConfig}
-        onchange={
-          (id,d)=>{
-            setInstrumentConfig((draft)=>{
-              draft.lens[id].distancemm = d;
-            }
-            )
-          }
-        }
+        instrumentConfig={instrumentConfig}
+        styleConfig={styleConfig}
+        onchange={(id, d) => {
+          setInstrumentConfig((draft) => {
+            draft.lens[id].distancemm = d;
+          });
+        }}
       />
     </>
   );

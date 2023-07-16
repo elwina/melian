@@ -8,7 +8,7 @@ import type {
 } from 'renderer/config.type';
 import { getWaveInstense } from 'renderer/formula/lightwave';
 import { parseRequire } from 'renderer/utils/parseRequire';
-import {parse} from 'mathjs';
+import { parse } from 'mathjs';
 import { mutiLight2rgb } from 'renderer/formula/light2rgb';
 
 interface propsType {
@@ -31,6 +31,14 @@ export default function LightScreenFixed2({
   const R = screenConfig.seemm * sStyle.mm2px * sStyle.scaleX;
   const pa = 6;
 
+  // let exec = parse("0").compile();
+
+  const execRef = useRef(parse('0').compile());
+
+  useEffect(() => {
+    execRef.current = parse(screenConfig.func).compile();
+  }, [screenConfig.func]);
+
   useEffect(() => {
     (async () => {
       // const { bitmapArr } = sC;
@@ -42,22 +50,26 @@ export default function LightScreenFixed2({
         lightConfig.filter
       );
 
-      const req=parseRequire(screenConfig.require,lensConfig);
-      const exec=parse(screenConfig.func).compile()
+      const req = parseRequire(screenConfig.require, instrumentConfig);
 
       const pxNum = sStyle.mmwidth * sStyle.mm2px;
       const pxStart = -sStyle.mmwidth / 2;
-      const data = [...Array(pxNum)].map((_, i) => pxStart + i / sStyle.mm2px)
-      .map((y)=> {
-        const newinstense= wave.map((l,i)=>{
-          const instense1 = instense[i];
-          const instense2:number = exec.evaluate({...req,y:y,l:l*1e-6});
-          return instense1*instense2;
-        })
-        return mutiLight2rgb(wave,newinstense);
-      });
+      const data = [...Array(pxNum)]
+        .map((_, i) => pxStart + i / sStyle.mm2px)
+        .map((y) => {
+          const newinstense = wave.map((l, i) => {
+            const instense1 = instense[i];
+            const instense2: number = execRef.current.evaluate({
+              ...req,
+              y: y,
+              l: l * 1e-6,
+            });
+            return instense1 * instense2;
+          });
+          return mutiLight2rgb(wave, newinstense);
+        });
 
-      const bitmapColArr =data;
+      const bitmapColArr = data;
       const row = sStyle.mmheight * sStyle.mm2px;
       const bitmapArr: Uint8ClampedArray = new Uint8ClampedArray(
         new Array(row).fill(bitmapColArr.flat()).flat()
