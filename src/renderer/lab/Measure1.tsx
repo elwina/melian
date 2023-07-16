@@ -1,16 +1,22 @@
 import { CSSProperties, useEffect, useRef } from 'react';
+import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
 import type { measureType, screenType } from 'renderer/Scene';
 
 interface propsType {
-  measureConfType: measureType;
+  styleConfig: StyleConfig;
+  instrumentConfig: InstrumentConfig;
 }
 
-export default function Measure1({ measureConfType: mC }: propsType) {
+export default function Measure1({ styleConfig,instrumentConfig }: propsType) {
+  const mStyle = styleConfig.measure;
+  const measureConfig = instrumentConfig.measure;
+  const statusConfig = instrumentConfig.status;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const h_w = 0.6;
-  const innerWidth = 70 * mC.mm2px + 2 * mC.leftPadding;
+  const innerWidth = 70 * mStyle.mm2px + 2 * mStyle.leftPadding;
   const canvasHeight =
-    mC.dsHeight + mC.downHeight + 2 * mC.upPadding + h_w * innerWidth;
+    mStyle.dsHeight + mStyle.downHeight + 2 * mStyle.upPadding + h_w * innerWidth;
   const outWidth = innerWidth * 1.1;
 
   useEffect(() => {
@@ -36,8 +42,8 @@ export default function Measure1({ measureConfType: mC }: propsType) {
     // 画上刻度背景
     const upBackStartX = 0;
     const upBackStartH = 0;
-    const upBackWidth = 70 * mC.mm2px + 2 * mC.leftPadding;
-    const upBackHeight = mC.upHeight + mC.upPadding;
+    const upBackWidth = 70 * mStyle.mm2px + 2 * mStyle.leftPadding;
+    const upBackHeight = mStyle.upHeight + mStyle.upPadding;
 
     // 上刻度背盘
     const upFrontStartX = 0;
@@ -60,12 +66,12 @@ export default function Measure1({ measureConfType: mC }: propsType) {
 
     // 画上刻度
     for (let i = 0; i <= 7; i++) {
-      const lineStartX = mC.leftPadding + i * 10 * mC.mm2px;
-      const lineStartH = mC.fontHeight + mC.upPadding;
-      const lineEndH = mC.upHeight + mC.upPadding;
+      const lineStartX = mStyle.leftPadding + i * 10 * mStyle.mm2px;
+      const lineStartH = mStyle.fontHeight + mStyle.upPadding;
+      const lineEndH = mStyle.upHeight + mStyle.upPadding;
 
       ctx.save();
-      ctx.lineWidth = mC.lineWidth;
+      ctx.lineWidth = mStyle.lineWidth;
       ctx.beginPath();
       ctx.moveTo(lineStartX, lineStartH);
       ctx.lineTo(lineStartX, lineEndH);
@@ -74,13 +80,13 @@ export default function Measure1({ measureConfType: mC }: propsType) {
 
       if (i !== 7)
         for (let j = 1; j <= 9; j++) {
-          const lineStartXX = lineStartX + j * mC.mm2px;
+          const lineStartXX = lineStartX + j * mStyle.mm2px;
           let lineStartHH = lineStartH;
           lineStartHH += (lineEndH - lineStartH) * (j === 5 ? 0.2 : 0.5);
           const lineEndHH = lineEndH;
           ctx.beginPath();
           ctx.moveTo(lineStartXX, lineStartHH);
-          ctx.lineWidth = mC.lineWidth;
+          ctx.lineWidth = mStyle.lineWidth;
           ctx.lineTo(lineStartXX, lineEndHH);
           ctx.closePath();
           ctx.stroke();
@@ -88,27 +94,27 @@ export default function Measure1({ measureConfType: mC }: propsType) {
       ctx.restore();
 
       ctx.save();
-      ctx.font = `normal ${mC.fontSize}px arial`;
+      ctx.font = `normal ${mStyle.fontSize}px arial`;
       ctx.textBaseline = 'top';
       const str = i.toString();
       const textWidth = ctx.measureText(str).width;
       const textStartX = lineStartX - textWidth / 2;
-      const textStartH = mC.upPadding;
+      const textStartH = mStyle.upPadding;
       ctx.fillText(str, textStartX, textStartH);
       ctx.restore();
     }
 
     // 画下刻度
-    const offsetpx = (mC.initmm + mC.offsetmm) * mC.mm2px;
+    const offsetpx = (measureConfig.initmm + statusConfig.offsetmm) * mStyle.mm2px;
     const a = 49 / 50;
-    const slineStartH = mC.upPadding + mC.dsHeight;
+    const slineStartH = mStyle.upPadding + mStyle.dsHeight;
     const slineEndH =
-      mC.upPadding + mC.dsHeight + mC.downHeight - mC.sfontHeight;
+      mStyle.upPadding + mStyle.dsHeight + mStyle.downHeight - mStyle.sfontHeight;
 
     // 画下块
     const downFrontStartX = offsetpx;
-    const downFrontStartH = slineStartH + mC.downHeight + mC.upPadding;
-    const downFrontWidth = 50 * mC.mm2px * a + 2 * mC.leftPadding;
+    const downFrontStartH = slineStartH + mStyle.downHeight + mStyle.upPadding;
+    const downFrontWidth = 50 * mStyle.mm2px * a + 2 * mStyle.leftPadding;
     const downFrontHeight = h_w * downFrontWidth;
     ctx.save();
     ctx.fillStyle = '#172b5b4a';
@@ -162,8 +168,8 @@ export default function Measure1({ measureConfType: mC }: propsType) {
     // 画下刻度背景
     const downBackStartX = offsetpx;
     const downBackStartH = slineStartH;
-    const downBackWidth = 50 * mC.mm2px * a + 2 * mC.leftPadding;
-    const downBackHeight = mC.downHeight + mC.upPadding;
+    const downBackWidth = 50 * mStyle.mm2px * a + 2 * mStyle.leftPadding;
+    const downBackHeight = mStyle.downHeight + mStyle.upPadding;
     ctx.save();
     ctx.fillStyle = '#9aa5b7';
     ctx.fillRect(downBackStartX, downBackStartH, downBackWidth, downBackHeight);
@@ -177,24 +183,24 @@ export default function Measure1({ measureConfType: mC }: propsType) {
     ctx.restore();
 
     for (let i = 0; i <= 10; i++) {
-      const slineStartX = offsetpx + mC.leftPadding + i * 5 * mC.mm2px * a;
+      const slineStartX = offsetpx + mStyle.leftPadding + i * 5 * mStyle.mm2px * a;
 
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(slineStartX, slineStartH);
-      ctx.lineWidth = mC.lineWidth;
+      ctx.lineWidth = mStyle.lineWidth;
       ctx.lineTo(slineStartX, slineEndH);
       ctx.closePath();
       ctx.stroke();
 
       if (i !== 10)
         for (let j = 1; j <= 4; j++) {
-          const lineStartXX = slineStartX + j * mC.mm2px * a;
+          const lineStartXX = slineStartX + j * mStyle.mm2px * a;
           const slineStartHH = slineStartH;
           const slineEndHH = slineEndH - (slineEndH - slineStartH) * 0.5;
           ctx.beginPath();
           ctx.moveTo(lineStartXX, slineStartHH);
-          ctx.lineWidth = mC.lineWidth;
+          ctx.lineWidth = mStyle.lineWidth;
           ctx.lineTo(lineStartXX, slineEndHH);
           ctx.closePath();
           ctx.stroke();
@@ -202,21 +208,21 @@ export default function Measure1({ measureConfType: mC }: propsType) {
       ctx.restore();
 
       ctx.save();
-      ctx.font = `normal ${mC.sfontSize}px sans-serif`;
+      ctx.font = `normal ${mStyle.sfontSize}px sans-serif`;
       ctx.textBaseline = 'bottom';
       const str = (i % 10).toString();
       const textWidth = ctx.measureText(str).width;
       const textStartX = slineStartX - textWidth / 2;
-      const textStartH = mC.dsHeight + mC.downHeight + mC.upPadding;
+      const textStartH = mStyle.dsHeight + mStyle.downHeight + mStyle.upPadding;
       ctx.fillText(str, textStartX, textStartH);
       ctx.restore();
     }
-  }, [mC]);
+  }, [styleConfig,instrumentConfig]);
 
   const sty: CSSProperties = {
     position: 'fixed',
-    bottom: mC.bottomMargin,
-    left: mC.leftMargin,
+    bottom: mStyle.bottomMargin,
+    left: mStyle.leftMargin,
     height: canvasHeight,
     width: outWidth,
     zIndex: 5,

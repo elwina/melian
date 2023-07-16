@@ -18,6 +18,7 @@ module.exports = {
     'no-continue': 'off',
     'no-shadow': 'off',
     'react-hooks/exhaustive-deps': 'warn',
+    'import/prefer-default-export': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

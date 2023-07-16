@@ -1,12 +1,14 @@
 import { CSSProperties, useEffect, useRef } from 'react';
+import { StyleConfig } from 'renderer/config.type';
 import type { holderType } from 'renderer/Scene';
 
 interface propsType {
-  holderConf: holderType;
+  styleConfig: StyleConfig;
 }
-export default function Holder({ holderConf: hF }: propsType) {
-  const heightCalc = hF.holderHeight;
-  const widthCalc = 2 * hF.leftPadding + hF.holderWidthmm * hF.xScale;
+export default function Holder({ styleConfig }: propsType) {
+  const hStyle = styleConfig.holder;
+  const heightCalc = hStyle.holderHeight;
+  const widthCalc = 2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale;
 
   const canvaRef = useRef<HTMLCanvasElement>(null);
 
@@ -31,17 +33,17 @@ export default function Holder({ holderConf: hF }: propsType) {
     ctx.restore();
 
     // 画刻度
-    const totalmm = hF.holderWidthmm;
+    const totalmm = hStyle.holderWidthmm;
     ctx.save();
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1;
     ctx.beginPath();
     for (let i = 0; i <= totalmm; i++) {
-      const x = hF.leftPadding + i * hF.xScale;
+      const x = hStyle.leftPadding + i * hStyle.xScale;
       if (i % 10 !== 0) {
         continue;
       }
-      const endH = i % 10 ? hF.holderHeight : 0.6 * hF.holderHeight;
+      const endH = i % 10 ? hStyle.holderHeight : 0.6 * hStyle.holderHeight;
       ctx.moveTo(x, 0);
       ctx.lineTo(x, endH);
     }
@@ -57,8 +59,8 @@ export default function Holder({ holderConf: hF }: propsType) {
       width={widthCalc}
       style={{
         position: 'fixed',
-        left: hF.leftMargin,
-        bottom: hF.bottomMargin,
+        left: hStyle.leftMargin,
+        bottom: hStyle.bottomMargin,
         backgroundColor: '#e4e4e4',
       }}
     />

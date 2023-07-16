@@ -7,15 +7,18 @@ import {
   useRef,
   useState,
 } from 'react';
+import { LenConfig, StyleConfig } from 'renderer/config.type';
 import type { holderType, lenType } from 'renderer/Scene';
 import DragMove from './DragMove';
-import { lensConfig } from './lensConfig';
+import {  lensConfig } from './lensConfig';
 
 interface propsType {
-  holderConf: holderType;
-  lenConf: lenType;
+  styleConfig: StyleConfig;
+  lenConf: LenConfig;
 }
-export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
+export default function Len({ styleConfig, lenConf: lF }: propsType) {
+  const hStyle = styleConfig.holder;
+
   let lenConfig = lensConfig.get(lF.uname);
   if (lenConfig === undefined) {
     lenConfig = {
@@ -31,14 +34,14 @@ export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
 
   const { width: lenWidth, height: lenHeight, imgurl: svgurl } = lenConfig;
 
-  const bottomCalc = hF.bottomMargin + hF.holderHeight;
+  const bottomCalc = hStyle.bottomMargin + hStyle.holderHeight;
   const leftCalc =
-    hF.leftMargin +
-    hF.leftPadding +
-    lF.distancemm * hF.xScale -
-    (lenWidth * hF.lenScaleX) / 2; // canvas左边界
-  const heightCalc = hF.upHeight;
-  const widthCalc = lenWidth * hF.lenScaleX;
+    hStyle.leftMargin +
+    hStyle.leftPadding +
+    lF.distancemm * hStyle.xScale -
+    (lenWidth * hStyle.lenScaleX) / 2; // canvas左边界
+  const heightCalc = hStyle.upHeight;
+  const widthCalc = lenWidth * hStyle.lenScaleX;
 
   useEffect(() => {
     if (imageReady === false) {
@@ -64,10 +67,10 @@ export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
     canvaRef.current.height = cheight;
 
     // 画镜筒
-    const t_w = 2.5 * hF.xScale;
+    const t_w = 2.5 * hStyle.xScale;
     const tubeStartX = cwidth / 2 - t_w;
     const tubeStartY =
-      cheight - hF.baselineHeight + (lenHeight * hF.lenScaleY) / 2;
+      cheight - hStyle.baselineHeight + (lenHeight * hStyle.lenScaleY) / 2;
     const tubeWidth = 2 * t_w;
     const tubeHeight = cheight - tubeStartY;
     ctx.save();
@@ -81,14 +84,14 @@ export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
     // 画镜面
     const imgStartX = 0;
     const imgStartY =
-      cheight - hF.baselineHeight - (lenHeight * hF.lenScaleY) / 2;
+      cheight - hStyle.baselineHeight - (lenHeight * hStyle.lenScaleY) / 2;
     ctx.save();
     ctx.drawImage(
       img,
       imgStartX,
       imgStartY,
-      lenWidth * hF.lenScaleX,
-      lenHeight * hF.lenScaleY
+      lenWidth * hStyle.lenScaleX,
+      lenHeight * hStyle.lenScaleY
     );
     ctx.restore();
 
@@ -100,13 +103,13 @@ export default function Len({ holderConf: hF, lenConf: lF }: propsType) {
     });
     ctx.save();
     ctx.fillStyle = '#000000';
-    ctx.font = `normal ${hF.fontSize}px 黑体`;
+    ctx.font = `normal ${hStyle.fontSize}px 黑体`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     textStartH.forEach((h, i) => {
       ctx.fillText(lF.name[i], cwidth / 2, h);
     });
-  }, [imageReady, hF, lF]);
+  }, [imageReady, hStyle, lF]);
 
   return (
     <>

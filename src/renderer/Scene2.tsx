@@ -1,48 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  Input,
-  InputNumber,
-  Radio,
-  RadioChangeEvent,
-  Slider,
-  Space,
-  Tooltip,
-  Typography,
-  Upload,
-  message,
-} from 'antd';
-import { BsFillBoxFill } from 'react-icons/bs';
-import {
-  CaretLeftFilled,
-  CaretRightFilled,
-  DownloadOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-import {
-  VscChromeMaximize,
-  VscChromeMinimize,
-  VscChromeRestore,
-  VscChromeClose,
-} from 'react-icons/vsc';
-import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
+import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 import { Channels } from 'main/preload';
 import { DateTime } from 'luxon';
 import Holder from './lab/Holder';
-import Len from './lab/Len';
 import 'antd/dist/reset.css';
-import { mutiLightInter, singleLightInter } from './formula/interference';
-import { light2rgb, mutiLight2rgb } from './formula/light2rgb';
-import { D65Specteum } from './formula/spectrum';
-import { multiplyArrays, normalization } from './utils/array';
-import LightScreen from './lab/LightScreen';
-import FourSide, { fourSideProps } from './control/FourSide';
-import styles from './Scene.module.css';
+import { fourSideProps } from './control/FourSide';
 import Measure1 from './lab/Measure1';
-import LightScreenFixed from './lab/LightScreenFixed';
+import LightScreenFixed2 from './lab/LightScreenFixed2';
+import { InstrumentConfig, StyleConfig } from './config.type';
+import LenGene from './lab/LenGene';
 import Ctrl from './lab/Ctrl';
-import CustomButton from './control/CustomButton';
 
 export interface holderType {
   leftMargin: number;
@@ -180,133 +147,133 @@ export default function Scene() {
     lenScaleY: 2.6, // 7
   });
 
-  const fourSide1: fourSideProps = {
-    up: {
-      value: holder.bottomMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.bottomMargin = fn(holder.bottomMargin);
-        });
-      },
-    },
-    left: {
-      value: holder.leftMargin,
-      step: 5,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.leftMargin = fn(holder.leftMargin);
-        });
-      },
-    },
-    side: {
-      value: holder.holderHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.holderHeight = fn(holder.holderHeight);
-        });
-      },
-    },
-    bottom: {
-      value: holder.holderWidthmm,
-      step: 20,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.holderWidthmm = fn(holder.holderWidthmm);
-        });
-      },
-    },
-  };
-  const fourSide2: fourSideProps = {
-    up: {
-      value: holder.upHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.upHeight = fn(holder.upHeight);
-        });
-      },
-    },
-    left: {
-      value: holder.leftPadding,
-      step: 2,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.leftPadding = fn(holder.leftPadding);
-        });
-      },
-    },
-    side: {
-      value: holder.fontSize,
-      step: 2,
-      min: 0,
-      max: document.body.clientWidth,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.fontSize = fn(holder.fontSize);
-        });
-      },
-    },
-    bottom: {
-      value: holder.xScale,
-      step: 0.1,
-      min: 0,
-      max: 100,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.xScale = fn(holder.xScale);
-        });
-      },
-    },
-  };
-  const fourSide7: fourSideProps = {
-    up: {
-      value: holder.baselineHeight,
-      step: 2,
-      min: 0,
-      max: document.body.clientHeight,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.baselineHeight = fn(holder.baselineHeight);
-        });
-      },
-    },
-    bottom: {
-      value: holder.lenScaleX,
-      step: 0.2,
-      min: 0,
-      max: 100,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.lenScaleX = fn(holder.lenScaleX);
-        });
-      },
-    },
-    side: {
-      value: holder.lenScaleY,
-      step: 0.2,
-      min: 0,
-      max: 100,
-      set: (fn) => {
-        setHolder((draft) => {
-          draft.lenScaleY = fn(holder.lenScaleY);
-        });
-      },
-    },
-  };
+  // const fourSide1: fourSideProps = {
+  //   up: {
+  //     value: holder.bottomMargin,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.bottomMargin = fn(holder.bottomMargin);
+  //       });
+  //     },
+  //   },
+  //   left: {
+  //     value: holder.leftMargin,
+  //     step: 5,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.leftMargin = fn(holder.leftMargin);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: holder.holderHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.holderHeight = fn(holder.holderHeight);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: holder.holderWidthmm,
+  //     step: 20,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.holderWidthmm = fn(holder.holderWidthmm);
+  //       });
+  //     },
+  //   },
+  // };
+  // const fourSide2: fourSideProps = {
+  //   up: {
+  //     value: holder.upHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.upHeight = fn(holder.upHeight);
+  //       });
+  //     },
+  //   },
+  //   left: {
+  //     value: holder.leftPadding,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.leftPadding = fn(holder.leftPadding);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: holder.fontSize,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientWidth,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.fontSize = fn(holder.fontSize);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: holder.xScale,
+  //     step: 0.1,
+  //     min: 0,
+  //     max: 100,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.xScale = fn(holder.xScale);
+  //       });
+  //     },
+  //   },
+  // };
+  // const fourSide7: fourSideProps = {
+  //   up: {
+  //     value: holder.baselineHeight,
+  //     step: 2,
+  //     min: 0,
+  //     max: document.body.clientHeight,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.baselineHeight = fn(holder.baselineHeight);
+  //       });
+  //     },
+  //   },
+  //   bottom: {
+  //     value: holder.lenScaleX,
+  //     step: 0.2,
+  //     min: 0,
+  //     max: 100,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.lenScaleX = fn(holder.lenScaleX);
+  //       });
+  //     },
+  //   },
+  //   side: {
+  //     value: holder.lenScaleY,
+  //     step: 0.2,
+  //     min: 0,
+  //     max: 100,
+  //     set: (fn) => {
+  //       setHolder((draft) => {
+  //         draft.lenScaleY = fn(holder.lenScaleY);
+  //       });
+  //     },
+  //   },
+  // };
 
   // distance 毫米
   const [lens, setLens] = useImmer<lenType[]>([
@@ -610,6 +577,135 @@ export default function Scene() {
     mode: 0,
   });
 
+  const [styleConfig, setStyleConfig] = useImmer<StyleConfig>({
+    "holder":{
+      "leftMargin": 50,
+      "bottomMargin": 185,
+      "holderHeight": 28,
+      "holderWidthmm": 1000,
+      "leftPadding": 10,
+      "xScale": 1.1,
+      "upHeight": 246,
+      "fontSize": 18,
+      "baselineHeight": 116,
+      "lenScaleX": 2,
+      "lenScaleY": 2.6
+    },
+    "screen":{
+      "mmwidth": 20,
+      "mmheight": 20,
+      "mm2px": 10,
+      "scaleX": 1.2,
+      "scaleY": 1.2,
+      "leftMargin": 205,
+      "bottomMargin": 515
+    },
+    "measure":{
+      "mm2px": 5.5,
+
+      "upHeight": 42,
+      "downHeight": 44,
+      "dsHeight": 39,
+      "fontHeight": 20,
+      "sfontHeight":20,
+
+      "fontSize": 20,
+      "sfontSize": 16,
+      "lineWidth": 2,
+      "leftPadding": 12,
+      "upPadding": 5,
+
+      "leftMargin": 660,
+      "bottomMargin": 415
+    }
+  })
+
+  const [instrumentConfig, setInstrumentConfig] = useImmer<InstrumentConfig>({
+    "name":"杨氏双缝干涉",
+    "lens": [
+      {
+        "id": 0,
+        "uname": "light01",
+        "name": "光源",
+        "distancemm": 0,
+        "hide": false,
+        "option": {}
+      },
+      {
+        "id": 1,
+        "uname": "convex_lens01",
+        "name": "透镜",
+        "distancemm": 100,
+        "hide": false,
+        "option": {}
+      },
+      {
+        "id": 2,
+        "uname": "filter01",
+        "name": "滤光片",
+        "distancemm": 220,
+        "hide": false,
+        "option": {
+          "wave": "660"
+        }
+      },
+      {
+        "id": 3,
+        "uname": "single_slit01",
+        "name": "单缝",
+        "distancemm": 245,
+        "hide": false,
+        "option": {}
+      },
+      {
+        "id": 4,
+        "uname": "double_slit01",
+        "name": "双缝",
+        "distancemm": 365,
+        "hide": false,
+        "option": {
+          "d": 0.1
+        }
+      },
+      {
+        "id": 5,
+        "uname": "measure_head01",
+        "name": "测量头",
+        "distancemm": 965,
+        "hide": false,
+        "option": {}
+      }
+    ],
+    "light":{
+      "type":"D65",
+      "filter":-1
+    },
+    "screen":{
+      "type":0,
+      "seemm":8,
+      "require":
+        {
+          "d":"{4}.d",
+          "r0_2":"[5]",
+          "r0_1":"[4]"
+        }
+      ,
+      "func":"cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+    },
+    "measure":{
+      "type": 0,
+      "initmm": 10
+    },
+    "control":{
+      "showmm":[0,1,2,3,4,5],
+      "move":[3,4,5]
+    },
+    "status":{
+      "offsetmm":0
+    }
+  }
+  )
+
   const [interConf, setInterConf] = useImmer<interConfType>({
     light: {
       name: '白炽灯',
@@ -624,128 +720,6 @@ export default function Scene() {
 
   const [customD, setCustomD] = useState<number>(0.2);
 
-  useEffect(() => {
-    if (interConf.light.type === 'D65') {
-      setLens((draft) => {
-        for (let i = 0; i < draft.length; i++) {
-          draft[i].hide = false;
-        }
-      });
-    }
-  }, [interConf.light.type, setLens]);
-
-  useEffect(() => {
-    switch (interConf.light.filter) {
-      case 'none':
-        setLens((draft) => {
-          // 更改滤光片
-          draft[2].hide = true;
-        });
-        break;
-      case 'red':
-        setLens((draft) => {
-          // 更改滤光片
-          draft[2].hide = true;
-          draft[2].option.color = 'red';
-        });
-        break;
-      case 'green':
-        setLens((draft) => {
-          // 更改滤光片
-          draft[2].hide = true;
-          draft[2].option.color = 'green';
-        });
-        break;
-      case 'custom':
-        setLens((draft) => {
-          // 更改滤光片
-          draft[2].hide = false;
-          draft[2].option.color = 'custom';
-          draft[2].option.lambda = interConf.light.custom;
-        });
-        break;
-    }
-  }, [interConf.light.custom, interConf.light.filter, setLens]);
-
-  // 以下为托马斯杨干涉内容
-  useEffect(() => {
-    if (interConf.light.type === 'D65') {
-      switch (interConf.light.filter) {
-        case 'none':
-          setInterConf((draft) => {
-            draft.wave = D65Specteum.wave;
-            draft.instense = normalization(D65Specteum.instense);
-          });
-          break;
-        case 'red':
-          setInterConf((draft) => {
-            draft.wave = [660];
-            draft.instense = [1];
-          });
-          break;
-        case 'green':
-          setInterConf((draft) => {
-            draft.wave = [535];
-            draft.instense = [1];
-          });
-          break;
-        case 'custom':
-          setInterConf((draft) => {
-            draft.wave = [interConf.light.custom];
-            draft.instense = [1];
-          });
-          break;
-      }
-    }
-  }, [interConf.light, setInterConf]);
-
-  useEffect(() => {
-    const { d } = interConf;
-    const n = 1;
-    const r0 = lens[5].distancemm - lens[4].distancemm;
-    const { wave } = interConf;
-    const { instense } = interConf;
-
-    const pxNum = screen.mmwidth * screen.mm2px;
-    const pxStart = -screen.mmwidth / 2;
-
-    const data = [...Array(pxNum)]
-      .map((e, i) => pxStart + i / screen.mm2px)
-      .map((po) => {
-        return {
-          position: po,
-          wave: wave,
-          instense: multiplyArrays(
-            mutiLightInter(
-              d,
-              r0,
-              wave.map((v) => v * 1e-6),
-              n
-            )(po),
-            instense
-          ),
-        };
-      });
-
-    const bitmapColArr = data.map((v) => {
-      return mutiLight2rgb(wave, v.instense);
-    });
-    const row = screen.mmheight * screen.mm2px;
-    const bitmapArr: Uint8ClampedArray = new Uint8ClampedArray(
-      new Array(row).fill(bitmapColArr.flat()).flat()
-    );
-
-    setScreen((draft) => {
-      draft.bitmapArr = bitmapArr;
-    });
-  }, [
-    interConf,
-    lens,
-    screen.mm2px,
-    screen.mmheight,
-    screen.mmwidth,
-    setScreen,
-  ]);
 
   const moveLeft = () => {
     const now = screen.offsetmm;
@@ -838,7 +812,7 @@ export default function Scene() {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           position: 'fixed',
           bottom: 10,
@@ -1004,18 +978,21 @@ export default function Scene() {
             />
           </Space.Compact>
         </div>
-      </div>
-      <LightScreenFixed screenConf={screen} />
-      <Measure1 measureConfType={measure} />
-      <Holder holderConf={holder} />
-      {lens.map((len, i) => {
-        return <Len key={len.id} lenConf={len} holderConf={holder} />;
-      })}
+      </div> */}
+      <LightScreenFixed2 instrumentConfig={instrumentConfig} styleConfig={styleConfig}/>
+      <Measure1 instrumentConfig={instrumentConfig} styleConfig={styleConfig} />
+      <Holder styleConfig={styleConfig} />
+      <LenGene instrumentConfig={instrumentConfig} styleConfig={styleConfig}/>
       <Ctrl
-        ctrlConf={ctrl}
-        holderConf={holder}
-        lensConf={lens}
-        setLens={setLens}
+        instrumentConfig={instrumentConfig} styleConfig={styleConfig}
+        onchange={
+          (id,d)=>{
+            setInstrumentConfig((draft)=>{
+              draft.lens[id].distancemm = d;
+            }
+            )
+          }
+        }
       />
     </>
   );

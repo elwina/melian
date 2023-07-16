@@ -4,13 +4,13 @@ import light01_svg from '../../../assets/lens/light01.svg';
 import double_slit01_svg from '../../../assets/lens/double_slit01.svg';
 import measure_lens01_svg from '../../../assets/lens/measure_lens01.svg';
 
-export interface LenConfig {
+export interface LenModelConfig {
   height: number;
   width: number;
 
   imgurl: string;
 }
-export const lensConfig: Map<string, LenConfig> = new Map([
+export const lensConfig: Map<string, LenModelConfig> = new Map([
   [
     'convex_lens01',
     {
