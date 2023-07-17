@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
-import { Channels } from 'main/preload';
+import { Channels, ElectronHandler } from 'main/preload';
 import { DateTime } from 'luxon';
 import Holder from './lab/Holder';
 import 'antd/dist/reset.css';
@@ -11,18 +11,8 @@ import { InstrumentConfig, StyleConfig } from './config.type';
 import LenGene from './lab/LenGene';
 import Ctrl from './lab/Ctrl';
 import LoadSetting from './setting/LoadSetting';
-
-export interface interConfType {
-  light: {
-    name: string;
-    type: 'D65';
-    filter: 'none' | 'red' | 'green' | 'custom';
-    custom: number;
-  };
-  d: number;
-  wave: number[];
-  instense: number[];
-}
+import SwitchExp from './experiment/switchExp';
+import young from './experiment/json/young.json';
 
 export enum sideControlEnum {
   HOLDER,
@@ -31,17 +21,7 @@ export enum sideControlEnum {
 }
 
 export default function Scene() {
-  let ipcRenderer: {
-    sendMessage(channel: Channels, args: unknown[]): void;
-    on(channel: Channels, func: (...args: unknown[]) => void): () => void;
-    once(channel: Channels, func: (...args: unknown[]) => void): void;
-    invoke(channel: Channels, args: unknown[]): Promise<any>;
-    minimize(): void;
-    maximize(): void;
-    unmaximize(): void;
-    restore(): void;
-    close(): void;
-  } | null;
+  let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
       ? window.electron.ipcRenderer
@@ -49,7 +29,6 @@ export default function Scene() {
   } catch {
     ipcRenderer = null;
   }
-
   const web = !ipcRenderer;
 
   // const fourSide3: fourSideProps = {
@@ -241,6 +220,8 @@ export default function Scene() {
 
   // 确定模式
 
+  const [exp, setExp] = useState<string>('杨氏双缝干涉');
+
   const [styleConfig, setStyleConfig] = useImmer<StyleConfig>({
     holder: {
       leftMargin: 50,
@@ -284,116 +265,9 @@ export default function Scene() {
     },
   });
 
-  const [instrumentConfig, setInstrumentConfig] = useImmer<InstrumentConfig>({
-    name: '杨氏双缝干涉',
-    lens: [
-      {
-        id: 0,
-        uname: 'light01',
-        name: '光源',
-        distancemm: 0,
-        hide: false,
-        option: {},
-      },
-      {
-        id: 1,
-        uname: 'convex_lens01',
-        name: '透镜',
-        distancemm: 100,
-        hide: false,
-        option: {},
-      },
-      {
-        id: 2,
-        uname: 'filter01',
-        name: '滤光片',
-        distancemm: 220,
-        hide: false,
-        option: {
-          wave: '660',
-        },
-      },
-      {
-        id: 3,
-        uname: 'single_slit01',
-        name: '单缝',
-        distancemm: 245,
-        hide: false,
-        option: {},
-      },
-      {
-        id: 4,
-        uname: 'double_slit01',
-        name: '双缝',
-        distancemm: 365,
-        hide: false,
-        option: {
-          d: 0.1,
-        },
-      },
-      {
-        id: 5,
-        uname: 'measure_head01',
-        name: '测量头',
-        distancemm: 965,
-        hide: false,
-        option: {},
-      },
-    ],
-    light: {
-      type: 'D65',
-      filter: -1,
-    },
-    screen: {
-      type: 0,
-      seemm: 8,
-      require: {
-        d: '{4}.d',
-        r0_2: '[5]',
-        r0_1: '[4]',
-      },
-      func: 'cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2',
-    },
-    measure: {
-      type: 0,
-      initmm: 10,
-    },
-    control: {
-      showmm: [0, 1, 2, 3, 4, 5],
-      move: [3, 4, 5],
-    },
-    setting: [
-      {
-        name: '滤光片',
-        type: 'ButtonSlider',
-        target: ['light.filter', '{2}.wave'],
-        options: {
-          options: [
-            {
-              name: '无',
-              value: -1,
-            },
-            {
-              name: '红',
-              value: 660,
-            },
-            {
-              name: '绿',
-              value: 550,
-            },
-          ],
-          min: 420,
-          max: 720,
-          step: 1,
-          toFixedPoint: 0,
-          unit: 'nm',
-        },
-      },
-    ],
-    status: {
-      offsetmm: 0,
-    },
-  });
+  const [instrumentConfig, setInstrumentConfig] = useImmer<InstrumentConfig>(
+    young as InstrumentConfig
+  );
 
   const [customD, setCustomD] = useState<number>(0.2);
 
@@ -641,6 +515,7 @@ export default function Scene() {
         styleConfig={styleConfig}
         instrumentConfig={instrumentConfig}
         setInstrumentConfig={setInstrumentConfig}
+        setStyleConfig={setStyleConfig}
       />
       <LightScreenFixed2
         instrumentConfig={instrumentConfig}
@@ -656,6 +531,13 @@ export default function Scene() {
           setInstrumentConfig((draft) => {
             draft.lens[id].distancemm = d;
           });
+        }}
+      />
+      <SwitchExp
+        exp={exp}
+        onChange={(name, config) => {
+          setExp(name);
+          setInstrumentConfig(config);
         }}
       />
     </>

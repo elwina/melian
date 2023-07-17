@@ -106,6 +106,39 @@
         "toFixedPoint": 0,
         "unit": "nm"
       }
+    },
+    {
+      "name": "双缝间距",
+      "type": "ButtonSlider",
+      "target": ["{4}.d"],
+      "options": {
+        "options": [
+          {
+            "name": "0.2mm",
+            "value": 0.2
+          },
+          {
+            "name": "0.02mm",
+
+            "value": 0.02
+          }
+        ],
+        "min": 0.01,
+        "max": 0.5,
+        "step": 0.01,
+        "toFixedPoint": 2,
+        "unit": "mm"
+      }
+    },
+    {
+      "name": "目镜控制",
+      "type": "TwoArrow",
+      "target": ["status.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.1
+      }
     }
   ],
   "status": {

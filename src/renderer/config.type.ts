@@ -32,7 +32,7 @@ export interface ControlConfig {
   move: number[];
 }
 
-export type SettingType = 'ButtonSlider';
+export type SettingType = 'ButtonSlider' | 'TwoArrow';
 
 export interface SettingConfig {
   name: string;

@@ -2,8 +2,8 @@ import { Radio, RadioChangeEvent, Slider, Space } from 'antd';
 import { useEffect, useState } from 'react';
 
 interface propsType {
-  value: number;
-  onChange: (value: number) => void;
+  values: number[];
+  onChange: (values: number[]) => void;
   options: {
     options: {
       name: string;
@@ -17,13 +17,18 @@ interface propsType {
   };
 }
 
-export default function ButtonSlider({ value, onChange, options }: propsType) {
+export default function ButtonSlider({ values, onChange, options }: propsType) {
+  const value = values[0];
   const [ifCustom, setIfCustom] = useState<boolean>(false);
   const [customD, setCustomD] = useState<number>(value);
 
+  function change(v: number) {
+    onChange(Array.from({ length: values.length }, () => v));
+  }
+
   useEffect(() => {
     if (ifCustom) {
-      onChange(customD);
+      change(customD);
     }
   }, [customD, ifCustom, onChange]);
 
@@ -33,10 +38,10 @@ export default function ButtonSlider({ value, onChange, options }: propsType) {
         onChange={(e: RadioChangeEvent) => {
           if (e.target.value === 'custom') {
             setIfCustom(true);
-            onChange(customD);
+            change(customD);
           } else {
             setIfCustom(false);
-            onChange(parseFloat(e.target.value));
+            change(parseFloat(e.target.value));
           }
         }}
       >

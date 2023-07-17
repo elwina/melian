@@ -3,14 +3,14 @@ import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import type { ctrlType, holderType, lenType } from 'renderer/Scene';
 import { inArray } from 'renderer/utils/array';
 import { Updater } from 'use-immer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
 import DragMove from './DragMove';
 
 interface propsType {
   styleConfig: StyleConfig;
   instrumentConfig: InstrumentConfig;
-  onchange:(id:number,distancemm:number)=>void;
+  onchange: (id: number, distancemm: number) => void;
 }
 
 export default function Ctrl({
@@ -18,14 +18,22 @@ export default function Ctrl({
   instrumentConfig,
   onchange,
 }: propsType) {
-  const hStyle=styleConfig.holder;
-  const lensConfig=instrumentConfig.lens;
-  const ctrlConfig=instrumentConfig.control;
+  const hStyle = styleConfig.holder;
+  const lensConfig = instrumentConfig.lens;
+  const ctrlConfig = instrumentConfig.control;
 
   const [ch, setch] = useState(document.body.clientHeight);
-  document.body.onresize = () => {
-    setch(document.body.clientHeight);
-  };
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setch(document.body.clientHeight);
+    });
+    return () => {
+      window.removeEventListener('resize', () => {
+        setch(document.body.clientHeight);
+      });
+    };
+  }, []);
 
   return (
     <div
@@ -61,12 +69,12 @@ export default function Ctrl({
                 />
                 <AiFillCaretLeft
                   onClick={() => {
-                    onchange(i,lensConfig[i].distancemm-1);
+                    onchange(i, lensConfig[i].distancemm - 1);
                   }}
                 />
                 <AiFillCaretRight
                   onClick={() => {
-                    onchange(i,lensConfig[i].distancemm+1);
+                    onchange(i, lensConfig[i].distancemm + 1);
                   }}
                 />
               </>

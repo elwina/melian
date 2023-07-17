@@ -194,7 +194,6 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    console.log(process.env.CONTEST);
     if (process.env.CONTEST) {
       return [subMenuProgram];
     }
@@ -203,7 +202,7 @@ export default class MenuBuilder {
   }
 
   buildDefaultTemplate() {
-    const templateDefault: Array<unknown> = [
+    const templateDefault: MenuItemConstructorOptions[] = [
       {
         label: '程序',
         submenu: [
@@ -282,8 +281,7 @@ export default class MenuBuilder {
     //         ],
     // },
 
-    console.log(process.env.CONTEST);
-    if (process.env.CONTEST)
+    if (!process.env.CONTEST)
       templateDefault.push({
         label: '关于',
         submenu: [

@@ -10,7 +10,7 @@ import {
 import { LenConfig, StyleConfig } from 'renderer/config.type';
 import type { holderType, lenType } from 'renderer/Scene';
 import DragMove from './DragMove';
-import {  lensConfig } from './lensConfig';
+import { lensConfig } from './lensConfig';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -47,6 +47,15 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
     if (imageReady === false) {
       return;
     }
+    let lenConfig = lensConfig.get(lF.uname);
+    if (lenConfig === undefined) {
+      lenConfig = {
+        width: 0,
+        height: 0,
+        imgurl: '',
+      };
+    }
+    const { width: lenWidth, height: lenHeight, imgurl: svgurl } = lenConfig;
 
     const img = imageRef.current;
     if (img === null) {
@@ -109,7 +118,7 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
     textStartH.forEach((h, i) => {
       ctx.fillText(lF.name[i], cwidth / 2, h);
     });
-  }, [imageReady, hStyle, lF]);
+  }, [imageReady, hStyle, lF, lenConfig]);
 
   return (
     <>
