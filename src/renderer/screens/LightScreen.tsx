@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useRef } from 'react';
-import type { screenType } from 'renderer/Scene';
+import type { screenType } from 'renderer/lab/Scene';
 
 interface propsType {
   screenConf: screenType;

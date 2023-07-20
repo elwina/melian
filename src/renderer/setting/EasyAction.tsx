@@ -14,7 +14,7 @@ import {
   DownloadOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   styleConfig: StyleConfig;

@@ -1,17 +1,20 @@
-import { StyleConfig } from 'renderer/config.type';
+import { useEffect } from 'react';
+import Square from 'renderer/measures/Square';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { parseRequireArray, parseSet } from 'renderer/utils/parseRequire';
-import { Updater } from 'use-immer';
+import { Updater, useImmer } from 'use-immer';
 import FourSide from './FourSide';
 
 interface propsType {
   styleConfig: StyleConfig;
-  // instrumentConfig: InstrumentConfig;
+  instrumentConfig: InstrumentConfig;
   // setInstrumentConfig: Updater<InstrumentConfig>;
   setStyleConfig: Updater<StyleConfig>;
 }
 
 export default function StyleAdjust({
   styleConfig,
+  instrumentConfig,
   setStyleConfig,
 }: propsType) {
   const fourSide1 = {
@@ -116,10 +119,10 @@ export default function StyleAdjust({
   const fourSide4 = {
     name: '观察屏',
     target: [
-      'style.screen.bottomMargin',
-      'style.screen.leftMargin',
-      'style.screen.scaleY',
-      'style.screen.scaleX',
+      'style.screen.FixedCircle.bottomMargin',
+      'style.screen.FixedCircle.leftMargin',
+      'style.screen.FixedCircle.scaleY',
+      'style.screen.FixedCircle.scaleX',
     ],
     options: {
       vmiddle: {
@@ -152,10 +155,10 @@ export default function StyleAdjust({
   const fourSide5 = {
     name: '尺位置',
     target: [
-      'style.measure.bottomMargin',
-      'style.measure.leftMargin',
-      'style.measure.dsHeight',
-      'style.measure.leftPadding',
+      'style.measure.Square.bottomMargin',
+      'style.measure.Square.leftMargin',
+      'style.measure.Square.dsHeight',
+      'style.measure.Square.leftPadding',
     ],
     options: {
       vmiddle: {
@@ -188,10 +191,10 @@ export default function StyleAdjust({
   const fourSide6 = {
     name: '尺高宽',
     target: [
-      'style.measure.upHeight',
-      'style.measure.downHeight',
-      'style.measure.fontHeight',
-      'style.measure.sfontHeight',
+      'style.measure.Square.upHeight',
+      'style.measure.Square.downHeight',
+      'style.measure.Square.fontHeight',
+      'style.measure.Square.sfontHeight',
     ],
     options: {
       vmiddle: {
@@ -224,10 +227,10 @@ export default function StyleAdjust({
   const fourSide7 = {
     name: '尺字',
     target: [
-      'style.measure.fontSize',
-      'style.measure.sfontSize',
-      'style.measure.lineWidth',
-      'style.measure.mm2px',
+      'style.measure.Square.fontSize',
+      'style.measure.Square.sfontSize',
+      'style.measure.Square.lineWidth',
+      'style.measure.Square.mm2px',
     ],
     options: {
       vmiddle: {
@@ -257,15 +260,20 @@ export default function StyleAdjust({
     },
   };
 
-  const all = [
-    fourSide1,
-    fourSide2,
-    fourSide3,
-    fourSide4,
-    fourSide5,
-    fourSide6,
-    fourSide7,
-  ];
+  const [all, setAll] = useImmer([fourSide1, fourSide2, fourSide3]);
+
+  useEffect(() => {
+    const re = [fourSide1, fourSide2, fourSide3];
+    if (instrumentConfig.screen.type === 'FixedCircle') {
+      re.push(fourSide4);
+    }
+    if (instrumentConfig.measure.type === 'Square') {
+      re.push(fourSide5);
+      re.push(fourSide6);
+      re.push(fourSide7);
+    }
+    setAll(re);
+  }, [instrumentConfig, setAll]);
 
   const RenderingSettings = all.map((s) => {
     const values = parseRequireArray(s.target, undefined, styleConfig);

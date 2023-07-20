@@ -2,7 +2,7 @@ import { useMap } from 'ahooks';
 import { Button, Select } from 'antd';
 import { ElectronHandler } from 'main/preload';
 import { useEffect, useRef, useState } from 'react';
-import { InstrumentConfig } from 'renderer/config.type';
+import { InstrumentConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
 import { defaultExpMap } from './default';
 

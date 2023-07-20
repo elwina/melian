@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useRef } from 'react';
-import { StyleConfig } from 'renderer/config.type';
+import { StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   styleConfig: StyleConfig;

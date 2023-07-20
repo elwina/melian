@@ -1,4 +1,4 @@
-import { LightType } from 'renderer/config.type';
+import type { LightType } from 'renderer/typing/config.type';
 import { normalization } from 'renderer/utils/array';
 import { D65Specteum } from './spectrum';
 
@@ -7,7 +7,7 @@ export function getWaveInstense(lightType: LightType, filter: number) {
   let instense = [];
   if (filter < 0) {
     switch (lightType) {
-      case "D65":
+      case 'D65':
         wave = D65Specteum.wave;
         instense = normalization(D65Specteum.instense);
     }

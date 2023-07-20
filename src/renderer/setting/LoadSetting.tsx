@@ -6,7 +6,7 @@ import {
   InstrumentConfig,
   SettingType,
   StyleConfig,
-} from 'renderer/config.type';
+} from 'renderer/typing/config.type';
 import {
   parseRequire,
   parseRequireArray,
@@ -142,6 +142,7 @@ export default function LoadSetting({
         {!ifNotStyle ? (
           <StyleAdjust
             styleConfig={styleConfig}
+            instrumentConfig={instrumentConfig}
             setStyleConfig={setStyleConfig}
           />
         ) : (

@@ -2,23 +2,18 @@ import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 import { Channels, ElectronHandler } from 'main/preload';
 import { DateTime } from 'luxon';
-import Holder from './lab/Holder';
+import { sReg } from 'renderer/screens/sReg';
+import { mReg } from 'renderer/measures/mReg';
+import Holder from './Holder';
 import 'antd/dist/reset.css';
-import Measure1 from './lab/Measure1';
-import LightScreenFixed2 from './lab/LightScreenFixed2';
-import { InstrumentConfig, StyleConfig } from './config.type';
-import LenGene from './lab/LenGene';
-import Ctrl from './lab/Ctrl';
-import LoadSetting from './setting/LoadSetting';
-import SwitchExp from './experiment/switchExp';
-import young from './experiment/json/young.json';
-import Measure2 from './lab/Measure2';
-
-export enum sideControlEnum {
-  HOLDER,
-  SCREEN,
-  MEASURE,
-}
+import Square from '../measures/Square';
+import LightScreenFixed from '../screens/LightScreenFixed';
+import { InstrumentConfig, StyleConfig } from '../typing/config.type';
+import LenGene from './LenGene';
+import Ctrl from './Ctrl';
+import LoadSetting from '../setting/LoadSetting';
+import SwitchExp from '../experiment/switchExp';
+import young from '../experiment/json/young.json';
 
 export default function Scene() {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
@@ -48,37 +43,42 @@ export default function Scene() {
       lenScaleY: 2.6,
     },
     screen: {
-      mmwidth: 20,
-      mmheight: 20,
-      mm2px: 10,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      leftMargin: 205,
-      bottomMargin: 515,
+      FixedCircle: {
+        mm2px: 10,
+        scaleX: 1.2,
+        scaleY: 1.2,
+        leftMargin: 205,
+        bottomMargin: 515,
+      },
     },
     measure: {
-      mm2px: 5.5,
+      Square: {
+        mm2px: 5.5,
 
-      upHeight: 42,
-      downHeight: 44,
-      dsHeight: 39,
-      fontHeight: 20,
-      sfontHeight: 20,
+        upHeight: 42,
+        downHeight: 44,
+        dsHeight: 39,
+        fontHeight: 20,
+        sfontHeight: 20,
 
-      fontSize: 20,
-      sfontSize: 16,
-      lineWidth: 2,
-      leftPadding: 12,
-      upPadding: 5,
+        fontSize: 20,
+        sfontSize: 16,
+        lineWidth: 2,
+        leftPadding: 12,
+        upPadding: 5,
 
-      leftMargin: 660,
-      bottomMargin: 415,
+        leftMargin: 660,
+        bottomMargin: 415,
+      },
     },
   });
 
   const [instrumentConfig, setInstrumentConfig] = useImmer<InstrumentConfig>(
     young as InstrumentConfig
   );
+
+  const RenderMeasure = mReg[instrumentConfig.measure.type];
+  const RenderScreen = sReg[instrumentConfig.screen.type];
 
   return (
     <>
@@ -88,11 +88,15 @@ export default function Scene() {
         setInstrumentConfig={setInstrumentConfig}
         setStyleConfig={setStyleConfig}
       />
-      <LightScreenFixed2
+      <RenderScreen
         instrumentConfig={instrumentConfig}
         styleConfig={styleConfig}
       />
-      <Measure2 instrumentConfig={instrumentConfig} styleConfig={styleConfig} />
+
+      <RenderMeasure
+        instrumentConfig={instrumentConfig}
+        styleConfig={styleConfig}
+      />
       <Holder styleConfig={styleConfig} />
       <LenGene instrumentConfig={instrumentConfig} styleConfig={styleConfig} />
       <Ctrl

@@ -1,3 +1,6 @@
+import type { MeasureStyles, MeasureType } from 'renderer/measures/mReg';
+import type { ScreenStyles, ScreenType } from 'renderer/screens/sReg';
+
 export interface LenConfig {
   [key: string]: any;
   id: number;
@@ -16,15 +19,13 @@ export interface LightConfig {
 }
 
 export interface ScreenConfig {
-  type: 0 | 1;
-  seemm: number;
-  require: Record<string, string>;
-  func: string;
+  type: ScreenType;
+  options: Record<string, any>;
 }
 
 export interface MeasureConfig {
-  type: 0 | 1;
-  initmm: number;
+  type: MeasureType;
+  options: Record<string, any>;
 }
 
 export interface ControlConfig {
@@ -41,10 +42,6 @@ export interface SettingConfig {
   options: Record<string, any>;
 }
 
-export interface StatusConfig {
-  offsetmm: number;
-}
-
 export interface InstrumentConfig {
   name: string;
   lens: LenConfig[];
@@ -53,7 +50,6 @@ export interface InstrumentConfig {
   measure: MeasureConfig;
   control: ControlConfig;
   setting: SettingConfig[];
-  status: StatusConfig;
 }
 
 export interface StyleConfig {
@@ -70,31 +66,6 @@ export interface StyleConfig {
     lenScaleX: number;
     lenScaleY: number;
   };
-  screen: {
-    mmwidth: number;
-    mmheight: number;
-    mm2px: number;
-    scaleX: number;
-    scaleY: number;
-    leftMargin: number;
-    bottomMargin: number;
-  };
-  measure: {
-    mm2px: number;
-
-    upHeight: number;
-    downHeight: number;
-    dsHeight: number;
-    fontHeight: number;
-    sfontHeight: number;
-
-    fontSize: number;
-    sfontSize: number;
-    lineWidth: number;
-    leftPadding: number;
-    upPadding: number;
-
-    leftMargin: number;
-    bottomMargin: number;
-  };
+  screen: ScreenStyles;
+  measure: MeasureStyles;
 }

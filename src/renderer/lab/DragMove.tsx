@@ -7,7 +7,7 @@ import Draggable, {
   DraggableEventHandler,
 } from 'react-draggable';
 import { CSSProperties } from 'react';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   id: number;

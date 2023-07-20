@@ -59,18 +59,26 @@
     "filter": -1
   },
   "screen": {
-    "type": 0,
-    "seemm": 8,
-    "require": {
-      "d": "{4}.d",
-      "r0_2": "[5]",
-      "r0_1": "[4]"
-    },
-    "func": "cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+    "type": "FixedCircle",
+    "options": {
+      "seemm": 8,
+      "offsetmm": 0,
+      "mmwidth": 20,
+      "mmheight": 20,
+      "require": {
+        "d": "{4}.d",
+        "r0_2": "[5]",
+        "r0_1": "[4]"
+      },
+      "func": "cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+    }
   },
   "measure": {
-    "type": 0,
-    "initmm": 10
+    "type": "Square",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
   },
   "control": {
     "showmm": [0, 1, 2, 3, 4, 5],
@@ -133,15 +141,12 @@
     {
       "name": "目镜控制",
       "type": "TwoArrow",
-      "target": ["status.offsetmm"],
+      "target": ["measure.offsetmm", "screen.offsetmm"],
       "options": {
         "min": -5,
         "max": 5,
         "step": 0.1
       }
     }
-  ],
-  "status": {
-    "offsetmm": 0
-  }
+  ]
 }

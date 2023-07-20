@@ -1,29 +1,27 @@
+import { parse } from 'mathjs';
 import { CSSProperties, useEffect, useRef } from 'react';
-import type {
-  InstrumentConfig,
-  ScreenConfig,
-  StatusConfig,
-  StyleConfig,
-} from 'renderer/config.type';
+import { mutiLight2rgb } from 'renderer/formula/light2rgb';
 import { getWaveInstense } from 'renderer/formula/lightwave';
 import { parseRequire } from 'renderer/utils/parseRequire';
-import { parse } from 'mathjs';
-import { mutiLight2rgb } from 'renderer/formula/light2rgb';
-import { normalization } from 'renderer/utils/array';
+import type {
+  InstrumentConfig,
+  StyleConfig,
+} from 'renderer/typing/config.type';
+import type { ScreenFixedCircleOptionsType } from 'renderer/typing/screen.type';
 
 interface propsType {
   styleConfig: StyleConfig;
   instrumentConfig: InstrumentConfig;
 }
 
-export default function LightScreenFixed2({
+export default function LightScreenFixed({
   styleConfig,
   instrumentConfig,
 }: propsType) {
-  const sStyle = styleConfig.screen;
+  const sStyle = styleConfig.screen.FixedCircle;
   const lightConfig = instrumentConfig.light;
-  const screenConfig = instrumentConfig.screen;
-  const statusConfig = instrumentConfig.status;
+  const screenConfig = instrumentConfig.screen
+    .options as ScreenFixedCircleOptionsType;
   const lensConfig = instrumentConfig.lens;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -52,8 +50,8 @@ export default function LightScreenFixed2({
 
       const req = parseRequire(screenConfig.require, instrumentConfig);
 
-      const pxNum = sStyle.mmwidth * sStyle.mm2px;
-      const pxStart = -sStyle.mmwidth / 2;
+      const pxNum = screenConfig.mmwidth * sStyle.mm2px;
+      const pxStart = -screenConfig.mmwidth / 2;
       const data = [...Array(pxNum)]
         .map((_, i) => pxStart + i / sStyle.mm2px)
         .map((y) => {
@@ -71,7 +69,7 @@ export default function LightScreenFixed2({
         });
 
       const bitmapColArr = data;
-      const row = sStyle.mmheight * sStyle.mm2px;
+      const row = screenConfig.mmheight * sStyle.mm2px;
       const bitmapArr: Uint8ClampedArray = new Uint8ClampedArray(
         new Array(row).fill(bitmapColArr.flat()).flat()
       );
@@ -96,13 +94,13 @@ export default function LightScreenFixed2({
       ctx.restore();
 
       ctx.save();
-      const picw = sStyle.mmwidth * sStyle.mm2px;
-      const pich = sStyle.mmheight * sStyle.mm2px;
+      const picw = screenConfig.mmwidth * sStyle.mm2px;
+      const pich = screenConfig.mmheight * sStyle.mm2px;
 
       const sx =
         picw / 2 -
         screenConfig.seemm * sStyle.mm2px +
-        statusConfig.offsetmm * sStyle.mm2px;
+        screenConfig.offsetmm * sStyle.mm2px;
       const sy = 0;
       const swidth = picw - sx;
       const sheight = pich;
@@ -114,7 +112,7 @@ export default function LightScreenFixed2({
       try {
         const imagedata = new ImageData(
           bitmapArr,
-          sStyle.mmwidth * sStyle.mm2px
+          screenConfig.mmwidth * sStyle.mm2px
         );
         const imagebmp = await createImageBitmap(imagedata);
 

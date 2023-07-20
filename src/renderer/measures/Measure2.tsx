@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useRef } from 'react';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -9,7 +9,6 @@ interface propsType {
 export default function Measure2({ styleConfig, instrumentConfig }: propsType) {
   const mStyle = styleConfig.measure;
   const measureConfig = instrumentConfig.measure;
-  const statusConfig = instrumentConfig.status;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const h_w = 0.6;
