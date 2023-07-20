@@ -23,6 +23,7 @@ module.exports = {
     'no-useless-return': 'off',
     'no-else-return': 'off',
     'react/jsx-no-useless-fragment': 'off',
+    'prefer-destructuring': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

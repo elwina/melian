@@ -70,6 +70,24 @@ export default function Scene() {
         leftMargin: 660,
         bottomMargin: 415,
       },
+      Circle: {
+        mm2px: 8,
+        hm2px: 10,
+
+        seeSize: 300,
+        bigHeight: 250,
+        leftPadding: 20,
+        hPadding: 5,
+
+        mainLine: 20,
+        hLine: 40,
+        lineWidth: 2,
+        mFontSize: 20,
+        hFontSize: 16,
+
+        leftMargin: 700,
+        bottomMargin: 520,
+      },
     },
   });
 
