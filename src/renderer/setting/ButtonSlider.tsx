@@ -2,32 +2,33 @@ import { Radio, RadioChangeEvent, Slider, Space } from 'antd';
 import { useEffect, useState } from 'react';
 
 interface propsType {
-  onChange: (d: number) => void;
-  options: number[];
-  min: number;
-  max: number;
-  step: number;
-  value: number;
-  toFixedPoint: number;
-  unit: string;
+  values: number[];
+  onChange: (values: number[]) => void;
+  options: {
+    options: {
+      name: string;
+      value: number;
+    }[];
+    min: number;
+    max: number;
+    step: number;
+    toFixedPoint: number;
+    unit: string;
+  };
 }
 
-export default function CustomButton({
-  onChange,
-  options,
-  min,
-  max,
-  step,
-  toFixedPoint,
-  value,
-  unit,
-}: propsType) {
+export default function ButtonSlider({ values, onChange, options }: propsType) {
+  const value = values[0];
   const [ifCustom, setIfCustom] = useState<boolean>(false);
   const [customD, setCustomD] = useState<number>(value);
 
+  function change(v: number) {
+    onChange(Array.from({ length: values.length }, () => v));
+  }
+
   useEffect(() => {
     if (ifCustom) {
-      onChange(customD);
+      change(customD);
     }
   }, [customD, ifCustom, onChange]);
 
@@ -37,21 +38,20 @@ export default function CustomButton({
         onChange={(e: RadioChangeEvent) => {
           if (e.target.value === 'custom') {
             setIfCustom(true);
-            onChange(customD);
+            change(customD);
           } else {
             setIfCustom(false);
-            onChange(parseFloat(e.target.value));
+            change(parseFloat(e.target.value));
           }
         }}
       >
-        {options.map((d) => (
+        {options.options.map((opt) => (
           <Radio.Button
-            key={d}
-            value={d.toString()}
-            checked={!ifCustom && value === d}
+            key={opt.name}
+            value={opt.value}
+            checked={!ifCustom && value === opt.value}
           >
-            {d.toFixed(toFixedPoint)}
-            {unit}
+            {opt.name}
           </Radio.Button>
         ))}
         {/* <Radio.Button value="0.2" checked={!ifCustom && value === 0.2}>
@@ -62,13 +62,13 @@ export default function CustomButton({
         </Radio.Button> */}
         <Radio.Button value="custom" checked={ifCustom}>
           自定义
-          {customD.toFixed(toFixedPoint)}
-          {unit}
+          {customD.toFixed(options.toFixedPoint)}
+          {options.unit}
         </Radio.Button>
         <Slider
-          step={step}
-          min={min}
-          max={max}
+          step={options.step}
+          min={options.min}
+          max={options.max}
           value={customD}
           disabled={!ifCustom}
           tooltip={{ open: false }}

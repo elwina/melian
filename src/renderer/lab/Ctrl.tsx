@@ -1,46 +1,56 @@
 import { Button } from 'antd';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
-import type { ctrlType, holderType, lenType } from 'renderer/Scene';
 import { inArray } from 'renderer/utils/array';
 import { Updater } from 'use-immer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
 import DragMove from './DragMove';
 
 interface propsType {
-  ctrlConf: ctrlType;
-  holderConf: holderType;
-  lensConf: lenType[];
-  setLens: Updater<lenType[]>;
+  styleConfig: StyleConfig;
+  instrumentConfig: InstrumentConfig;
+  onchange: (id: number, distancemm: number) => void;
 }
 
 export default function Ctrl({
-  ctrlConf: cF,
-  holderConf: hF,
-  lensConf: lF,
-  setLens,
+  styleConfig,
+  instrumentConfig,
+  onchange,
 }: propsType) {
+  const hStyle = styleConfig.holder;
+  const lensConfig = instrumentConfig.lens;
+  const ctrlConfig = instrumentConfig.control;
+
   const [ch, setch] = useState(document.body.clientHeight);
-  document.body.onresize = () => {
-    setch(document.body.clientHeight);
-  };
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setch(document.body.clientHeight);
+    });
+    return () => {
+      window.removeEventListener('resize', () => {
+        setch(document.body.clientHeight);
+      });
+    };
+  }, []);
 
   return (
     <div
       style={{
         position: 'fixed',
 
-        left: hF.leftMargin,
-        top: ch - hF.bottomMargin,
-        width: 2 * hF.leftPadding + hF.holderWidthmm * hF.xScale,
+        left: hStyle.leftMargin,
+        top: ch - hStyle.bottomMargin,
+        width: 2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale,
       }}
     >
-      {lF.map((len, i) => {
+      {lensConfig.map((len, i) => {
         return (
           <div
             key={len.id}
             style={{
               position: 'absolute',
-              left: hF.leftPadding + len.distancemm * hF.xScale,
+              left: hStyle.leftPadding + len.distancemm * hStyle.xScale,
               transform: 'translateX(-50%)',
               display: 'flex',
               flexDirection: 'column',
@@ -48,27 +58,22 @@ export default function Ctrl({
               justifyItems: 'center',
             }}
           >
-            <div>{inArray(i, cF.showmm) ? len.distancemm : ' '}</div>
-            {inArray(i, cF.move) && (
+            <div>{inArray(i, ctrlConfig.showmm) ? len.distancemm : ' '}</div>
+            {inArray(i, ctrlConfig.move) && (
               <>
                 <DragMove
                   id={i}
-                  lensConf={lF}
-                  holderConf={hF}
-                  setLens={setLens}
+                  styleConfig={styleConfig}
+                  onchange={onchange}
                 />
                 <AiFillCaretLeft
                   onClick={() => {
-                    setLens((draft) => {
-                      draft[i].distancemm -= 1;
-                    });
+                    onchange(i, lensConfig[i].distancemm - 1);
                   }}
                 />
                 <AiFillCaretRight
                   onClick={() => {
-                    setLens((draft) => {
-                      draft[i].distancemm += 1;
-                    });
+                    onchange(i, lensConfig[i].distancemm + 1);
                   }}
                 />
               </>

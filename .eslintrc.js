@@ -18,6 +18,11 @@ module.exports = {
     'no-continue': 'off',
     'no-shadow': 'off',
     'react-hooks/exhaustive-deps': 'warn',
+    'import/prefer-default-export': 'off',
+    'no-await-in-loop': 'off',
+    'no-useless-return': 'off',
+    'no-else-return': 'off',
+    'react/jsx-no-useless-fragment': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

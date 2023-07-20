@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { readFile, writeFile } from 'node:fs/promises';
 import { DateTime } from 'luxon';
+import { readdir } from 'fs/promises';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -108,7 +109,7 @@ const createWindow = async () => {
     const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
       title: '选择保存位置',
       defaultPath: oldPath,
-      filters: [{ name: '配置文件', extensions: ['melian.json'] }],
+      filters: [{ name: '样式配置文件', extensions: ['mstyle.json'] }],
     });
 
     if (!filePath) return '';
@@ -142,7 +143,7 @@ const createWindow = async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
       title: '选择保存位置',
       defaultPath: oldPath,
-      filters: [{ name: '配置文件', extensions: ['melian.json'] }],
+      filters: [{ name: '配置文件', extensions: ['mstyle.json'] }],
     });
 
     return !canceled ? filePaths[0] : '';
@@ -160,9 +161,9 @@ const createWindow = async () => {
     try {
       const data = JSON.parse(filedata);
       console.log(data);
-      return { status: true, config: data };
+      return { status: true, config: data, path: newpath };
     } catch {
-      return { status: false, config: {} };
+      return { status: false, config: {}, path: '' };
     }
   });
 
@@ -186,6 +187,25 @@ const createWindow = async () => {
     mainWindow?.close();
     app.quit();
   });
+
+  ipcMain.handle('loadExperiments', async () => {
+    const appPath = app.isPackaged
+      ? (process.env.PORTABLE_EXECUTABLE_DIR as string)
+      : app.getAppPath();
+    const files = await readdir(appPath);
+    const experiments = files.filter((file) => file.endsWith('.melian.json'));
+    const re = [];
+    for (let i = 0; i < experiments.length; i++) {
+      const filedata = await readFile(path.join(appPath, experiments[i]), {
+        encoding: 'utf-8',
+      });
+      const data = JSON.parse(filedata);
+      re.push(data);
+    }
+    return re;
+  });
+
+  // 结束自定义
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();

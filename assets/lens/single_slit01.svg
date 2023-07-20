@@ -1,20 +1,25 @@
-<svg id="组_1" data-name="组 1" xmlns="http://www.w3.org/2000/svg" width="336" height="605" viewBox="0 0 336 605">
+<svg id="组_2" data-name="组 2" xmlns="http://www.w3.org/2000/svg" width="758" height="1400" viewBox="0 0 758 1400">
   <defs>
     <style>
-      .cls-1 {
+      .cls-1, .cls-2, .cls-3 {
         fill: none;
         stroke: #000;
-        stroke-width: 3px;
+        stroke-width: 10px;
+      }
+
+      .cls-1 {
         fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        stroke-dasharray: 40 20;
       }
     </style>
   </defs>
-  <path id="形状_1" data-name="形状 1" class="cls-1" d="M182,2C104.911,2,29.794,168.871,33,313c2.955,132.848,73.294,290,149,290S328.045,445.848,331,313C334.206,168.871,259.089,2,182,2Z"/>
-  <path id="形状_2" data-name="形状 2" class="cls-1" d="M149,2C71.231,4.111,1.937,171.709,5,313,7.812,442.7,72.555,600.819,149,603c76.984,2.2,154.848-154.059,158-290C310.406,166.084,227.413-.129,149,2Z"/>
-  <path id="形状_3" data-name="形状 3" class="cls-1" d="M144,2h38"/>
-  <path id="形状_3_拷贝" data-name="形状 3 拷贝" class="cls-1" d="M144,600h38"/>
-  <path id="形状_4" data-name="形状 4" class="cls-1" d="M162,149l40-30V503l-40,28V149Z"/>
-  <path id="形状_5" data-name="形状 5" class="cls-1" d="M163,530H142q-0.5-190.5-1-381l39-29"/>
-  <path id="形状_5_拷贝" data-name="形状 5 拷贝" class="cls-1" d="M180,119h21"/>
-  <path id="形状_5_拷贝_3" data-name="形状 5 拷贝 3" class="cls-1" d="M143,149h19"/>
+  <path id="矩形_1" data-name="矩形 1" class="cls-1" d="M357.6,340.754L451.813,270.1,452,1158l-94,71Z"/>
+  <path id="形状_1" data-name="形状 1" class="cls-1" d="M450,276.154H402.9l-88.777,65.223V1221.89h47.106"/>
+  <path id="形状_2" data-name="形状 2" class="cls-1" d="M312,351l-0.316-12.058h52.541L364,351H312Z"/>
+  <ellipse id="椭圆_1_拷贝" data-name="椭圆 1 拷贝" class="cls-2" cx="421.016" cy="700.111" rx="336.984" ry="699.329"/>
+  <path id="椭圆_1" data-name="椭圆 1" class="cls-1" d="M435.507,1399.44c-4.873.07-92.7,0-97.835,0C151.56,1399.44.686,1086.34,0.686,700.105S151.56,0.767,337.672.767c7.518,0,88.428-.2,96.023,0"/>
+  <ellipse id="椭圆_1_拷贝_2" data-name="椭圆 1 拷贝 2" class="cls-3" cx="337.672" cy="700.111" rx="336.984" ry="699.329"/>
 </svg>

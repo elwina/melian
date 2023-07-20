@@ -1,24 +1,28 @@
-<svg id="组_1" data-name="组 1" xmlns="http://www.w3.org/2000/svg" width="336" height="605" viewBox="0 0 336 605">
+<svg id="组_2" data-name="组 2" xmlns="http://www.w3.org/2000/svg" width="731" height="1350" viewBox="0 0 731 1350">
   <defs>
     <style>
-      .cls-1 {
+      .cls-1, .cls-2, .cls-3 {
         fill: none;
         stroke: #000;
-        stroke-width: 3px;
+        stroke-width: 10px;
+      }
+
+      .cls-1 {
         fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        stroke-dasharray: 40 20;
       }
     </style>
   </defs>
-  <path id="形状_1" data-name="形状 1" class="cls-1" d="M182,2C104.911,2,29.794,168.871,33,313c2.955,132.848,73.294,290,149,290S328.045,445.848,331,313C334.206,168.871,259.089,2,182,2Z"/>
-  <path id="形状_2" data-name="形状 2" class="cls-1" d="M149,2C71.231,4.111,1.937,171.709,5,313,7.812,442.7,72.555,600.819,149,603c76.984,2.2,154.848-154.059,158-290C310.406,166.084,227.413-.129,149,2Z"/>
-  <path id="形状_3" data-name="形状 3" class="cls-1" d="M144,2h38"/>
-  <path id="形状_3_拷贝" data-name="形状 3 拷贝" class="cls-1" d="M144,600h38"/>
-  <path id="形状_4" data-name="形状 4" class="cls-1" d="M158,148l20-13V513l-20,17V148Z"/>
-  <path id="形状_5" data-name="形状 5" class="cls-1" d="M159,529H138V148l18-13"/>
-  <path id="形状_5_拷贝" data-name="形状 5 拷贝" class="cls-1" d="M156,135h22"/>
-  <path id="形状_5_拷贝_3" data-name="形状 5 拷贝 3" class="cls-1" d="M139,148h19"/>
-  <path id="形状_4-2" data-name="形状 4" class="cls-1" d="M208,118l20-13V483l-20,17V118Z"/>
-  <path id="形状_5-2" data-name="形状 5" class="cls-1" d="M209,499H188V118l18-13"/>
-  <path id="形状_5_拷贝-2" data-name="形状 5 拷贝" class="cls-1" d="M206,105h22"/>
-  <path id="形状_5_拷贝_3-2" data-name="形状 5 拷贝 3" class="cls-1" d="M189,118h19"/>
+  <path id="矩形_1" data-name="矩形 1" class="cls-1" d="M330,312l54-41,1,837-55,41V312Z"/>
+  <path id="形状_1" data-name="形状 1" class="cls-1" d="M383,277H341l-45.514,31.98-1.711,832.95h39.339"/>
+  <path id="形状_2" data-name="形状 2" class="cls-1" d="M295,320V309h42v11H295Z"/>
+  <path id="矩形_1-2" data-name="矩形 1" class="cls-1" d="M449,241l55-42v841l-55,41V241Z"/>
+  <path id="形状_1-2" data-name="形状 1" class="cls-1" d="M503,205H461l-46,36-1.5,832.52H452.84"/>
+  <path id="形状_2-2" data-name="形状 2" class="cls-1" d="M415,251l-0.63-10.855L453,240v11H415Z"/>
+  <ellipse id="椭圆_1_拷贝" data-name="椭圆 1 拷贝" class="cls-2" cx="405.688" cy="675.001" rx="325" ry="674.439"/>
+  <path id="椭圆_1" data-name="椭圆 1" class="cls-1" d="M419.665,1349.44c-4.7.07-89.405,0-94.352,0C145.825,1349.44.322,1047.49,0.322,675S145.825,0.556,325.313.556c7.25,0,85.279-.2,92.605,0"/>
+  <ellipse id="椭圆_1_拷贝_2" data-name="椭圆 1 拷贝 2" class="cls-3" cx="325.312" cy="675.001" rx="325" ry="674.439"/>
 </svg>

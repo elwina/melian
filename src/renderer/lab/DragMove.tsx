@@ -1,5 +1,4 @@
 import { TbHandMove } from 'react-icons/tb';
-import type { holderType, lenType } from 'renderer/Scene';
 import { Updater, useImmer } from 'use-immer';
 import Draggable, {
   DraggableCore,
@@ -8,31 +7,27 @@ import Draggable, {
   DraggableEventHandler,
 } from 'react-draggable';
 import { CSSProperties } from 'react';
+import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
 
 interface propsType {
   id: number;
-  lensConf: lenType[];
-  holderConf: holderType;
-  setLens: Updater<lenType[]>;
+  styleConfig: StyleConfig;
+  onchange: (id: number, distancemm: number) => void;
 }
 
-export default function DragMove({
-  id,
-  holderConf: hF,
-  lensConf: lF,
-  setLens,
-}: propsType) {
+export default function DragMove({ id, styleConfig, onchange }: propsType) {
+  const hStyle = styleConfig.holder;
+
   const dragHandler = (e: DraggableEvent, data: DraggableData) => {
-    let newDistance = (data.x - hF.leftMargin - hF.leftPadding) / hF.xScale;
+    let newDistance =
+      (data.x - hStyle.leftMargin - hStyle.leftPadding) / hStyle.xScale;
     newDistance = Math.round(newDistance);
-    setLens((draft) => {
-      draft[id].distancemm = newDistance;
-    });
+    onchange(id, newDistance);
   };
 
   return (
     <DraggableCore onDrag={dragHandler}>
-      <TbHandMove />
+      <TbHandMove style={{ fontSize: 25 }} />
     </DraggableCore>
   );
 }

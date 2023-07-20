@@ -1,0 +1,147 @@
+{
+  "name": "杨氏双缝干涉",
+  "lens": [
+    {
+      "id": 0,
+      "uname": "light01",
+      "name": "光源",
+      "distancemm": 0,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 1,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 2,
+      "uname": "filter01",
+      "name": "滤光片",
+      "distancemm": 220,
+      "hide": false,
+      "option": {
+        "wave": "660"
+      }
+    },
+    {
+      "id": 3,
+      "uname": "single_slit01",
+      "name": "单缝",
+      "distancemm": 245,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 4,
+      "uname": "double_slit01",
+      "name": "双缝",
+      "distancemm": 365,
+      "hide": false,
+      "option": {
+        "d": 0.1
+      }
+    },
+    {
+      "id": 5,
+      "uname": "measure_head01",
+      "name": "测量头",
+      "distancemm": 965,
+      "hide": false,
+      "option": {}
+    }
+  ],
+  "light": {
+    "type": "D65",
+    "filter": -1
+  },
+  "screen": {
+    "type": 0,
+    "seemm": 8,
+    "require": {
+      "d": "{4}.d",
+      "r0_2": "[5]",
+      "r0_1": "[4]"
+    },
+    "func": "cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+  },
+  "measure": {
+    "type": 0,
+    "initmm": 10
+  },
+  "control": {
+    "showmm": [0, 1, 2, 3, 4, 5],
+    "move": [3, 4, 5]
+  },
+  "setting": [
+    {
+      "name": "滤光片",
+      "type": "ButtonSlider",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "options": [
+          {
+            "name": "无",
+            "value": -1
+          },
+          {
+            "name": "红",
+            "value": 660
+          },
+          {
+            "name": "绿",
+            "value": 550
+          },
+          {
+            "name": "蓝",
+            "value": 450
+          }
+        ],
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": "nm"
+      }
+    },
+    {
+      "name": "双缝间距",
+      "type": "ButtonSlider",
+      "target": ["{4}.d"],
+      "options": {
+        "options": [
+          {
+            "name": "0.2mm",
+            "value": 0.2
+          },
+          {
+            "name": "0.02mm",
+
+            "value": 0.02
+          }
+        ],
+        "min": 0.01,
+        "max": 0.5,
+        "step": 0.01,
+        "toFixedPoint": 2,
+        "unit": "mm"
+      }
+    },
+    {
+      "name": "目镜控制",
+      "type": "TwoArrow",
+      "target": ["status.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.1
+      }
+    }
+  ],
+  "status": {
+    "offsetmm": 0
+  }
+}

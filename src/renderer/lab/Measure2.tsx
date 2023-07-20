@@ -6,7 +6,7 @@ interface propsType {
   instrumentConfig: InstrumentConfig;
 }
 
-export default function Measure1({ styleConfig, instrumentConfig }: propsType) {
+export default function Measure2({ styleConfig, instrumentConfig }: propsType) {
   const mStyle = styleConfig.measure;
   const measureConfig = instrumentConfig.measure;
   const statusConfig = instrumentConfig.status;
