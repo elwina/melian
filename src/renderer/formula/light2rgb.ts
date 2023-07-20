@@ -42,6 +42,7 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
   let rr = 0;
   let rg = 0;
   let rb = 0;
+
   for (let i = 0; i < wave.length; i++) {
     const w = wave[i];
     const ins = instense[i];

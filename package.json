@@ -1,6 +1,6 @@
 {
-  "version": "0.6.2",
-  "description": "A foundation for scalable desktop apps",
+  "version": "0.6.3",
+  "description": "A System for Optics Experiment",
   "keywords": [
     "electron",
     "boilerplate",

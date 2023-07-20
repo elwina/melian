@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
-import type { ctrlType, holderType, lenType } from 'renderer/Scene';
 import { inArray } from 'renderer/utils/array';
 import { Updater } from 'use-immer';
 import { useEffect, useState } from 'react';

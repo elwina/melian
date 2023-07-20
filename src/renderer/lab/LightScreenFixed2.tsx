@@ -1,5 +1,4 @@
 import { CSSProperties, useEffect, useRef } from 'react';
-import type { screenType } from 'renderer/Scene';
 import type {
   InstrumentConfig,
   ScreenConfig,
@@ -10,6 +9,7 @@ import { getWaveInstense } from 'renderer/formula/lightwave';
 import { parseRequire } from 'renderer/utils/parseRequire';
 import { parse } from 'mathjs';
 import { mutiLight2rgb } from 'renderer/formula/light2rgb';
+import { normalization } from 'renderer/utils/array';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -66,6 +66,7 @@ export default function LightScreenFixed2({
             });
             return instense1 * instense2;
           });
+          // newinstense = normalization(newinstense);
           return mutiLight2rgb(wave, newinstense);
         });
 

@@ -1,6 +1,5 @@
 import { CSSProperties, useEffect, useRef } from 'react';
 import { StyleConfig } from 'renderer/config.type';
-import type { holderType } from 'renderer/Scene';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -8,7 +7,8 @@ interface propsType {
 export default function Holder({ styleConfig }: propsType) {
   const hStyle = styleConfig.holder;
   const heightCalc = hStyle.holderHeight;
-  const widthCalc = 2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale;
+  const widthCalc =
+    2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale;
 
   const canvaRef = useRef<HTMLCanvasElement>(null);
 

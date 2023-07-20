@@ -8,7 +8,6 @@ import {
   useState,
 } from 'react';
 import { LenConfig, StyleConfig } from 'renderer/config.type';
-import type { holderType, lenType } from 'renderer/Scene';
 import DragMove from './DragMove';
 import { lensConfig } from './lensConfig';
 
