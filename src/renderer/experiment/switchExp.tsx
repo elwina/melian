@@ -75,6 +75,7 @@ export default function SwitchExp({ exp, onChange }: propType) {
         onChange={(value) => {
           changeConfig(value);
         }}
+        style={{ width: 200 }}
       />
       <br />
       <Button

@@ -14,7 +14,7 @@ interface propsType {
   instrumentConfig: InstrumentConfig;
 }
 
-export default function LightScreenFixed({
+export default function ScreenFixedCircle({
   styleConfig,
   instrumentConfig,
 }: propsType) {

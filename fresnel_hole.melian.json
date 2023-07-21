@@ -32,24 +32,32 @@
   ],
   "light": {
     "type": "D65",
-    "filter": -1
+    "filter": 660
   },
   "screen": {
-    "type": 0,
-    "seemm": 8,
-    "require": {
-      "R_h": "{1}.R_h",
-      "d2": "[2]",
-      "d1": "[1]",
-      "d0": "[0]",
-      "rangePlus": "{2}.rangePlus",
-      "plus": "{2}.plus"
-    },
-    "func": "plus*(-(floor(R_h^2/l*(1/ sqrt((d2-d0)^2+(y*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2)+1/sqrt(R_h^2+(d1-d0)^2)))%2)+(R_h^2/l*(1/ sqrt((d2-d0)^2+(y*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2)+1/sqrt(R_h^2+(d1-d0)^2)))%1)^2"
+    "type": "FixedCirclePolar",
+    "options": {
+      "seemm": 8,
+      "offsetxmm": 0,
+      "offsetymm": 0,
+      "mmR": 8,
+      "require": {
+        "R_h": "{1}.R_h",
+        "d2": "[2]",
+        "d1": "[1]",
+        "d0": "[0]",
+        "rangePlus": "{2}.rangePlus",
+        "plus": "{2}.plus"
+      },
+      "func": "plus*(-(floor(R_h^2/l*(1/ sqrt((d2-d0)^2+(r*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2)+1/sqrt(R_h^2+(d1-d0)^2)))%2)+(R_h^2/l*(1/ sqrt((d2-d0)^2+(r*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2)+1/sqrt(R_h^2+(d1-d0)^2)))%1)^2"
+    }
   },
   "measure": {
-    "type": 0,
-    "initmm": 10
+    "type": "Circle",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
   },
   "control": {
     "showmm": [0, 1, 2, 3, 4, 5],
@@ -158,7 +166,7 @@
     {
       "name": "目镜控制",
       "type": "TwoArrow",
-      "target": ["status.offsetmm"],
+      "target": ["measure.offsetmm", "screen.offsetxmm"],
       "options": {
         "min": -5,
         "max": 5,

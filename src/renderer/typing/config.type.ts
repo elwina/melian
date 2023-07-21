@@ -1,3 +1,4 @@
+import type { LightType } from 'renderer/formula/lightwave';
 import type { MeasureStyles, MeasureType } from 'renderer/measures/mReg';
 import type { ScreenStyles, ScreenType } from 'renderer/screens/sReg';
 
@@ -10,8 +11,6 @@ export interface LenConfig {
   hide: boolean;
   option: Record<string, any>;
 }
-
-export type LightType = 'D65';
 
 export interface LightConfig {
   type: LightType;
@@ -53,6 +52,9 @@ export interface InstrumentConfig {
 }
 
 export interface StyleConfig {
+  global: {
+    dark: boolean;
+  };
   holder: {
     leftMargin: number;
     bottomMargin: number;

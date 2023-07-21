@@ -135,7 +135,8 @@
         "max": 0.5,
         "step": 0.01,
         "toFixedPoint": 2,
-        "unit": "mm"
+        "unit": "mm",
+        "showValue": true
       }
     },
     {

@@ -1,5 +1,5 @@
 {
-  "name": "光栅衍射",
+  "name": "偏振光互补色",
   "lens": [
     {
       "id": 0,
@@ -30,19 +30,15 @@
     {
       "id": 3,
       "uname": "single_slit01",
-      "name": "光栅",
+      "name": "单缝",
       "distancemm": 245,
       "hide": false,
-      "option": {
-        "d": 0.1,
-        "b": 0.05,
-        "N": 3
-      }
+      "option": {}
     },
     {
       "id": 4,
-      "uname": "convex_lens01",
-      "name": "透镜",
+      "uname": "double_slit01",
+      "name": "双缝",
       "distancemm": 365,
       "hide": false,
       "option": {}
@@ -50,10 +46,14 @@
     {
       "id": 5,
       "uname": "measure_head01",
-      "name": "光屏",
+      "name": "测量头",
       "distancemm": 965,
       "hide": false,
       "option": {
+        "d0": 0.01,
+        "k": 0.1,
+        "a": 90,
+        "b": 90,
         "plus": 1
       }
     }
@@ -70,14 +70,13 @@
       "mmwidth": 20,
       "mmheight": 20,
       "require": {
-        "d": "{3}.d",
-        "b": "{3}.b",
-        "N": "{3}.N",
-        "r0_2": "[5]",
-        "r0_1": "[4]",
+        "d0": "{5}.d0",
+        "k": "{5}.k",
+        "a": "{5}.a",
+        "b": "{5}.b",
         "plus": "{5}.plus"
       },
-      "func": "plus * sin ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 / ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 * sin(N * PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2 / sin(PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2"
+      "func": "plus*(cos(a deg)^2*cos(b deg)^2+sin(a deg)^2*sin(b deg)^2+2*cos(a deg)*cos(b deg)*sin(a deg)*sin(b deg)*cos(2*PI/l*0.17195*d0))"
     }
   },
   "measure": {
@@ -104,15 +103,11 @@
           },
           {
             "name": "红",
-            "value": 660
+            "value": 656
           },
           {
-            "name": "绿",
-            "value": 550
-          },
-          {
-            "name": "蓝",
-            "value": 450
+            "name": "青",
+            "value": 492
           }
         ],
         "min": 420,
@@ -122,84 +117,111 @@
         "unit": "nm"
       }
     },
+
     {
-      "name": "d",
+      "name": "d0",
       "type": "ButtonSlider",
-      "target": ["{3}.d"],
+      "target": ["{5}.d0"],
       "options": {
         "options": [
           {
-            "name": "0.2mm",
-            "value": 0.2
-          },
-          {
-            "name": "0.02mm",
-            "value": 0.02
+            "name": "0.025",
+
+            "value": 0.025
           }
         ],
-        "min": 0.001,
-        "max": 0.1,
-        "step": 0.001,
-        "toFixedPoint": 3,
-        "unit": "mm"
+        "min": 0.0,
+        "max": 0.01,
+        "step": 0.00001,
+        "toFixedPoint": 5,
+        "unit": ""
       }
     },
     {
-      "name": "b",
+      "name": "a",
       "type": "ButtonSlider",
-      "target": ["{3}.b"],
+      "target": ["{5}.a"],
       "options": {
         "options": [
           {
-            "name": "0.2mm",
-            "value": 0.2
+            "name": "45",
+            "value": 45
           },
           {
-            "name": "0.02mm",
-            "value": 0.02
+            "name": "-45",
+
+            "value": -45
           }
         ],
-        "min": 0.001,
-        "max": 0.1,
-        "step": 0.001,
-        "toFixedPoint": 3,
-        "unit": "mm"
-      }
-    },
-    {
-      "name": "缝数",
-      "type": "ButtonSlider",
-      "target": ["{3}.N"],
-      "options": {
-        "options": [
-          {
-            "name": "2",
-            "value": 2
-          },
-          {
-            "name": "100",
-            "value": 100
-          }
-        ],
-        "min": 2,
-        "max": 20000,
+        "min": -180,
+        "max": 180,
         "step": 1,
         "toFixedPoint": 0,
         "unit": ""
       }
     },
     {
-      "name": "强度加倍",
+      "name": "b",
+      "type": "ButtonSlider",
+      "target": ["{5}.b"],
+      "options": {
+        "options": [
+          {
+            "name": "45",
+            "value": 45
+          },
+          {
+            "name": "-45",
+            "value": -45
+          }
+        ],
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    },
+    {
+      "name": "ab",
+      "type": "ButtonSlider",
+      "target": ["{5}.a", "{5}.b"],
+      "options": {
+        "options": [
+          {
+            "name": "45",
+            "value": 45
+          },
+          {
+            "name": "-45",
+
+            "value": -45
+          }
+        ],
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    },
+    {
+      "name": "plus",
       "type": "ButtonSlider",
       "target": ["{5}.plus"],
       "options": {
         "options": [
           {
-            "name": "1",
-            "value": 1
+            "name": "0",
+            "value": 0
+          },
+          {
+            "name": "20",
+
+            "value": 20
           }
         ],
-        "min": 0.1,
+        "min": 0,
         "max": 20,
         "step": 1,
         "toFixedPoint": 0,
@@ -207,13 +229,13 @@
       }
     },
     {
-      "name": "目镜控制",
+      "name": "微调",
       "type": "TwoArrow",
-      "target": ["screen.offsetmm", "measure.offsetmm"],
+      "target": ["{5}.a", "{5}.b"],
       "options": {
-        "min": -5,
-        "max": 5,
-        "step": 0.1
+        "min": -180,
+        "max": 180,
+        "step": 1
       }
     }
   ]

@@ -8,6 +8,7 @@ import {
   VscChromeRestore,
   VscChromeClose,
 } from 'react-icons/vsc';
+import { FaRegLightbulb } from 'react-icons/fa';
 import {
   CaretLeftFilled,
   CaretRightFilled,
@@ -72,8 +73,16 @@ export default function EasyAction({ styleConfig, onLoadStyle }: propsType) {
     }
   };
 
+  const darkChange = () => {
+    document.getElementsByTagName('body')[0].className =
+      document.getElementsByTagName('body')[0].className === 'dark-mode'
+        ? 'light-mode'
+        : 'dark-mode';
+  };
+
   return (
     <Space.Compact>
+      <Button icon={<FaRegLightbulb />} onClick={darkChange} />
       <Button icon={<DownloadOutlined />} onClick={download} />
       {web ? (
         <Upload

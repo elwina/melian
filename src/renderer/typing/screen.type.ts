@@ -15,3 +15,13 @@ export interface ScreenFixedCircleStyleType {
   leftMargin: number;
   bottomMargin: number;
 }
+
+export interface ScreenFixedCirclePolarOptionsType {
+  seemm: number;
+  offsetxmm: number;
+  offsetymm: number;
+
+  mmR: number;
+  require: Record<string, string>;
+  func: string;
+}

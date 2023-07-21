@@ -260,6 +260,43 @@ export default function StyleAdjust({
     },
   };
 
+  const fourSide8 = {
+    name: '尺位置',
+    target: [
+      'style.measure.Square.bottomMargin',
+      'style.measure.Square.leftMargin',
+      'style.measure.Square.dsHeight',
+      'style.measure.Square.leftPadding',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 5,
+        min: 0,
+        max: document.body.clientHeight,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+      side: {
+        valueIndex: 2,
+        step: 2,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+      bottom: {
+        valueIndex: 3,
+
+        step: 4,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+    },
+  };
+
   const [all, setAll] = useImmer([fourSide1, fourSide2, fourSide3]);
 
   useEffect(() => {

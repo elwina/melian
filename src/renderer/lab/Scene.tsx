@@ -7,7 +7,7 @@ import { mReg } from 'renderer/measures/mReg';
 import Holder from './Holder';
 import 'antd/dist/reset.css';
 import Square from '../measures/Square';
-import LightScreenFixed from '../screens/LightScreenFixed';
+import ScreenFixedCircle from '../screens/ScreenFixedCircle';
 import { InstrumentConfig, StyleConfig } from '../typing/config.type';
 import LenGene from './LenGene';
 import Ctrl from './Ctrl';
@@ -29,6 +29,9 @@ export default function Scene() {
   const [exp, setExp] = useState<string>('杨氏双缝干涉');
 
   const [styleConfig, setStyleConfig] = useImmer<StyleConfig>({
+    global: {
+      dark: false,
+    },
     holder: {
       leftMargin: 50,
       bottomMargin: 185,
@@ -47,6 +50,13 @@ export default function Scene() {
         mm2px: 10,
         scaleX: 1.2,
         scaleY: 1.2,
+        leftMargin: 205,
+        bottomMargin: 515,
+      },
+      FixedCirclePolar: {
+        mm2px: 1,
+        scaleX: 2,
+        scaleY: 2,
         leftMargin: 205,
         bottomMargin: 515,
       },
