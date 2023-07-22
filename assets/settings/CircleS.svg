@@ -1,0 +1,29 @@
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="130"
+      height="130"
+      fillRule="evenodd"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit="1.5"
+      clipRule="evenodd"
+    >
+      <circle
+        cx="212.488"
+        cy="200.617"
+        r="49.985"
+        fill="none"
+        stroke="#3C3C3C"
+        strokeWidth="1"
+        transform="translate(-135 -135) translate(-12.488 -.617)"
+      ></circle>
+      <circle
+        cx="213.488"
+        cy="153.983"
+        r="6.738"
+        fill="#fff"
+        stroke="#007AFF"
+        strokeWidth="0.42"
+        transform="translate(-135 -135) translate(-302.491 -209.559) scale(2.35372)"
+      ></circle>
+    </svg>

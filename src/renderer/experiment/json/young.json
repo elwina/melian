@@ -63,7 +63,7 @@
     "options": {
       "seemm": 8,
       "offsetmm": 0,
-      "mmwidth": 20,
+      "mmwidth": 30,
       "mmheight": 20,
       "require": {
         "d": "{4}.d",
@@ -147,6 +147,34 @@
         "min": -5,
         "max": 5,
         "step": 0.001
+      }
+    },
+    {
+      "name": "目镜控制2",
+      "type": "CircleSlider",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001,
+        "round": 0.5
+      }
+    },
+    {
+      "name": "测量头类型",
+      "type": "ButtonSelect",
+      "target": ["measure.type"],
+      "options": {
+        "options": [
+          {
+            "name": "1",
+            "values": ["Square"]
+          },
+          {
+            "name": "2",
+            "values": ["Circle"]
+          }
+        ]
       }
     }
   ]

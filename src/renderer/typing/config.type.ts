@@ -1,6 +1,7 @@
 import type { LightType } from 'renderer/formula/lightwave';
 import type { MeasureStyles, MeasureType } from 'renderer/measures/mReg';
 import type { ScreenStyles, ScreenType } from 'renderer/screens/sReg';
+import type { SettingType } from 'renderer/setting/LoadSetting';
 
 export interface LenConfig {
   [key: string]: any;
@@ -31,8 +32,6 @@ export interface ControlConfig {
   showmm: number[];
   move: number[];
 }
-
-export type SettingType = 'ButtonSlider' | 'TwoArrow';
 
 export interface SettingConfig {
   name: string;

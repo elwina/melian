@@ -21,7 +21,7 @@ export default function ScreenFixedCirclePolar({
   styleConfig,
   instrumentConfig,
 }: propsType) {
-  const sStyle = styleConfig.screen.FixedCircle;
+  const sStyle = styleConfig.screen.FixedCirclePolar;
   const lightConfig = instrumentConfig.light;
   const screenConfig = instrumentConfig.screen
     .options as ScreenFixedCirclePolarOptionsType;
@@ -230,7 +230,7 @@ export default function ScreenFixedCirclePolar({
       ctx.stroke();
       ctx.restore();
     })();
-  }, [styleConfig, instrumentConfig]);
+  }, [styleConfig, instrumentConfig, R]);
 
   const fullWidth = 2 * R + 2 * pa;
   const canvasHeight = 2 * R + 2 * pa;

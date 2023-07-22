@@ -34,7 +34,6 @@ export interface MeasureCircleStyleType {
   seeSize: number;
   bigHeight: number;
   leftPadding: number;
-  hPadding: number;
 
   mainLine: number;
   hLine: number;

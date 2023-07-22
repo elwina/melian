@@ -140,14 +140,14 @@ export default function StyleAdjust({
       side: {
         valueIndex: 2,
         step: 0.1,
-        min: 1,
-        max: 3,
+        min: 0,
+        max: 20,
       },
       bottom: {
         valueIndex: 3,
         step: 0.1,
-        min: 1,
-        max: 3,
+        min: 0,
+        max: 20,
       },
     },
   };
@@ -260,13 +260,49 @@ export default function StyleAdjust({
     },
   };
 
+  const fourSide9 = {
+    name: '尺高宽',
+    target: [
+      'style.measure.Circle.bigHeight',
+      'style.measure.Circle.seeSize',
+      'style.measure.Circle.hm2px',
+      'style.measure.Circle.mm2px',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 2,
+        min: 0,
+        max: document.body.clientHeight,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 2,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+      side: {
+        valueIndex: 2,
+        step: 1,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 1,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+    },
+  };
+
   const fourSide8 = {
     name: '尺位置',
     target: [
-      'style.measure.Square.bottomMargin',
-      'style.measure.Square.leftMargin',
-      'style.measure.Square.dsHeight',
-      'style.measure.Square.leftPadding',
+      'style.measure.Circle.bottomMargin',
+      'style.measure.Circle.leftMargin',
+      'style.measure.Circle.lineWidth',
+      'style.measure.Circle.leftPadding',
     ],
     options: {
       vmiddle: {
@@ -283,16 +319,87 @@ export default function StyleAdjust({
       },
       side: {
         valueIndex: 2,
+        step: 1,
+        min: 1,
+        max: 100,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 1,
+        min: 0,
+        max: document.body.clientWidth,
+      },
+    },
+  };
+
+  const fourSide10 = {
+    name: '尺字',
+    target: [
+      'style.measure.Circle.mFontSize',
+      'style.measure.Circle.hFontSize',
+      'style.measure.Circle.mainLine',
+      'style.measure.Circle.hLine',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 2,
+        min: 0,
+        max: document.body.clientHeight,
+      },
+      hmiddle: {
+        valueIndex: 1,
         step: 2,
         min: 0,
         max: document.body.clientWidth,
       },
+      side: {
+        valueIndex: 2,
+        step: 2,
+        min: 1,
+        max: document.body.clientWidth,
+      },
       bottom: {
         valueIndex: 3,
+        step: 2,
+        min: 1,
+        max: document.body.clientWidth,
+      },
+    },
+  };
 
-        step: 4,
+  const fourSide11 = {
+    name: '观察屏',
+    target: [
+      'style.screen.FixedCirclePolar.bottomMargin',
+      'style.screen.FixedCirclePolar.leftMargin',
+      'style.screen.FixedCirclePolar.scaleY',
+      'style.screen.FixedCirclePolar.scaleX',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 5,
+        min: 0,
+        max: document.body.clientHeight,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 5,
         min: 0,
         max: document.body.clientWidth,
+      },
+      side: {
+        valueIndex: 2,
+        step: 0.1,
+        min: 0,
+        max: 20,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 0.1,
+        min: 0,
+        max: 20,
       },
     },
   };
@@ -304,10 +411,18 @@ export default function StyleAdjust({
     if (instrumentConfig.screen.type === 'FixedCircle') {
       re.push(fourSide4);
     }
+    if (instrumentConfig.screen.type === 'FixedCirclePolar') {
+      re.push(fourSide11);
+    }
     if (instrumentConfig.measure.type === 'Square') {
       re.push(fourSide5);
       re.push(fourSide6);
       re.push(fourSide7);
+    }
+    if (instrumentConfig.measure.type === 'Circle') {
+      re.push(fourSide8);
+      re.push(fourSide9);
+      re.push(fourSide10);
     }
     setAll(re);
   }, [instrumentConfig, setAll]);

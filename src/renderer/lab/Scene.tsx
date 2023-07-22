@@ -54,9 +54,9 @@ export default function Scene() {
         bottomMargin: 515,
       },
       FixedCirclePolar: {
-        mm2px: 1,
-        scaleX: 2,
-        scaleY: 2,
+        mm2px: 6,
+        scaleX: 3,
+        scaleY: 3,
         leftMargin: 205,
         bottomMargin: 515,
       },
@@ -87,7 +87,6 @@ export default function Scene() {
         seeSize: 300,
         bigHeight: 250,
         leftPadding: 20,
-        hPadding: 5,
 
         mainLine: 20,
         hLine: 40,

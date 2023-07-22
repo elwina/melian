@@ -6,9 +6,10 @@ import {
 import Circle from './Circle';
 import Square from './Square';
 
-export type MeasureType = 'Square' | 'Circle';
+export type MeasureType = 'None' | 'Square' | 'Circle';
 
 export const mReg: Record<MeasureType, ElementType> = {
+  None: () => <></>,
   Square: Square,
   Circle: Circle,
 };

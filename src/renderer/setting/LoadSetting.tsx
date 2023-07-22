@@ -2,9 +2,8 @@ import { useBoolean, useSize } from 'ahooks';
 import { Button, Space, Switch } from 'antd';
 import { boolean, max } from 'mathjs';
 import { ElementType, useEffect, useState } from 'react';
-import {
+import type {
   InstrumentConfig,
-  SettingType,
   StyleConfig,
 } from 'renderer/typing/config.type';
 import {
@@ -18,6 +17,9 @@ import ButtonSlider from './ButtonSlider';
 import EasyAction from './EasyAction';
 import StyleAdjust from './StyleAdjust';
 import TwoArrow from './TwoArrow';
+import CircleSlider from './CircleSlider';
+import FourSide from './FourSide';
+import ButtonSelect from './ButtonSelect';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -26,9 +28,19 @@ interface propsType {
   setStyleConfig: Updater<StyleConfig>;
 }
 
+export type SettingType =
+  | 'ButtonSlider'
+  | 'FourSide'
+  | 'TwoArrow'
+  | 'CircleSlider'
+  | 'ButtonSelect';
+
 const settingComponent: Record<SettingType, ElementType> = {
   ButtonSlider: ButtonSlider,
   TwoArrow: TwoArrow,
+  FourSide: FourSide,
+  CircleSlider: CircleSlider,
+  ButtonSelect: ButtonSelect,
 };
 
 export default function LoadSetting({
@@ -55,6 +67,7 @@ export default function LoadSetting({
           display: 'inline-flex',
           flexDirection: 'column',
           alignItems: 'center',
+          justifyContent: 'space-around',
         }}
       >
         <div>{s.name}</div>

@@ -53,11 +53,7 @@
     }
   },
   "measure": {
-    "type": "Circle",
-    "options": {
-      "initmm": 10,
-      "offsetmm": 0
-    }
+    "type": "None"
   },
   "control": {
     "showmm": [0, 1, 2, 3, 4, 5],
@@ -162,19 +158,6 @@
         "toFixedPoint": 0,
         "unit": ""
       }
-    },
-    {
-      "name": "目镜控制",
-      "type": "TwoArrow",
-      "target": ["measure.offsetmm", "screen.offsetxmm"],
-      "options": {
-        "min": -5,
-        "max": 5,
-        "step": 0.1
-      }
     }
-  ],
-  "status": {
-    "offsetmm": 0
-  }
+  ]
 }
