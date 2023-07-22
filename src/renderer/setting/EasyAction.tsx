@@ -1,5 +1,4 @@
 import { Space, Button, Upload, message } from 'antd';
-import { ipcRenderer } from 'electron';
 import { DateTime } from 'luxon';
 import { ElectronHandler } from 'main/preload';
 import { useRef } from 'react';
@@ -9,13 +8,8 @@ import {
   VscChromeClose,
 } from 'react-icons/vsc';
 import { FaRegLightbulb } from 'react-icons/fa';
-import {
-  CaretLeftFilled,
-  CaretRightFilled,
-  DownloadOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
+import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
+import { StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   styleConfig: StyleConfig;

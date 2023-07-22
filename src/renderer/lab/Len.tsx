@@ -1,14 +1,5 @@
-import { join } from 'path';
-import {
-  CSSProperties,
-  Fragment,
-  createElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { LenConfig, StyleConfig } from 'renderer/typing/config.type';
-import DragMove from './DragMove';
 import { lensConfig } from './lensConfig';
 
 interface propsType {
@@ -105,7 +96,7 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
 
     // 画字
     const textHeight = imgStartY;
-    const textWidth = ctx.measureText(lF.name).width;
+    // const textWidth = ctx.measureText(lF.name).width;
     const textStartH = new Array(lF.name.length).fill(0).map((_, i) => {
       return (textHeight * i) / lF.name.length;
     });

@@ -1,4 +1,3 @@
-import { Slider } from 'antd';
 import { CSSProperties, useState } from 'react';
 import {
   VscArrowDown,

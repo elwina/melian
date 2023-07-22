@@ -1,4 +1,3 @@
-import { CSSProperties, useEffect, useRef } from 'react';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import Len from './Len';
 

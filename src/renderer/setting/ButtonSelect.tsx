@@ -1,5 +1,4 @@
-import { Radio, RadioChangeEvent, Slider, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { Radio, RadioChangeEvent, Space } from 'antd';
 
 interface propsType {
   values: any[];

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import Square from 'renderer/measures/Square';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { parseRequireArray, parseSet } from 'renderer/utils/parseRequire';
 import { Updater, useImmer } from 'use-immer';

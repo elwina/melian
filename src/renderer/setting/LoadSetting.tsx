@@ -1,16 +1,11 @@
-import { useBoolean, useSize } from 'ahooks';
+import { useBoolean } from 'ahooks';
 import { Button, Space, Switch } from 'antd';
-import { boolean, max } from 'mathjs';
 import { ElementType, useEffect, useState } from 'react';
 import type {
   InstrumentConfig,
   StyleConfig,
 } from 'renderer/typing/config.type';
-import {
-  parseRequire,
-  parseRequireArray,
-  parseSet,
-} from 'renderer/utils/parseRequire';
+import { parseRequireArray, parseSet } from 'renderer/utils/parseRequire';
 import { Updater } from 'use-immer';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import ButtonSlider from './ButtonSlider';

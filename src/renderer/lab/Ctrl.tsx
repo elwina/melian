@@ -1,7 +1,5 @@
-import { Button } from 'antd';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { inArray } from 'renderer/utils/array';
-import { Updater } from 'use-immer';
 import { useEffect, useState } from 'react';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import DragMove from './DragMove';

@@ -242,7 +242,7 @@ export default function Circle({ styleConfig, instrumentConfig }: propsType) {
         ctx.font = `${mStyle.hFontSize}px Arial`;
         ctx.textBaseline = 'middle';
         const str = `${mod(now / 10, 50)}`;
-        const strWidth = ctx.measureText(str).width;
+        // const strWidth = ctx.measureText(str).width;
         const strStartX = bigLineEndX + charLinePadding;
         const strStartH = bigLineEndH;
         ctx.fillText(str, strStartX, strStartH);

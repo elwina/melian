@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useImmer } from 'use-immer';
-import { Channels, ElectronHandler } from 'main/preload';
-import { DateTime } from 'luxon';
+import { ElectronHandler } from 'main/preload';
 import { sReg } from 'renderer/screens/sReg';
 import { mReg } from 'renderer/measures/mReg';
 import Holder from './Holder';
 import 'antd/dist/reset.css';
-import Square from '../measures/Square';
-import ScreenFixedCircle from '../screens/ScreenFixedCircle';
 import { InstrumentConfig, StyleConfig } from '../typing/config.type';
 import LenGene from './LenGene';
 import Ctrl from './Ctrl';

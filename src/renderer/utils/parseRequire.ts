@@ -1,6 +1,5 @@
 import type {
   InstrumentConfig,
-  LenConfig,
   StyleConfig,
 } from 'renderer/typing/config.type';
 import type { Updater } from 'use-immer';

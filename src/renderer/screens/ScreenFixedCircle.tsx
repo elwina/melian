@@ -22,7 +22,6 @@ export default function ScreenFixedCircle({
   const lightConfig = instrumentConfig.light;
   const screenConfig = instrumentConfig.screen
     .options as ScreenFixedCircleOptionsType;
-  const lensConfig = instrumentConfig.lens;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 

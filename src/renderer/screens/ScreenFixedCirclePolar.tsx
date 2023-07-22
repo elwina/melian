@@ -7,10 +7,7 @@ import type {
   InstrumentConfig,
   StyleConfig,
 } from 'renderer/typing/config.type';
-import type {
-  ScreenFixedCircleOptionsType,
-  ScreenFixedCirclePolarOptionsType,
-} from 'renderer/typing/screen.type';
+import type { ScreenFixedCirclePolarOptionsType } from 'renderer/typing/screen.type';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -25,7 +22,6 @@ export default function ScreenFixedCirclePolar({
   const lightConfig = instrumentConfig.light;
   const screenConfig = instrumentConfig.screen
     .options as ScreenFixedCirclePolarOptionsType;
-  const lensConfig = instrumentConfig.lens;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -230,7 +226,7 @@ export default function ScreenFixedCirclePolar({
       ctx.stroke();
       ctx.restore();
     })();
-  }, [styleConfig, instrumentConfig, R]);
+  }, [styleConfig, instrumentConfig]);
 
   const fullWidth = 2 * R + 2 * pa;
   const canvasHeight = 2 * R + 2 * pa;
