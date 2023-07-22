@@ -1,4 +1,4 @@
-import { parse } from 'mathjs';
+import { max, parse } from 'mathjs';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { mutiLight2rgb } from 'renderer/formula/light2rgb';
 import { getWaveInstense } from 'renderer/formula/lightwave';
@@ -7,28 +7,26 @@ import type {
   InstrumentConfig,
   StyleConfig,
 } from 'renderer/typing/config.type';
-import type { ScreenFixedCircleOptionsType } from 'renderer/typing/screen.type';
+import type { ScreenBoardOptionsType } from 'renderer/typing/screen.type';
 
 interface propsType {
   styleConfig: StyleConfig;
   instrumentConfig: InstrumentConfig;
 }
 
-export default function ScreenFixedCircle({
+export default function ScreenBoard({
   styleConfig,
   instrumentConfig,
 }: propsType) {
-  const sStyle = styleConfig.screen.FixedCircle;
+  const sStyle = styleConfig.screen.Board;
   const lightConfig = instrumentConfig.light;
   const screenConfig = instrumentConfig.screen
-    .options as ScreenFixedCircleOptionsType;
+    .options as ScreenBoardOptionsType;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const R = screenConfig.seemm * sStyle.mm2px * sStyle.scaleX;
-  const pa = 6;
-
-  // let exec = parse("0").compile();
+  const totalWidth = sStyle.totalWidthmm * sStyle.mm2px * sStyle.scaleX;
+  const totalHeight = sStyle.totalHeightmm * sStyle.mm2px * sStyle.scaleY;
 
   const execRef = useRef(parse('0').compile());
 
@@ -38,9 +36,6 @@ export default function ScreenFixedCircle({
 
   useEffect(() => {
     (async () => {
-      // const { bitmapArr } = sC;
-      // if (bitmapArr === null) return;
-
       // 核心生成图片
       const { wave, instense } = getWaveInstense(
         lightConfig.type,
@@ -49,10 +44,9 @@ export default function ScreenFixedCircle({
 
       const req = parseRequire(screenConfig.require, instrumentConfig);
 
-      const pxNum = screenConfig.mmwidth * sStyle.mm2px;
-      const pxStart = -screenConfig.mmwidth / 2;
+      const pxNum = sStyle.totalWidthmm * sStyle.mm2px;
       const data = [...Array(pxNum)]
-        .map((_, i) => pxStart + i / sStyle.mm2px)
+        .map((_, i) => (-pxNum / 2 + i) / sStyle.mm2px)
         .map((y) => {
           const newinstense = wave.map((l, i) => {
             const instense1 = instense[i];
@@ -66,12 +60,11 @@ export default function ScreenFixedCircle({
             }
             return instense1 * instense2;
           });
-          // newinstense = normalization(newinstense);
           return mutiLight2rgb(wave, newinstense);
         });
 
       const bitmapColArr = data;
-      const row = screenConfig.mmheight * sStyle.mm2px;
+      const row = sStyle.totalHeightmm * sStyle.mm2px;
       const bitmapArr: Uint8ClampedArray = new Uint8ClampedArray(
         new Array(row).fill(bitmapColArr.flat()).flat()
       );
@@ -91,31 +84,25 @@ export default function ScreenFixedCircle({
       can.height = cheight;
 
       ctx.save();
-      ctx.fillStyle = '#757474';
+      ctx.fillStyle = screenConfig.color;
       ctx.fillRect(0, 0, cwidth, cheight);
       ctx.restore();
 
       ctx.save();
-      const picw = screenConfig.mmwidth * sStyle.mm2px;
-      const pich = screenConfig.mmheight * sStyle.mm2px;
+      const picw = sStyle.totalWidthmm * sStyle.mm2px;
+      const pich = sStyle.totalHeightmm * sStyle.mm2px;
 
-      const sx =
-        picw / 2 -
-        screenConfig.seemm * sStyle.mm2px +
-        screenConfig.offsetmm * sStyle.mm2px;
+      const sx = 0;
       const sy = 0;
-      const swidth = picw - sx;
+      const swidth = picw;
       const sheight = pich;
-      const dx = pa;
-      const dy = pa;
+      const dx = 0;
+      const dy = 0;
       const dwidth = swidth * sStyle.scaleX;
       const dheight = sheight * sStyle.scaleY;
 
       try {
-        const imagedata = new ImageData(
-          bitmapArr,
-          screenConfig.mmwidth * sStyle.mm2px
-        );
+        const imagedata = new ImageData(bitmapArr, picw);
         const imagebmp = await createImageBitmap(imagedata);
 
         // const ncanva = document.createElement('canvas');
@@ -128,6 +115,7 @@ export default function ScreenFixedCircle({
         // console.log(base64);
 
         // ctx.putImageData(imagedata, imageleft, 0, 0, 0, sw, sh);
+
         ctx.drawImage(
           imagebmp,
           sx,
@@ -143,79 +131,21 @@ export default function ScreenFixedCircle({
         return;
       }
       ctx.restore();
-
-      ctx.save();
-      ctx.globalCompositeOperation = 'destination-in';
-      const circleX = R + pa;
-      const circleY = R + pa;
-      const circleR = R;
-      ctx.beginPath();
-      ctx.arc(circleX, circleY, circleR, 0, Math.PI * 2, false);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
-      // 画十字叉丝
-      ctx.save();
-      ctx.strokeStyle = '#282828ce';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      // 横线
-      ctx.moveTo(pa, pa + R);
-      ctx.lineTo(pa + R * 2, pa + R);
-      // 中心竖线
-      ctx.moveTo(pa + R, pa);
-      ctx.lineTo(pa + R, pa + 2 * R);
-      // 左竖线
-      const lineLR = 0.2;
-      ctx.moveTo(
-        pa + R - lineLR * R,
-        pa + R * (1 - Math.sqrt(1 - lineLR ** 2))
-      );
-      ctx.lineTo(
-        pa + R - lineLR * R,
-        pa + 2 * R - R * (1 - Math.sqrt(1 - lineLR ** 2))
-      );
-      // 右竖线
-      ctx.moveTo(
-        pa + R + lineLR * R,
-        pa + R * (1 - Math.sqrt(1 - lineLR ** 2))
-      );
-      ctx.lineTo(
-        pa + R + lineLR * R,
-        pa + 2 * R - R * (1 - Math.sqrt(1 - lineLR ** 2))
-      );
-
-      ctx.closePath();
-      ctx.stroke();
-      ctx.restore();
-
-      // 画边框
-      ctx.save();
-      ctx.strokeStyle = '#282828';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.arc(circleX, circleY, circleR, 0, Math.PI * 2, false);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.restore();
     })();
   }, [styleConfig, instrumentConfig]);
 
-  const fullWidth = 2 * R + 2 * pa;
-  const canvasHeight = 2 * R + 2 * pa;
   const sty: CSSProperties = {
     position: 'fixed',
     bottom: sStyle.bottomMargin,
     left: sStyle.leftMargin,
-    height: canvasHeight,
-    width: fullWidth,
+    height: totalHeight,
+    width: totalWidth,
   };
 
   return (
     <canvas
-      width={fullWidth}
-      height={canvasHeight}
+      width={totalWidth}
+      height={totalHeight}
       ref={canvasRef}
       style={sty}
     />

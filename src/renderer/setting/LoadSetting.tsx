@@ -57,7 +57,7 @@ export default function LoadSetting({
 
     return (
       <div
-        key={s.name}
+        key={s.name + instrumentConfig.name}
         style={{
           display: 'inline-flex',
           flexDirection: 'column',
@@ -158,6 +158,7 @@ export default function LoadSetting({
         )}
         <EasyAction
           styleConfig={styleConfig}
+          setStyleConfig={setStyleConfig}
           onLoadStyle={(config) => {
             setStyleConfig(config);
           }}

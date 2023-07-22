@@ -1,5 +1,5 @@
 {
-  "name": "菲涅尔圆孔衍射",
+  "name": "菲涅尔圆盘衍射",
   "lens": [
     {
       "id": 0,
@@ -12,7 +12,7 @@
     {
       "id": 1,
       "uname": "single_slit01",
-      "name": "单缝",
+      "name": "圆盘",
       "distancemm": 30,
       "hide": false,
       "option": { "R_h": 0.5 }
@@ -46,11 +46,15 @@
         "rangePlus": "{2}.rangePlus",
         "plus": "{2}.plus"
       },
-      "func": "plus*(-(floor(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))%2)+(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))%1)^2"
+      "func": "plus*((ceil(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))-(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r*rangePlus)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))-0.5)^2)"
     }
   },
   "measure": {
-    "type": "None"
+    "type": "None",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
   },
   "control": {
     "showmm": [0, 1, 2, 3, 4, 5],
@@ -94,18 +98,19 @@
       "options": {
         "options": [
           {
-            "name": "0.2mm",
-            "value": 0.2
+            "name": "10mm",
+            "value": 10
           },
           {
-            "name": "0.5mm",
-            "value": 0.5
+            "name": "20mm",
+
+            "value": 20
           }
         ],
-        "min": 0.01,
-        "max": 0.5,
-        "step": 0.01,
-        "toFixedPoint": 2,
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "toFixedPoint": 0,
         "unit": "mm"
       }
     },

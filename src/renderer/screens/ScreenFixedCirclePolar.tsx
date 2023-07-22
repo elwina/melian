@@ -68,11 +68,15 @@ export default function ScreenFixedCirclePolar({
         const newinstense = wave.map((l, index) => {
           const instense1: number = instense[index];
 
-          const instense2: number = execRef.current.evaluate({
+          let instense2: number = execRef.current.evaluate({
             ...req,
             r: v,
             l: l * 1e-6,
           });
+          if (Number.isNaN(instense2)) {
+            instense2 = Infinity;
+          }
+
           return instense1 * instense2;
         });
         return mutiLight2rgb(wave, newinstense);
@@ -144,12 +148,12 @@ export default function ScreenFixedCirclePolar({
         const imagedata = new ImageData(bitmapArr, pxWidth);
         const imagebmp = await createImageBitmap(imagedata);
 
-        const ncanva = document.createElement('canvas');
-        ncanva.width = picw;
-        ncanva.height = pich;
-        const nctx = ncanva.getContext('2d');
-        if (nctx == null) return;
-        nctx.putImageData(imagedata, 0, 0);
+        // const ncanva = document.createElement('canvas');
+        // ncanva.width = picw;
+        // ncanva.height = pich;
+        // const nctx = ncanva.getContext('2d');
+        // if (nctx == null) return;
+        // nctx.putImageData(imagedata, 0, 0);
         // const base64 = ncanva.toDataURL('image/png');
         // console.log(base64);
 

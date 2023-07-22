@@ -25,3 +25,43 @@ export interface ScreenFixedCirclePolarOptionsType {
   require: Record<string, string>;
   func: string;
 }
+
+export interface ScreenBoardOptionsType {
+  color: string;
+
+  require: Record<string, string>;
+  func: string;
+}
+
+export interface ScreenBoardStyleType {
+  mm2px: number;
+
+  totalWidthmm: number;
+  totalHeightmm: number;
+
+  scaleX: number;
+  scaleY: number;
+
+  leftMargin: number;
+  bottomMargin: number;
+}
+
+export interface ScreenBoardPolarOptionsType {
+  color: string;
+
+  require: Record<string, string>;
+  func: string;
+}
+
+export interface ScreenBoardPolarStyleType {
+  px2mm: number;
+
+  totalWidthmm: number;
+  totalHeightmm: number;
+
+  scaleX: number;
+  scaleY: number;
+
+  leftMargin: number;
+  bottomMargin: number;
+}

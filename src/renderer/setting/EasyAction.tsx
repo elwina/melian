@@ -10,13 +10,19 @@ import {
 import { FaRegLightbulb } from 'react-icons/fa';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { StyleConfig } from 'renderer/typing/config.type';
+import { Updater } from 'use-immer';
 
 interface propsType {
   styleConfig: StyleConfig;
+  setStyleConfig: Updater<StyleConfig>;
   onLoadStyle: (config: StyleConfig) => void;
 }
 
-export default function EasyAction({ styleConfig, onLoadStyle }: propsType) {
+export default function EasyAction({
+  styleConfig,
+  setStyleConfig,
+  onLoadStyle,
+}: propsType) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
@@ -68,15 +74,18 @@ export default function EasyAction({ styleConfig, onLoadStyle }: propsType) {
   };
 
   const darkChange = () => {
-    document.getElementsByTagName('body')[0].className =
-      document.getElementsByTagName('body')[0].className === 'dark-mode'
-        ? 'light-mode'
-        : 'dark-mode';
+    setStyleConfig((draft) => {
+      draft.global.dark = !draft.global.dark;
+    });
   };
 
   return (
     <Space.Compact>
-      <Button icon={<FaRegLightbulb />} onClick={darkChange} />
+      <Button
+        icon={<FaRegLightbulb />}
+        type={styleConfig.global.dark ? 'primary' : 'default'}
+        onClick={darkChange}
+      />
       <Button icon={<DownloadOutlined />} onClick={download} />
       {web ? (
         <Upload

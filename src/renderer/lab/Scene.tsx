@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 import { ElectronHandler } from 'main/preload';
 import { sReg } from 'renderer/screens/sReg';
 import { mReg } from 'renderer/measures/mReg';
+import { ConfigProvider, theme } from 'antd';
 import Holder from './Holder';
 import 'antd/dist/reset.css';
 import { InstrumentConfig, StyleConfig } from '../typing/config.type';
@@ -57,6 +58,24 @@ export default function Scene() {
         leftMargin: 205,
         bottomMargin: 515,
       },
+      Board: {
+        mm2px: 2,
+        totalWidthmm: 200,
+        totalHeightmm: 50,
+        scaleX: 3,
+        scaleY: 3,
+        leftMargin: 205,
+        bottomMargin: 515,
+      },
+      BoardPolar: {
+        px2mm: 4,
+        totalWidthmm: 240,
+        totalHeightmm: 240,
+        scaleX: 6,
+        scaleY: 6,
+        leftMargin: 205,
+        bottomMargin: 515,
+      },
     },
     measure: {
       Square: {
@@ -104,41 +123,64 @@ export default function Scene() {
   const RenderMeasure = mReg[instrumentConfig.measure.type];
   const RenderScreen = sReg[instrumentConfig.screen.type];
 
+  // darkmode
+  useEffect(() => {
+    document.getElementsByTagName('body')[0].className = styleConfig.global.dark
+      ? 'dark-mode'
+      : 'light-mode';
+  }, [styleConfig.global.dark]);
+
   return (
     <>
-      <LoadSetting
-        styleConfig={styleConfig}
-        instrumentConfig={instrumentConfig}
-        setInstrumentConfig={setInstrumentConfig}
-        setStyleConfig={setStyleConfig}
-      />
-      <RenderScreen
-        instrumentConfig={instrumentConfig}
-        styleConfig={styleConfig}
-      />
+      <ConfigProvider
+        theme={{
+          algorithm: styleConfig.global.dark
+            ? theme.darkAlgorithm
+            : theme.defaultAlgorithm,
+        }}
+      >
+        <LoadSetting
+          styleConfig={styleConfig}
+          instrumentConfig={instrumentConfig}
+          setInstrumentConfig={setInstrumentConfig}
+          setStyleConfig={setStyleConfig}
+        />
+        <RenderScreen
+          instrumentConfig={instrumentConfig}
+          styleConfig={styleConfig}
+        />
 
-      <RenderMeasure
-        instrumentConfig={instrumentConfig}
-        styleConfig={styleConfig}
-      />
-      <Holder styleConfig={styleConfig} />
-      <LenGene instrumentConfig={instrumentConfig} styleConfig={styleConfig} />
-      <Ctrl
-        instrumentConfig={instrumentConfig}
-        styleConfig={styleConfig}
-        onchange={(id, d) => {
-          setInstrumentConfig((draft) => {
-            draft.lens[id].distancemm = d;
-          });
-        }}
-      />
-      <SwitchExp
-        exp={exp}
-        onChange={(name, config) => {
-          setExp(name);
-          setInstrumentConfig(config);
-        }}
-      />
+        {!styleConfig.global.dark && (
+          <>
+            <RenderMeasure
+              instrumentConfig={instrumentConfig}
+              styleConfig={styleConfig}
+            />
+            <Holder styleConfig={styleConfig} />
+            <SwitchExp
+              exp={exp}
+              onChange={(name, config) => {
+                setExp(name);
+                setInstrumentConfig(config);
+              }}
+            />
+          </>
+        )}
+
+        <LenGene
+          instrumentConfig={instrumentConfig}
+          styleConfig={styleConfig}
+        />
+        <Ctrl
+          instrumentConfig={instrumentConfig}
+          styleConfig={styleConfig}
+          onchange={(id, d) => {
+            setInstrumentConfig((draft) => {
+              draft.lens[id].distancemm = d;
+            });
+          }}
+        />
+      </ConfigProvider>
     </>
   );
 }

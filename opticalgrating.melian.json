@@ -63,12 +63,9 @@
     "filter": -1
   },
   "screen": {
-    "type": "FixedCircle",
+    "type": "Board",
     "options": {
-      "seemm": 8,
-      "offsetmm": 0,
-      "mmwidth": 20,
-      "mmheight": 20,
+      "color": "#000000",
       "require": {
         "d": "{3}.d",
         "b": "{3}.b",
@@ -81,7 +78,7 @@
     }
   },
   "measure": {
-    "type": "Circle",
+    "type": "None",
     "options": {
       "initmm": 10,
       "offsetmm": 0
@@ -204,16 +201,6 @@
         "step": 1,
         "toFixedPoint": 0,
         "unit": ""
-      }
-    },
-    {
-      "name": "目镜控制",
-      "type": "TwoArrow",
-      "target": ["screen.offsetmm", "measure.offsetmm"],
-      "options": {
-        "min": -5,
-        "max": 5,
-        "step": 0.1
       }
     }
   ]

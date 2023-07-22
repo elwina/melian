@@ -108,21 +108,10 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
     textStartH.forEach((h, i) => {
       ctx.fillText(lF.name[i], cwidth / 2, h);
     });
-  }, [imageReady, hStyle, lF, lenConfig]);
+  }, [imageReady, hStyle, lF, lenConfig, styleConfig]);
 
   return (
     <>
-      <canvas
-        style={{
-          position: 'fixed',
-          bottom: bottomCalc,
-          left: leftCalc,
-          backgroundColor: '#ffffff00',
-        }}
-        height={heightCalc}
-        width={widthCalc}
-        ref={canvaRef}
-      />
       <div style={{ display: 'none' }}>
         <img
           src={svgurl}
@@ -136,6 +125,34 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
           }}
         />
       </div>
+      {!styleConfig.global.dark ? (
+        <>
+          <canvas
+            style={{
+              position: 'fixed',
+              bottom: bottomCalc,
+              left: leftCalc,
+              backgroundColor: '#ffffff00',
+            }}
+            height={heightCalc}
+            width={widthCalc}
+            ref={canvaRef}
+          />
+        </>
+      ) : (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: bottomCalc,
+            left: leftCalc + widthCalc / 2,
+            transform: 'translateX(-50%)',
+            writingMode: 'vertical-rl',
+            textOrientation: 'upright',
+          }}
+        >
+          {lF.name}
+        </div>
+      )}
     </>
   );
 }

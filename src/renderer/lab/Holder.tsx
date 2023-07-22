@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
