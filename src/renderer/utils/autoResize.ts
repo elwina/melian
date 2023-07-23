@@ -9,8 +9,7 @@ import { Updater } from 'use-immer';
 export function autoResize(
   styleConfig: StyleConfig,
   instrumentConfig: InstrumentConfig,
-  setStyleConfig: Updater<StyleConfig>,
-  re = true
+  setStyleConfig: Updater<StyleConfig>
 ) {
   const bodyHeight = document.body.clientHeight;
   const bodyWidth = document.body.clientWidth;
@@ -23,7 +22,10 @@ export function autoResize(
 
   const upDownPercent = [0.5, 0.5];
 
-  const ifMeasure = instrumentConfig.measure.type !== 'None';
+  let ifMeasure = true;
+  if (instrumentConfig.measure.type === 'None') ifMeasure = false;
+  if (styleConfig.global.dark) ifMeasure = false;
+  if (!measureHTML) ifMeasure = false;
 
   const adjustScreen = (h: number, w: number) => {
     const type = instrumentConfig.screen.type;

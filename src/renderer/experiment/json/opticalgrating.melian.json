@@ -29,14 +29,14 @@
     },
     {
       "id": 3,
-      "uname": "single_slit01",
+      "uname": "raster01",
       "name": "光栅",
       "distancemm": 245,
       "hide": false,
       "option": {
-        "d": 0.1,
-        "b": 0.05,
-        "N": 3
+        "d": 0.06,
+        "b": 0.02,
+        "N": 10000
       }
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "id": 5,
-      "uname": "measure_head01",
+      "uname": "board01",
       "name": "光屏",
       "distancemm": 965,
       "hide": false,
@@ -60,7 +60,7 @@
   ],
   "light": {
     "type": "D65",
-    "filter": -1
+    "filter": 550
   },
   "screen": {
     "type": "Board",
@@ -197,9 +197,9 @@
           }
         ],
         "min": 0.1,
-        "max": 20,
+        "max": 5,
         "step": 1,
-        "toFixedPoint": 0,
+        "toFixedPoint": 1,
         "unit": ""
       }
     }

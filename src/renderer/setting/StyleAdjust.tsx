@@ -11,6 +11,8 @@ interface propsType {
   setStyleConfig: Updater<StyleConfig>;
 }
 
+const MAX = 1e10;
+
 export default function StyleAdjust({
   styleConfig,
   instrumentConfig,
@@ -29,25 +31,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 5,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 5,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 20,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -64,25 +66,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 2,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 0.1,
         min: 0,
-        max: 100,
+        max: MAX,
       },
     },
   };
@@ -98,19 +100,19 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 2,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 0.2,
         min: 0,
-        max: 100,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 0.2,
         min: 0,
-        max: 100,
+        max: MAX,
       },
     },
   };
@@ -128,25 +130,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 5,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 5,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 0.1,
         min: 0,
-        max: 20,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 0.1,
         min: 0,
-        max: 20,
+        max: MAX,
       },
     },
   };
@@ -164,26 +166,26 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 5,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 5,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
 
         step: 4,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -200,25 +202,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 2,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -236,25 +238,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 2,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 2,
         min: 2,
-        max: 100,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 0.5,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -272,25 +274,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 2,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 1,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 1,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -308,25 +310,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 5,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 5,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 1,
         min: 1,
-        max: 100,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 1,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -344,25 +346,25 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 2,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 2,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 2,
         min: 1,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 2,
         min: 1,
-        max: document.body.clientWidth,
+        max: MAX,
       },
     },
   };
@@ -380,25 +382,153 @@ export default function StyleAdjust({
         valueIndex: 0,
         step: 5,
         min: 0,
-        max: document.body.clientHeight,
+        max: MAX,
       },
       hmiddle: {
         valueIndex: 1,
         step: 5,
         min: 0,
-        max: document.body.clientWidth,
+        max: MAX,
       },
       side: {
         valueIndex: 2,
         step: 0.1,
         min: 0,
-        max: 20,
+        max: MAX,
       },
       bottom: {
         valueIndex: 3,
         step: 0.1,
         min: 0,
-        max: 20,
+        max: MAX,
+      },
+    },
+  };
+
+  const fourSide12 = {
+    name: '观察屏',
+    target: [
+      'style.screen.Board.bottomMargin',
+      'style.screen.Board.leftMargin',
+      'style.screen.Board.scaleY',
+      'style.screen.Board.scaleX',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 2,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+  const fourSide13 = {
+    name: '观察屏',
+    target: [
+      'style.screen.Board.mm2px',
+      'style.screen.Board.totalHeightmm',
+      'style.screen.Board.totalWidthmm',
+    ],
+    options: {
+      hmiddle: {
+        valueIndex: 0,
+        step: 2,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 2,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+
+  const fourSide14 = {
+    name: '观察屏',
+    target: [
+      'style.screen.BoardPolar.bottomMargin',
+      'style.screen.BoardPolar.leftMargin',
+      'style.screen.BoardPolar.scaleY',
+      'style.screen.BoardPolar.scaleX',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 2,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+  const fourSide15 = {
+    name: '观察屏',
+    target: [
+      'style.screen.BoardPolar.px2mm',
+      'style.screen.BoardPolar.totalHeightmm',
+      'style.screen.BoardPolar.totalWidthmm',
+    ],
+    options: {
+      hmiddle: {
+        valueIndex: 0,
+        step: 1,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 2,
+        step: 5,
+        min: 0,
+        max: MAX,
       },
     },
   };
@@ -406,12 +536,20 @@ export default function StyleAdjust({
   const [all, setAll] = useImmer([fourSide1, fourSide2, fourSide3]);
 
   useEffect(() => {
-    const re = [fourSide1, fourSide2, fourSide3];
+    const re: any[] = [fourSide1, fourSide2, fourSide3];
     if (instrumentConfig.screen.type === 'FixedCircle') {
       re.push(fourSide4);
     }
     if (instrumentConfig.screen.type === 'FixedCirclePolar') {
       re.push(fourSide11);
+    }
+    if (instrumentConfig.screen.type === 'Board') {
+      re.push(fourSide12);
+      re.push(fourSide13);
+    }
+    if (instrumentConfig.screen.type === 'BoardPolar') {
+      re.push(fourSide14);
+      re.push(fourSide15);
     }
     if (instrumentConfig.measure.type === 'Square') {
       re.push(fourSide5);

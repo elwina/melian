@@ -29,8 +29,8 @@
     },
     {
       "id": 3,
-      "uname": "single_slit01",
-      "name": "单缝",
+      "uname": "polarizer01",
+      "name": "偏振片",
       "distancemm": 245,
       "hide": false,
       "option": {}

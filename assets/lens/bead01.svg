@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2287" height="2953" viewBox="0 0 2287 2953">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 20px;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <ellipse id="椭圆_1" data-name="椭圆 1" class="cls-1" cx="1137.5" cy="1943" rx="109.5" ry="47"/>
+  <path id="形状_3" data-name="形状 3" class="cls-2" d="M1028,1942h20v954h-20V1942Z"/>
+  <path id="形状_3_拷贝" data-name="形状 3 拷贝" class="cls-2" d="M1227,1943h20v953h-20V1943Z"/>
+  <path id="形状_4" data-name="形状 4" class="cls-3" d="M1038,2879c36.3,18.26,71.51,23,99,23,24.98,0,54.66-2.05,101-24"/>
+  <path id="形状_5" data-name="形状 5" class="cls-2" d="M1134,1363h20v579h-20V1363Z"/>
+  <circle id="椭圆_2" data-name="椭圆 2" class="cls-1" cx="1144" cy="1225" r="150"/>
+</svg>
