@@ -234,6 +234,8 @@ export function autoResize(
     const targetLenHeight =
       recDownSize - nowCtrlTopHeight - nowHolderHeight - hpad;
 
+    if (targetLenHeight < 0) return;
+
     let yScale = 1;
     const nowSLenMH = targetLenHeight - recNameHeight - recLenStickHeightMin;
     yScale = (nowSLenMH / nowMaxLenHeight) * styleConfig.holder.lenScaleY;
