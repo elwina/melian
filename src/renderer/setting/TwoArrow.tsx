@@ -1,10 +1,5 @@
 import { Space, Button } from 'antd';
-import {
-  CaretLeftFilled,
-  CaretRightFilled,
-  DownloadOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
+import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons';
 
 interface propsType {
   values: number[];

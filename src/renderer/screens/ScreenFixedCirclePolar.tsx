@@ -1,30 +1,27 @@
+import { parse } from 'mathjs';
 import { CSSProperties, useEffect, useRef } from 'react';
-import type {
-  InstrumentConfig,
-  ScreenConfig,
-  StatusConfig,
-  StyleConfig,
-} from 'renderer/config.type';
+import { mutiLight2rgb } from 'renderer/formula/light2rgb';
 import { getWaveInstense } from 'renderer/formula/lightwave';
 import { parseRequire } from 'renderer/utils/parseRequire';
-import { parse } from 'mathjs';
-import { mutiLight2rgb } from 'renderer/formula/light2rgb';
-import { normalization } from 'renderer/utils/array';
+import type {
+  InstrumentConfig,
+  StyleConfig,
+} from 'renderer/typing/config.type';
+import type { ScreenFixedCirclePolarOptionsType } from 'renderer/typing/screen.type';
 
 interface propsType {
   styleConfig: StyleConfig;
   instrumentConfig: InstrumentConfig;
 }
 
-export default function LightScreenFixed2({
+export default function ScreenFixedCirclePolar({
   styleConfig,
   instrumentConfig,
 }: propsType) {
-  const sStyle = styleConfig.screen;
+  const sStyle = styleConfig.screen.FixedCirclePolar;
   const lightConfig = instrumentConfig.light;
-  const screenConfig = instrumentConfig.screen;
-  const statusConfig = instrumentConfig.status;
-  const lensConfig = instrumentConfig.lens;
+  const screenConfig = instrumentConfig.screen
+    .options as ScreenFixedCirclePolarOptionsType;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -52,28 +49,61 @@ export default function LightScreenFixed2({
 
       const req = parseRequire(screenConfig.require, instrumentConfig);
 
-      const pxNum = sStyle.mmwidth * sStyle.mm2px;
-      const pxStart = -sStyle.mmwidth / 2;
-      const data = [...Array(pxNum)]
-        .map((_, i) => pxStart + i / sStyle.mm2px)
-        .map((y) => {
-          const newinstense = wave.map((l, i) => {
-            const instense1 = instense[i];
-            const instense2: number = execRef.current.evaluate({
-              ...req,
-              y: y,
-              l: l * 1e-6,
-            });
-            return instense1 * instense2;
-          });
-          // newinstense = normalization(newinstense);
-          return mutiLight2rgb(wave, newinstense);
-        });
+      const pxR = screenConfig.mmR * sStyle.mm2px;
+      const pxWidth = 2 * pxR + 1;
+      const pxHeight = 2 * pxR + 1;
+      // 创建二维数组
+      const datai = new Array(pxHeight * pxWidth).fill(0);
+      // let k = 0;
 
-      const bitmapColArr = data;
-      const row = sStyle.mmheight * sStyle.mm2px;
+      let jj;
+      let iii;
+      const dataii = datai.map((v, ii) => {
+        jj = ii % pxWidth;
+        iii = ii / pxWidth;
+        return Math.sqrt((jj - pxR) ** 2 + (iii - pxR) ** 2) / sStyle.mm2px;
+      });
+
+      const dataiii = dataii.map((v, ii) => {
+        const newinstense = wave.map((l, index) => {
+          const instense1: number = instense[index];
+
+          let instense2: number = execRef.current.evaluate({
+            ...req,
+            r: v,
+            l: l * 1e-6,
+          });
+          if (Number.isNaN(instense2)) {
+            instense2 = Infinity;
+          }
+
+          return instense1 * instense2;
+        });
+        return mutiLight2rgb(wave, newinstense);
+      });
+
+      // for (let i = 0; i < pxHeight; i++) {
+      //   const itemp = (i - pxR) ** 2;
+      //   for (let j = 0; j < pxWidth; j++) {
+      //     const newinstense = wave.map((l, index) => {
+      //       const instense1: number = instense[index];
+
+      //       const r = Math.sqrt(itemp + (j - pxR) ** 2) / sStyle.mm2px;
+
+      //       const instense2: number = execRef.current.evaluate({
+      //         ...req,
+      //         r: r,
+      //         l: l * 1e-6,
+      //       });
+      //       return instense1 * instense2;
+      //     });
+      //     datai[k] = mutiLight2rgb(wave, newinstense);
+      //     k++;
+      //   }
+      // }
+
       const bitmapArr: Uint8ClampedArray = new Uint8ClampedArray(
-        new Array(row).fill(bitmapColArr.flat()).flat()
+        dataiii.flat().flat()
       );
 
       if (canvasRef.current == null) return;
@@ -96,34 +126,34 @@ export default function LightScreenFixed2({
       ctx.restore();
 
       ctx.save();
-      const picw = sStyle.mmwidth * sStyle.mm2px;
-      const pich = sStyle.mmheight * sStyle.mm2px;
+      const picw = pxWidth;
+      const pich = pxHeight;
 
       const sx =
         picw / 2 -
         screenConfig.seemm * sStyle.mm2px +
-        statusConfig.offsetmm * sStyle.mm2px;
-      const sy = 0;
+        screenConfig.offsetxmm * sStyle.mm2px;
+      const sy =
+        pich / 2 -
+        screenConfig.seemm * sStyle.mm2px +
+        screenConfig.offsetymm * sStyle.mm2px;
       const swidth = picw - sx;
-      const sheight = pich;
+      const sheight = pich - sy;
       const dx = pa;
       const dy = pa;
       const dwidth = swidth * sStyle.scaleX;
       const dheight = sheight * sStyle.scaleY;
 
       try {
-        const imagedata = new ImageData(
-          bitmapArr,
-          sStyle.mmwidth * sStyle.mm2px
-        );
+        const imagedata = new ImageData(bitmapArr, pxWidth);
         const imagebmp = await createImageBitmap(imagedata);
 
-        const ncanva = document.createElement('canvas');
-        ncanva.width = picw;
-        ncanva.height = pich;
-        const nctx = ncanva.getContext('2d');
-        if (nctx == null) return;
-        nctx.putImageData(imagedata, 0, 0);
+        // const ncanva = document.createElement('canvas');
+        // ncanva.width = picw;
+        // ncanva.height = pich;
+        // const nctx = ncanva.getContext('2d');
+        // if (nctx == null) return;
+        // nctx.putImageData(imagedata, 0, 0);
         // const base64 = ncanva.toDataURL('image/png');
         // console.log(base64);
 
@@ -218,6 +248,7 @@ export default function LightScreenFixed2({
       height={canvasHeight}
       ref={canvasRef}
       style={sty}
+      id="screen"
     />
   );
 }

@@ -1,15 +1,14 @@
 import { CSSProperties, useEffect, useRef } from 'react';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   styleConfig: StyleConfig;
   instrumentConfig: InstrumentConfig;
 }
 
-export default function Measure1({ styleConfig, instrumentConfig }: propsType) {
-  const mStyle = styleConfig.measure;
-  const measureConfig = instrumentConfig.measure;
-  const statusConfig = instrumentConfig.status;
+export default function Square({ styleConfig, instrumentConfig }: propsType) {
+  const mStyle = styleConfig.measure.Square;
+  const measureConfig = instrumentConfig.measure.options;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const h_w = 0.6;
@@ -108,7 +107,7 @@ export default function Measure1({ styleConfig, instrumentConfig }: propsType) {
 
     // 画下刻度
     const offsetpx =
-      (measureConfig.initmm + statusConfig.offsetmm) * mStyle.mm2px;
+      (measureConfig.initmm + measureConfig.offsetmm) * mStyle.mm2px;
     const a = 49 / 50;
     const slineStartH = mStyle.upPadding + mStyle.dsHeight;
     const slineEndH =
@@ -241,6 +240,7 @@ export default function Measure1({ styleConfig, instrumentConfig }: propsType) {
       height={canvasHeight}
       ref={canvasRef}
       style={sty}
+      id="measure"
     />
   );
 }

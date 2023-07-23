@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2287" height="2953" viewBox="0 0 2287 2953">
+  <defs>
+    <style>
+      .cls-1, .cls-3, .cls-4, .cls-5 {
+        fill: none;
+        stroke: #000;
+      }
+
+      .cls-1, .cls-3 {
+        stroke-width: 20px;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-4 {
+        stroke-width: 15px;
+      }
+
+      .cls-5 {
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <ellipse id="椭圆_1" data-name="椭圆 1" class="cls-1" cx="1137.5" cy="1943" rx="109.5" ry="47"/>
+  <path id="形状_3" data-name="形状 3" class="cls-2" d="M1028,1942h20v954h-20V1942Z"/>
+  <path id="形状_3_拷贝" data-name="形状 3 拷贝" class="cls-2" d="M1227,1943h20v953h-20V1943Z"/>
+  <path id="形状_4" data-name="形状 4" class="cls-3" d="M1038,2879c36.3,18.26,71.51,23,99,23,24.98,0,54.66-2.05,101-24"/>
+  <path id="形状_6" data-name="形状 6" class="cls-4" d="M1143.5,1942c-22.37-.84,3.66-135.96-28.5-672-7.09-118.25,10.49-132.99,29-142,9.68-4.71-7.41-5.7,0-2,20.65,10.32,35.52,28.29,27,144C1136.4,1739.62,1165.99,1942.85,1143.5,1942Z"/>
+  <ellipse id="椭圆_3" data-name="椭圆 3" class="cls-5" cx="1144" cy="1225" rx="8" ry="39"/>
+</svg>

@@ -1,5 +1,5 @@
 {
-  "name": "光栅衍射",
+  "name": "杨氏双缝干涉",
   "lens": [
     {
       "id": 0,
@@ -30,32 +30,28 @@
     {
       "id": 3,
       "uname": "single_slit01",
-      "name": "光栅",
+      "name": "单缝",
       "distancemm": 245,
-      "hide": false,
-      "option": {
-        "d": 0.1,
-        "b": 0.05,
-        "N": 3
-      }
-    },
-    {
-      "id": 4,
-      "uname": "convex_lens01",
-      "name": "透镜",
-      "distancemm": 365,
       "hide": false,
       "option": {}
     },
     {
-      "id": 5,
-      "uname": "measure_head01",
-      "name": "光屏",
-      "distancemm": 965,
+      "id": 4,
+      "uname": "double_slit01",
+      "name": "双缝",
+      "distancemm": 365,
       "hide": false,
       "option": {
-        "plus": 1
+        "d": 0.1
       }
+    },
+    {
+      "id": 5,
+      "uname": "measure_head01",
+      "name": "测量头",
+      "distancemm": 965,
+      "hide": false,
+      "option": {}
     }
   ],
   "light": {
@@ -63,21 +59,26 @@
     "filter": -1
   },
   "screen": {
-    "type": 0,
-    "seemm": 8,
-    "require": {
-      "d": "{3}.d",
-      "b": "{3}.b",
-      "N": "{3}.N",
-      "r0_2": "[5]",
-      "r0_1": "[4]",
-      "plus": "{5}.plus"
-    },
-    "func": "plus * sin ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 / ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 * sin(N * PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2 / sin(PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2"
+    "type": "FixedCircle",
+    "options": {
+      "seemm": 8,
+      "offsetmm": 0,
+      "mmwidth": 30,
+      "mmheight": 20,
+      "require": {
+        "d": "{4}.d",
+        "r0_2": "[5]",
+        "r0_1": "[4]"
+      },
+      "func": "cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+    }
   },
   "measure": {
-    "type": 0,
-    "initmm": 10
+    "type": "Circle",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
   },
   "control": {
     "showmm": [0, 1, 2, 3, 4, 5],
@@ -117,7 +118,7 @@
     {
       "name": "双缝间距",
       "type": "ButtonSlider",
-      "target": ["{3}.d"],
+      "target": ["{4}.d"],
       "options": {
         "options": [
           {
@@ -126,68 +127,55 @@
           },
           {
             "name": "0.02mm",
+
             "value": 0.02
           }
         ],
         "min": 0.01,
-        "max": 5,
+        "max": 0.5,
         "step": 0.01,
         "toFixedPoint": 2,
-        "unit": "mm"
-      }
-    },
-    {
-      "name": "缝数",
-      "type": "ButtonSlider",
-      "target": ["{3}.N"],
-      "options": {
-        "options": [
-          {
-            "name": "2",
-            "value": 2
-          },
-          {
-            "name": "100",
-            "value": 100
-          }
-        ],
-        "min": 2,
-        "max": 10000,
-        "step": 1,
-        "toFixedPoint": 0,
-        "unit": ""
-      }
-    },
-    {
-      "name": "强度",
-      "type": "ButtonSlider",
-      "target": ["{5}.plus"],
-      "options": {
-        "options": [
-          {
-            "name": "1",
-            "value": 1
-          }
-        ],
-        "min": 0.1,
-        "max": 500,
-        "step": 1,
-        "toFixedPoint": 0,
-        "unit": ""
+        "unit": "mm",
+        "showValue": true
       }
     },
     {
       "name": "目镜控制",
       "type": "TwoArrow",
-      "target": ["status.offsetmm"],
+      "target": ["measure.offsetmm", "screen.offsetmm"],
       "options": {
         "min": -5,
         "max": 5,
-        "step": 0.1
+        "step": 0.001
+      }
+    },
+    {
+      "name": "目镜控制2",
+      "type": "CircleSlider",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001,
+        "round": 0.5
+      }
+    },
+    {
+      "name": "测量头类型",
+      "type": "ButtonSelect",
+      "target": ["measure.type"],
+      "options": {
+        "options": [
+          {
+            "name": "1",
+            "values": ["Square"]
+          },
+          {
+            "name": "2",
+            "values": ["Circle"]
+          }
+        ]
       }
     }
-  ],
-  "status": {
-    "offsetmm": 0
-  }
+  ]
 }

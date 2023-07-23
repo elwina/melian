@@ -1,9 +1,7 @@
-import { Button } from 'antd';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import { inArray } from 'renderer/utils/array';
-import { Updater } from 'use-immer';
 import { useEffect, useState } from 'react';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import DragMove from './DragMove';
 
 interface propsType {
@@ -43,6 +41,7 @@ export default function Ctrl({
         top: ch - hStyle.bottomMargin,
         width: 2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale,
       }}
+      id="ctrl"
     >
       {lensConfig.map((len, i) => {
         return (

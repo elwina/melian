@@ -1,5 +1,5 @@
 {
-  "name": "夫琅禾费单缝衍射",
+  "name": "菲涅尔圆孔衍射",
   "lens": [
     {
       "id": 0,
@@ -7,84 +7,60 @@
       "name": "光源",
       "distancemm": 0,
       "hide": false,
-      "option": {}
+      "option": { "wave": "660" }
     },
     {
       "id": 1,
-      "uname": "convex_lens01",
-      "name": "透镜1",
-      "distancemm": 100,
+      "uname": "holes01",
+      "name": "孔",
+      "distancemm": 30,
       "hide": false,
-      "option": {}
-    },
-    {
-      "id": 2,
-      "uname": "filter01",
-      "name": "滤光片",
-      "distancemm": 150,
-      "hide": false,
-      "option": {
-        "wave": "660"
-      }
-    },
-    {
-      "id": 3,
-      "uname": "single_slit01",
-      "name": "单缝",
-      "distancemm": 250,
-      "hide": false,
-      "option": {
-        "a": 0.08
-      }
-    },
-    {
-      "id": 4,
-      "uname": "convex_lens01",
-      "name": "透镜2",
-      "distancemm": 365,
-      "hide": false,
-      "option": {}
+      "option": { "R_h": 0.5 }
     },
 
     {
-      "id": 5,
-      "uname": "measure_head01",
+      "id": 2,
+      "uname": "board01",
       "name": "光屏",
-      "distancemm": 965,
+      "distancemm": 60,
       "hide": false,
       "option": {
+        "rangePlus": 1,
         "plus": 1
       }
     }
   ],
   "light": {
     "type": "D65",
-    "filter": -1
+    "filter": 660
   },
   "screen": {
-    "type": 0,
-    "seemm": 8,
-    "require": {
-      "a": "{3}.a",
-      "r0_2": "[5]",
-      "r0_1": "[4]",
-      "plus": "{5}.plus"
-    },
-    "func": "plus * sin( PI * a * sin( atan( y / ( r0_2 - r0_1 ) ) ) / l )^2 / (PI * a * sin( atan ( y / ( r0_2 - r0_1 ) ) ) / l )^2"
+    "type": "BoardPolar",
+    "options": {
+      "color": "#000000",
+      "require": {
+        "R_h": "{1}.R_h",
+        "d2": "[2]",
+        "d1": "[1]",
+        "d0": "[0]",
+        "plus": "{2}.plus"
+      },
+      "func": "plus*(-(floor(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))%2)+(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))%1)^2"
+    }
   },
   "measure": {
-    "type": 0,
-    "initmm": 10
+    "type": "None",
+    "options": {}
   },
   "control": {
     "showmm": [0, 1, 2, 3, 4, 5],
-    "move": [3, 4, 5]
+    "move": [0, 1, 2]
   },
   "setting": [
     {
       "name": "滤光片",
       "type": "ButtonSlider",
-      "target": ["light.filter", "{2}.wave"],
+      "target": ["light.filter", "{0}.wave"],
       "options": {
         "options": [
           {
@@ -112,32 +88,31 @@
       }
     },
     {
-      "name": "单缝间距",
+      "name": "圆孔半径",
       "type": "ButtonSlider",
-      "target": ["{3}.a"],
+      "target": ["{1}.R_h"],
       "options": {
         "options": [
           {
-            "name": "0.01mm",
-            "value": 0.01
+            "name": "0.2mm",
+            "value": 0.2
           },
           {
-            "name": "1mm",
-
-            "value": 1
+            "name": "0.5mm",
+            "value": 0.5
           }
         ],
         "min": 0.01,
-        "max": 1,
+        "max": 0.5,
         "step": 0.01,
         "toFixedPoint": 2,
         "unit": "mm"
       }
     },
     {
-      "name": "强度加成",
+      "name": "强度加倍",
       "type": "ButtonSlider",
-      "target": ["{5}.plus"],
+      "target": ["{2}.plus"],
       "options": {
         "options": [
           {
@@ -146,18 +121,16 @@
           },
           {
             "name": "2",
+
             "value": 2
           }
         ],
         "min": 0.1,
-        "max": 10,
+        "max": 5,
         "step": 0.1,
         "toFixedPoint": 1,
-        "unit": "倍"
+        "unit": ""
       }
     }
-  ],
-  "status": {
-    "offsetmm": 0
-  }
+  ]
 }

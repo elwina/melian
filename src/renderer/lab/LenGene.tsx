@@ -1,5 +1,4 @@
-import { CSSProperties, useEffect, useRef } from 'react';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import Len from './Len';
 
 interface propsType {
@@ -7,12 +6,18 @@ interface propsType {
   instrumentConfig: InstrumentConfig;
 }
 export default function LenGene({ styleConfig, instrumentConfig }: propsType) {
-  const { lens } = instrumentConfig;
+  const lens = instrumentConfig.lens;
 
   return (
     <>
       {lens.map((len) => {
-        return <Len key={len.id} lenConf={len} styleConfig={styleConfig} />;
+        return (
+          <Len
+            key={len.id + instrumentConfig.name + len.uname}
+            lenConf={len}
+            styleConfig={styleConfig}
+          />
+        );
       })}
     </>
   );

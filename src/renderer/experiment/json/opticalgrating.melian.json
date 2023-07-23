@@ -1,0 +1,207 @@
+{
+  "name": "光栅衍射",
+  "lens": [
+    {
+      "id": 0,
+      "uname": "light01",
+      "name": "光源",
+      "distancemm": 0,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 1,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 2,
+      "uname": "filter01",
+      "name": "滤光片",
+      "distancemm": 220,
+      "hide": false,
+      "option": {
+        "wave": "660"
+      }
+    },
+    {
+      "id": 3,
+      "uname": "raster01",
+      "name": "光栅",
+      "distancemm": 245,
+      "hide": false,
+      "option": {
+        "d": 0.06,
+        "b": 0.02,
+        "N": 10000
+      }
+    },
+    {
+      "id": 4,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 365,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 5,
+      "uname": "board01",
+      "name": "光屏",
+      "distancemm": 965,
+      "hide": false,
+      "option": {
+        "plus": 1
+      }
+    }
+  ],
+  "light": {
+    "type": "D65",
+    "filter": 550
+  },
+  "screen": {
+    "type": "Board",
+    "options": {
+      "color": "#000000",
+      "require": {
+        "d": "{3}.d",
+        "b": "{3}.b",
+        "N": "{3}.N",
+        "r0_2": "[5]",
+        "r0_1": "[4]",
+        "plus": "{5}.plus"
+      },
+      "func": "plus * sin ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 / ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 * sin(N * PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2 / sin(PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2"
+    }
+  },
+  "measure": {
+    "type": "None",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
+  },
+  "control": {
+    "showmm": [0, 1, 2, 3, 4, 5],
+    "move": [3, 4, 5]
+  },
+  "setting": [
+    {
+      "name": "滤光片",
+      "type": "ButtonSlider",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "options": [
+          {
+            "name": "无",
+            "value": -1
+          },
+          {
+            "name": "红",
+            "value": 660
+          },
+          {
+            "name": "绿",
+            "value": 550
+          },
+          {
+            "name": "蓝",
+            "value": 450
+          }
+        ],
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": "nm"
+      }
+    },
+    {
+      "name": "d",
+      "type": "ButtonSlider",
+      "target": ["{3}.d"],
+      "options": {
+        "options": [
+          {
+            "name": "0.2mm",
+            "value": 0.2
+          },
+          {
+            "name": "0.02mm",
+            "value": 0.02
+          }
+        ],
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "toFixedPoint": 3,
+        "unit": "mm"
+      }
+    },
+    {
+      "name": "b",
+      "type": "ButtonSlider",
+      "target": ["{3}.b"],
+      "options": {
+        "options": [
+          {
+            "name": "0.2mm",
+            "value": 0.2
+          },
+          {
+            "name": "0.02mm",
+            "value": 0.02
+          }
+        ],
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "toFixedPoint": 3,
+        "unit": "mm"
+      }
+    },
+    {
+      "name": "缝数",
+      "type": "ButtonSlider",
+      "target": ["{3}.N"],
+      "options": {
+        "options": [
+          {
+            "name": "2",
+            "value": 2
+          },
+          {
+            "name": "100",
+            "value": 100
+          }
+        ],
+        "min": 2,
+        "max": 20000,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    },
+    {
+      "name": "强度加倍",
+      "type": "ButtonSlider",
+      "target": ["{5}.plus"],
+      "options": {
+        "options": [
+          {
+            "name": "1",
+            "value": 1
+          }
+        ],
+        "min": 0.1,
+        "max": 5,
+        "step": 1,
+        "toFixedPoint": 1,
+        "unit": ""
+      }
+    }
+  ]
+}

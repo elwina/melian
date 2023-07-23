@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="953" height="2002" viewBox="0 0 953 2002">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 20px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="矩形_1" data-name="矩形 1" class="cls-1" d="M38,314L953,27V1333L38,1620V314Z"/>
+  <path id="矩形_1_拷贝" data-name="矩形 1 拷贝" class="cls-1" d="M0,1593V287L915,0"/>
+  <path id="形状_7" data-name="形状 7" class="cls-1" d="M0,1593l9-16,40,28-10,15Z"/>
+  <path id="形状_7_拷贝" data-name="形状 7 拷贝" class="cls-1" d="M14,311l9-16,40,28L53,338Z"/>
+  <path id="形状_7_拷贝_2" data-name="形状 7 拷贝 2" class="cls-1" d="M904,16l9-16,40,28L943,43Z"/>
+  <path id="形状_6_拷贝" data-name="形状 6 拷贝" class="cls-1" d="M443,1483h20v500H443V1483Z"/>
+  <path id="形状_6_拷贝_2" data-name="形状 6 拷贝 2" class="cls-1" d="M527,1450h20l-1,533H526Z"/>
+  <path id="形状_6" data-name="形状 6" class="cls-1" d="M457,1968c11.946,10.32,19.215,14,35,14s29.054-2.68,41-13"/>
+</svg>

@@ -1,9 +1,9 @@
 import type {
   InstrumentConfig,
-  LenConfig,
   StyleConfig,
-} from 'renderer/config.type';
-import { Updater } from 'use-immer';
+} from 'renderer/typing/config.type';
+import type { Updater } from 'use-immer';
+import { isValidKey } from './type';
 
 export function parseRequire(
   req: Record<string | number, string>,
@@ -22,11 +22,28 @@ export function parseRequire(
         return;
       }
 
-      if (str === 'status.offsetmm') {
-        result[key] = instrumentConfig.status.offsetmm;
+      // screen和measure的属性
+      const splitArray = str.split('.');
+      if (splitArray[0] === 'measure') {
+        const opt = splitArray[1];
+        if (opt === 'type') {
+          result[key] = instrumentConfig.measure.type;
+          return;
+        }
+        result[key] = instrumentConfig.measure.options[opt];
+        return;
+      }
+      if (splitArray[0] === 'screen') {
+        const opt = splitArray[1];
+        if (opt === 'type') {
+          result[key] = instrumentConfig.screen.type;
+          return;
+        }
+        result[key] = instrumentConfig.screen.options[opt];
         return;
       }
 
+      // lens的距离或者属性
       const array = str.split(/\.|\{|\}|\[|\]/);
       // [ '', '5', '', 'distancemm' ]
       const id = parseInt(array[1], 10);
@@ -40,7 +57,7 @@ export function parseRequire(
         } else {
           throw new Error(`option ${indicate} not found in lens ${id}`);
         }
-      } else {
+      } else if (str[0] === '[') {
         result[key] = lensConfig[id].distancemm;
         return;
       }
@@ -93,85 +110,40 @@ export function parseRequire(
         result[key] = style.holder.lenScaleY;
         return;
       }
-      if (str === 'style.screen.mmwidth') {
-        result[key] = style.screen.mmwidth;
-        return;
-      }
-      if (str === 'style.screen.mmheight') {
-        result[key] = style.screen.mmheight;
-        return;
-      }
-      if (str === 'style.screen.mm2px') {
-        result[key] = style.screen.mm2px;
-        return;
-      }
-      if (str === 'style.screen.scaleX') {
-        result[key] = style.screen.scaleX;
-        return;
-      }
-      if (str === 'style.screen.scaleY') {
-        result[key] = style.screen.scaleY;
-        return;
-      }
-      if (str === 'style.screen.leftMargin') {
-        result[key] = style.screen.leftMargin;
-        return;
-      }
-      if (str === 'style.screen.bottomMargin') {
-        result[key] = style.screen.bottomMargin;
-        return;
-      }
-      if (str === 'style.measure.mm2px') {
-        result[key] = style.measure.mm2px;
-        return;
-      }
-      if (str === 'style.measure.upHeight') {
-        result[key] = style.measure.upHeight;
-        return;
-      }
-      if (str === 'style.measure.downHeight') {
-        result[key] = style.measure.downHeight;
-        return;
-      }
-      if (str === 'style.measure.dsHeight') {
-        result[key] = style.measure.dsHeight;
-        return;
-      }
-      if (str === 'style.measure.fontHeight') {
-        result[key] = style.measure.fontHeight;
-        return;
-      }
-      if (str === 'style.measure.sfontHeight') {
-        result[key] = style.measure.sfontHeight;
-        return;
-      }
-      if (str === 'style.measure.fontSize') {
-        result[key] = style.measure.fontSize;
-        return;
-      }
-      if (str === 'style.measure.sfontSize') {
-        result[key] = style.measure.sfontSize;
-        return;
-      }
-      if (str === 'style.measure.lineWidth') {
-        result[key] = style.measure.lineWidth;
-        return;
-      }
-      if (str === 'style.measure.leftPadding') {
-        result[key] = style.measure.leftPadding;
-        return;
-      }
-      if (str === 'style.measure.upPadding') {
-        result[key] = style.measure.upPadding;
-        return;
-      }
-      if (str === 'style.measure.leftMargin') {
-        result[key] = style.measure.leftMargin;
-        return;
-      }
-      if (str === 'style.measure.bottomMargin') {
-        result[key] = style.measure.bottomMargin;
-        return;
+
+      const splitArray = str.split('.');
+      if (splitArray.length >= 3) {
+        if (splitArray[0] === 'style' && splitArray[1] === 'screen') {
+          const screenwhich = splitArray[2];
+          const screenoption = splitArray[3];
+          if (screenwhich === 'type') {
+            result[key] = style.screen[screenwhich].type;
+            return;
+          }
+          if (
+            isValidKey(screenwhich, style.screen) &&
+            isValidKey(screenoption, style.screen[screenwhich])
+          ) {
+            result[key] = style.screen[screenwhich][screenoption];
+            return;
+          }
+        }
+
+        if (splitArray[0] === 'style' && splitArray[1] === 'measure') {
+          const measurewhich = splitArray[2];
+          const measureoption = splitArray[3];
+          if (measurewhich === 'type') {
+            result[key] = style.measure[measurewhich].type;
+            return;
+          }
+          if (
+            isValidKey(measurewhich, style.measure) &&
+            isValidKey(measureoption, style.measure[measurewhich])
+          ) {
+            result[key] = style.measure[measurewhich][measureoption];
+            return;
+          }
+        }
       }
     }
   });
@@ -205,9 +177,31 @@ export function parseSet(
         return;
       }
 
-      if (str === 'status.offsetmm') {
+      // screen和measure的属性
+      const splitArray = str.split('.');
+      if (splitArray[0] === 'measure') {
+        const opt = splitArray[1];
+        if (opt === 'type') {
+          setInstrumentConfig((draft) => {
+            draft.measure.type = value;
+          });
+          return;
+        }
         setInstrumentConfig((draft) => {
-          draft.status.offsetmm = value;
+          draft.measure.options[opt] = value;
+        });
+        return;
+      }
+      if (splitArray[0] === 'screen') {
+        const opt = splitArray[1];
+        if (opt === 'type') {
+          setInstrumentConfig((draft) => {
+            draft.screen.type = value;
+          });
+          return;
+        }
+        setInstrumentConfig((draft) => {
+          draft.screen.options[opt] = value;
         });
         return;
       }
@@ -227,7 +221,7 @@ export function parseSet(
             throw new Error(`option ${indicate} not found in lens ${id}`);
           }
         });
-      } else {
+      } else if (str[0] === '[') {
         setInstrumentConfig((draft) => {
           draft.lens[id].distancemm = value;
           return;
@@ -281,85 +275,38 @@ export function parseSet(
           draft.holder.lenScaleY = value;
           return;
         }
-        if (str === 'style.screen.mmwidth') {
-          draft.screen.mmwidth = value;
-          return;
+
+        const splitArray = str.split('.');
+        if (splitArray[0] === 'style' && splitArray[1] === 'screen') {
+          const screenwhich = splitArray[2];
+          const screenoption = splitArray[3];
+          if (screenwhich === 'type') {
+            draft.screen.type = value;
+            return;
+          }
+          if (
+            isValidKey(screenwhich, draft.screen) &&
+            isValidKey(screenoption, draft.screen[screenwhich])
+          ) {
+            draft.screen[screenwhich][screenoption] = value;
+            return;
+          }
         }
-        if (str === 'style.screen.mmheight') {
-          draft.screen.mmheight = value;
-          return;
-        }
-        if (str === 'style.screen.mm2px') {
-          draft.screen.mm2px = value;
-          return;
-        }
-        if (str === 'style.screen.scaleX') {
-          draft.screen.scaleX = value;
-          return;
-        }
-        if (str === 'style.screen.scaleY') {
-          draft.screen.scaleY = value;
-          return;
-        }
-        if (str === 'style.screen.leftMargin') {
-          draft.screen.leftMargin = value;
-          return;
-        }
-        if (str === 'style.screen.bottomMargin') {
-          draft.screen.bottomMargin = value;
-          return;
-        }
-        if (str === 'style.measure.mm2px') {
-          draft.measure.mm2px = value;
-          return;
-        }
-        if (str === 'style.measure.upHeight') {
-          draft.measure.upHeight = value;
-          return;
-        }
-        if (str === 'style.measure.downHeight') {
-          draft.measure.downHeight = value;
-          return;
-        }
-        if (str === 'style.measure.dsHeight') {
-          draft.measure.dsHeight = value;
-          return;
-        }
-        if (str === 'style.measure.fontHeight') {
-          draft.measure.fontHeight = value;
-          return;
-        }
-        if (str === 'style.measure.sfontHeight') {
-          draft.measure.sfontHeight = value;
-          return;
-        }
-        if (str === 'style.measure.fontSize') {
-          draft.measure.fontSize = value;
-          return;
-        }
-        if (str === 'style.measure.sfontSize') {
-          draft.measure.sfontSize = value;
-          return;
-        }
-        if (str === 'style.measure.lineWidth') {
-          draft.measure.lineWidth = value;
-          return;
-        }
-        if (str === 'style.measure.leftPadding') {
-          draft.measure.leftPadding = value;
-          return;
-        }
-        if (str === 'style.measure.upPadding') {
-          draft.measure.upPadding = value;
-          return;
-        }
-        if (str === 'style.measure.leftMargin') {
-          draft.measure.leftMargin = value;
-          return;
-        }
-        if (str === 'style.measure.bottomMargin') {
-          draft.measure.bottomMargin = value;
-          return;
+
+        if (splitArray[0] === 'style' && splitArray[1] === 'measure') {
+          const measurewhich = splitArray[2];
+          const measureoption = splitArray[3];
+          if (measurewhich === 'type') {
+            draft.measure.type = value;
+            return;
+          }
+          if (
+            isValidKey(measurewhich, draft.measure) &&
+            isValidKey(measureoption, draft.measure[measurewhich])
+          ) {
+            draft.measure[measurewhich][measureoption] = value;
+            return;
+          }
         }
       });
     }

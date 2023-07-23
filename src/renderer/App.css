@@ -11,3 +11,13 @@ body {
   padding:0px;
   user-select: none;
 }
+
+.dark-mode {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}

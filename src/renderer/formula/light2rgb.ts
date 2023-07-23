@@ -43,9 +43,15 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
   let rg = 0;
   let rb = 0;
 
+  let ifInf = false;
   for (let i = 0; i < wave.length; i++) {
     const w = wave[i];
     const ins = instense[i];
+
+    if (ins === Infinity) {
+      ifInf = true;
+    }
+
     if (w < 420 || w > 720) {
       // 不可见光
       continue;
@@ -53,9 +59,11 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
     total++;
     let [r, g, b, a] = light2rgb(w);
     a = 255;
+
     r = r * ins;
     g = g * ins;
     b = b * ins;
+
     rr = rr + r;
     rg = rg + g;
     rb = rb + b;
@@ -63,5 +71,20 @@ export function mutiLight2rgb(wave: number[], instense: number[]) {
   rr = rr / total;
   rg = rg / total;
   rb = rb / total;
+
+  // if (Number.isNaN(rr)) {
+  //   rr = 255;
+  // }
+  // if (Number.isNaN(rg)) {
+  //   rg = 255;
+  // }
+  // if (Number.isNaN(rb)) {
+  //   rb = 255;
+  // }
+
+  if (ifInf && wave.length > 1) {
+    return [255, 255, 255, 255];
+  }
+
   return [rr, rg, rb, 255];
 }

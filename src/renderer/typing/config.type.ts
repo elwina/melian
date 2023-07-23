@@ -1,3 +1,8 @@
+import type { LightType } from 'renderer/formula/lightwave';
+import type { MeasureStyles, MeasureType } from 'renderer/measures/mReg';
+import type { ScreenStyles, ScreenType } from 'renderer/screens/sReg';
+import type { SettingType } from 'renderer/setting/LoadSetting';
+
 export interface LenConfig {
   [key: string]: any;
   id: number;
@@ -8,23 +13,19 @@ export interface LenConfig {
   option: Record<string, any>;
 }
 
-export type LightType = 'D65';
-
 export interface LightConfig {
   type: LightType;
   filter: number;
 }
 
 export interface ScreenConfig {
-  type: 0 | 1;
-  seemm: number;
-  require: Record<string, string>;
-  func: string;
+  type: ScreenType;
+  options: Record<string, any>;
 }
 
 export interface MeasureConfig {
-  type: 0 | 1;
-  initmm: number;
+  type: MeasureType;
+  options: Record<string, any>;
 }
 
 export interface ControlConfig {
@@ -32,17 +33,11 @@ export interface ControlConfig {
   move: number[];
 }
 
-export type SettingType = 'ButtonSlider' | 'TwoArrow';
-
 export interface SettingConfig {
   name: string;
   type: SettingType;
   target: string[];
   options: Record<string, any>;
-}
-
-export interface StatusConfig {
-  offsetmm: number;
 }
 
 export interface InstrumentConfig {
@@ -53,10 +48,12 @@ export interface InstrumentConfig {
   measure: MeasureConfig;
   control: ControlConfig;
   setting: SettingConfig[];
-  status: StatusConfig;
 }
 
 export interface StyleConfig {
+  global: {
+    dark: boolean;
+  };
   holder: {
     leftMargin: number;
     bottomMargin: number;
@@ -70,31 +67,10 @@ export interface StyleConfig {
     lenScaleX: number;
     lenScaleY: number;
   };
-  screen: {
-    mmwidth: number;
-    mmheight: number;
-    mm2px: number;
-    scaleX: number;
-    scaleY: number;
-    leftMargin: number;
-    bottomMargin: number;
+  setting: {
+    height: number;
+    expHeight: number;
   };
-  measure: {
-    mm2px: number;
-
-    upHeight: number;
-    downHeight: number;
-    dsHeight: number;
-    fontHeight: number;
-    sfontHeight: number;
-
-    fontSize: number;
-    sfontSize: number;
-    lineWidth: number;
-    leftPadding: number;
-    upPadding: number;
-
-    leftMargin: number;
-    bottomMargin: number;
-  };
+  screen: ScreenStyles;
+  measure: MeasureStyles;
 }

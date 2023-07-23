@@ -1,13 +1,6 @@
 import { TbHandMove } from 'react-icons/tb';
-import { Updater, useImmer } from 'use-immer';
-import Draggable, {
-  DraggableCore,
-  DraggableData,
-  DraggableEvent,
-  DraggableEventHandler,
-} from 'react-draggable';
-import { CSSProperties } from 'react';
-import { InstrumentConfig, StyleConfig } from 'renderer/config.type';
+import { DraggableCore, DraggableData, DraggableEvent } from 'react-draggable';
+import { StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
   id: number;

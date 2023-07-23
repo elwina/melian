@@ -3,6 +3,13 @@ import single_slit01_svg from '../../../assets/lens/single_slit01.svg';
 import light01_svg from '../../../assets/lens/light01.svg';
 import double_slit01_svg from '../../../assets/lens/double_slit01.svg';
 import measure_lens01_svg from '../../../assets/lens/measure_lens01.svg';
+import board01_svg from '../../../assets/lens/board01.svg';
+import raster01_svg from '../../../assets/lens/raster01.svg';
+import polarizer01_svg from '../../../assets/lens/polarizer01.svg';
+import crystal01_svg from '../../../assets/lens/crystal01.svg';
+import holes01_svg from '../../../assets/lens/holes01.svg';
+import needle01_svg from '../../../assets/lens/needle01.svg';
+import bead01_svg from '../../../assets/lens/bead01.svg';
 
 export interface LenModelConfig {
   height: number;
@@ -14,8 +21,8 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
   [
     'convex_lens01',
     {
-      height: 60,
-      width: 30,
+      height: 20,
+      width: 15,
       imgurl: convex_lens01_svg,
     },
   ],
@@ -57,6 +64,62 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
       height: 60,
       width: 60,
       imgurl: measure_lens01_svg,
+    },
+  ],
+  [
+    'board01',
+    {
+      height: 60,
+      width: 15,
+      imgurl: board01_svg,
+    },
+  ],
+  [
+    'raster01',
+    {
+      height: 60,
+      width: 15,
+      imgurl: raster01_svg,
+    },
+  ],
+  [
+    'polarizer01',
+    {
+      height: 60,
+      width: 15,
+      imgurl: polarizer01_svg,
+    },
+  ],
+  [
+    'crystal01',
+    {
+      height: 60,
+      width: 15,
+      imgurl: crystal01_svg,
+    },
+  ],
+  [
+    'holes01',
+    {
+      height: 60,
+      width: 15,
+      imgurl: holes01_svg,
+    },
+  ],
+  [
+    'needle01',
+    {
+      height: 60,
+      width: 80,
+      imgurl: needle01_svg,
+    },
+  ],
+  [
+    'bead01',
+    {
+      height: 60,
+      width: 60,
+      imgurl: bead01_svg,
     },
   ],
 ]);
