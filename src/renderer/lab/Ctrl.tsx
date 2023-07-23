@@ -41,6 +41,7 @@ export default function Ctrl({
         top: ch - hStyle.bottomMargin,
         width: 2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale,
       }}
+      id="ctrl"
     >
       {lensConfig.map((len, i) => {
         return (

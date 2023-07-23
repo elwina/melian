@@ -83,7 +83,6 @@ export default function LoadSetting({
   });
 
   const [ifNotStyle, { set: setIfNotStyle }] = useBoolean(true);
-  const [settingHeight, setSettingHeight] = useState(110);
   const [settingWidth, setSettingWidth] = useState(
     document.body.clientWidth - 20
   );
@@ -100,70 +99,74 @@ export default function LoadSetting({
   }, []);
 
   return (
-    <>
-      <div
-        style={{
-          position: 'fixed',
-          bottom: 10,
-          left: 0,
-          width: settingWidth,
-          height: settingHeight,
-          zIndex: 100,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginLeft: 10,
-          marginRight: 10,
-        }}
+    <div
+      style={{
+        position: 'fixed',
+        bottom: 10,
+        left: 0,
+        width: settingWidth,
+        height: styleConfig.setting.height,
+        zIndex: 100,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+      }}
+      id="setting"
+    >
+      <Space
+        direction="vertical"
+        align="center"
+        // style={{
+        //   display: 'inline-flex',
+        //   flexDirection: 'column',
+        //   alignItems: 'center',
+        //   justifyContent: 'space-around',
+        // }}
       >
-        <Space
-          direction="vertical"
-          align="center"
-          // style={{
-          //   display: 'inline-flex',
-          //   flexDirection: 'column',
-          //   alignItems: 'center',
-          //   justifyContent: 'space-around',
-          // }}
-        >
-          <Switch
-            checkedChildren="参数调节"
-            unCheckedChildren="样式调节"
-            checked={ifNotStyle}
-            onChange={setIfNotStyle}
-          />
-          <Space.Compact>
-            <Button
-              icon={<ArrowUpOutlined />}
-              onClick={() => {
-                setSettingHeight(settingHeight + 2);
-              }}
-            />
-            <Button
-              icon={<ArrowDownOutlined />}
-              onClick={() => {
-                setSettingHeight(settingHeight - 2);
-              }}
-            />
-          </Space.Compact>
-        </Space>
-        {!ifNotStyle ? (
-          <StyleAdjust
-            styleConfig={styleConfig}
-            instrumentConfig={instrumentConfig}
-            setStyleConfig={setStyleConfig}
-          />
-        ) : (
-          RenderingSettings
-        )}
-        <EasyAction
-          styleConfig={styleConfig}
-          setStyleConfig={setStyleConfig}
-          onLoadStyle={(config) => {
-            setStyleConfig(config);
-          }}
+        <Switch
+          checkedChildren="参数调节"
+          unCheckedChildren="样式调节"
+          checked={ifNotStyle}
+          onChange={setIfNotStyle}
         />
-      </div>
-    </>
+        <Space.Compact>
+          <Button
+            icon={<ArrowUpOutlined />}
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.setting.height += 2;
+              });
+            }}
+          />
+          <Button
+            icon={<ArrowDownOutlined />}
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.setting.height -= 2;
+              });
+            }}
+          />
+        </Space.Compact>
+      </Space>
+      {!ifNotStyle ? (
+        <StyleAdjust
+          styleConfig={styleConfig}
+          instrumentConfig={instrumentConfig}
+          setStyleConfig={setStyleConfig}
+        />
+      ) : (
+        RenderingSettings
+      )}
+      <EasyAction
+        styleConfig={styleConfig}
+        setStyleConfig={setStyleConfig}
+        instrumentConfig={instrumentConfig}
+        onLoadStyle={(config) => {
+          setStyleConfig(config);
+        }}
+      />
+    </div>
   );
 }

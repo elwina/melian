@@ -248,6 +248,7 @@ export default function ScreenFixedCirclePolar({
       height={canvasHeight}
       ref={canvasRef}
       style={sty}
+      id="screen"
     />
   );
 }

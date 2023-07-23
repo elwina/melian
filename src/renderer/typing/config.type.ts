@@ -67,6 +67,10 @@ export interface StyleConfig {
     lenScaleX: number;
     lenScaleY: number;
   };
+  setting: {
+    height: number;
+    expHeight: number;
+  };
   screen: ScreenStyles;
   measure: MeasureStyles;
 }

@@ -148,6 +148,7 @@ export default function ScreenBoard({
       height={totalHeight}
       ref={canvasRef}
       style={sty}
+      id="screen"
     />
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useImmer } from 'use-immer';
 import { ElectronHandler } from 'main/preload';
 import { sReg } from 'renderer/screens/sReg';
@@ -11,7 +11,7 @@ import LenGene from './LenGene';
 import Ctrl from './Ctrl';
 import LoadSetting from '../setting/LoadSetting';
 import SwitchExp from '../experiment/switchExp';
-import young from '../experiment/json/young.json';
+import young from '../experiment/json/young.melian.json';
 
 export default function Scene() {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
@@ -42,6 +42,10 @@ export default function Scene() {
       baselineHeight: 116,
       lenScaleX: 2,
       lenScaleY: 2.6,
+    },
+    setting: {
+      height: 110,
+      expHeight: 120,
     },
     screen: {
       FixedCircle: {
@@ -159,6 +163,7 @@ export default function Scene() {
             <Holder styleConfig={styleConfig} />
             <SwitchExp
               exp={exp}
+              styleConfig={styleConfig}
               onChange={(name, config) => {
                 setExp(name);
                 setInstrumentConfig(config);

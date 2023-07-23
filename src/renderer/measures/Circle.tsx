@@ -298,6 +298,7 @@ export default function Circle({ styleConfig, instrumentConfig }: propsType) {
       height={canvasHeight}
       ref={canvasRef}
       style={sty}
+      id="measure"
     />
   );
 }

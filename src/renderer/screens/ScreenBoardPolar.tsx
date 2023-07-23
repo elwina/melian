@@ -159,6 +159,7 @@ export default function ScreenBoardPolar({
       height={totalHeight}
       ref={canvasRef}
       style={sty}
+      id="screen"
     />
   );
 }

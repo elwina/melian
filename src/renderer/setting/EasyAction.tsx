@@ -1,26 +1,34 @@
 import { Space, Button, Upload, message } from 'antd';
 import { DateTime } from 'luxon';
 import { ElectronHandler } from 'main/preload';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   VscChromeMaximize,
   VscChromeRestore,
   VscChromeClose,
 } from 'react-icons/vsc';
 import { FaRegLightbulb } from 'react-icons/fa';
-import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
-import { StyleConfig } from 'renderer/typing/config.type';
+import {
+  DownloadOutlined,
+  UploadOutlined,
+  ExpandOutlined,
+} from '@ant-design/icons';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
+import { autoResize } from 'renderer/utils/autoResize';
+import { sleep } from 'renderer/utils/common';
 
 interface propsType {
   styleConfig: StyleConfig;
   setStyleConfig: Updater<StyleConfig>;
+  instrumentConfig: InstrumentConfig;
   onLoadStyle: (config: StyleConfig) => void;
 }
 
 export default function EasyAction({
   styleConfig,
   setStyleConfig,
+  instrumentConfig,
   onLoadStyle,
 }: propsType) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
@@ -32,6 +40,8 @@ export default function EasyAction({
     ipcRenderer = null;
   }
   const web = !ipcRenderer;
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const dPathRef = useRef('');
   const download = async () => {
@@ -79,56 +89,93 @@ export default function EasyAction({
     });
   };
 
+  const [resizeNum, setResizeNum] = useState(0);
+  const [onResize, setOnResize] = useState(false);
+  // const cilckResize = () => {
+  //   setIfFirstResize(!ifFirstResize);
+  //   document.getElementById('autoResize')?.click();
+  // };
+  useEffect(() => {
+    if (resizeNum % 3 !== 0) {
+      document.getElementById('autoResize')?.click();
+    } else {
+      setOnResize(false);
+    }
+  }, [resizeNum]);
+
+  useEffect(() => {
+    if (onResize) {
+      messageApi.loading('自动调整中', 0);
+    } else {
+      messageApi.destroy();
+    }
+  }, [onResize]);
+
   return (
-    <Space.Compact>
-      <Button
-        icon={<FaRegLightbulb />}
-        type={styleConfig.global.dark ? 'primary' : 'default'}
-        onClick={darkChange}
-      />
-      <Button icon={<DownloadOutlined />} onClick={download} />
-      {web ? (
-        <Upload
-          beforeUpload={(file) => {
-            if (file.type !== 'application/json') {
-              message.error('请上传json文件');
-            }
-            const reader = new FileReader();
-            reader.readAsText(file);
-            reader.onload = (e) => {
-              if (e.target) {
-                const newStyleConfig = JSON.parse(e.target.result as string);
-                onLoadStyle(newStyleConfig);
-              }
-            };
-            return false;
+    <>
+      {contextHolder}
+      <Space.Compact>
+        <Button
+          icon={<FaRegLightbulb />}
+          type={styleConfig.global.dark ? 'primary' : 'default'}
+          onClick={darkChange}
+        />
+        <Button
+          icon={<ExpandOutlined />}
+          onClick={async () => {
+            setOnResize(true);
+            autoResize(styleConfig, instrumentConfig, setStyleConfig);
+            await sleep(1500);
+            setResizeNum(resizeNum + 1);
+            // cilckResize();
           }}
-          accept=".mstyle.json"
-          showUploadList={false}
-        >
-          <Button icon={<UploadOutlined />} />
-        </Upload>
-      ) : (
-        <Button icon={<UploadOutlined />} onClick={load} />
-      )}
-      <Button
-        icon={<VscChromeMaximize />}
-        onClick={() => {
-          if (ipcRenderer) ipcRenderer.maximize();
-        }}
-      />{' '}
-      <Button
-        icon={<VscChromeRestore />}
-        onClick={() => {
-          if (ipcRenderer) ipcRenderer.unmaximize();
-        }}
-      />{' '}
-      <Button
-        icon={<VscChromeClose />}
-        onClick={() => {
-          if (ipcRenderer) ipcRenderer.close();
-        }}
-      />
-    </Space.Compact>
+          type={onResize ? 'primary' : 'default'}
+          id="autoResize"
+        />
+        <Button icon={<DownloadOutlined />} onClick={download} />
+        {web ? (
+          <Upload
+            beforeUpload={(file) => {
+              if (file.type !== 'application/json') {
+                message.error('请上传json文件');
+              }
+              const reader = new FileReader();
+              reader.readAsText(file);
+              reader.onload = (e) => {
+                if (e.target) {
+                  const newStyleConfig = JSON.parse(e.target.result as string);
+                  onLoadStyle(newStyleConfig);
+                }
+              };
+              return false;
+            }}
+            accept=".mstyle.json"
+            showUploadList={false}
+          >
+            <Button icon={<UploadOutlined />} />
+          </Upload>
+        ) : (
+          <Button icon={<UploadOutlined />} onClick={load} />
+        )}
+        <Button
+          icon={<VscChromeMaximize />}
+          onClick={() => {
+            if (ipcRenderer) ipcRenderer.maximize();
+          }}
+        />{' '}
+        <Button
+          icon={<VscChromeRestore />}
+          onClick={() => {
+            if (ipcRenderer) ipcRenderer.unmaximize();
+          }}
+        />{' '}
+        <Button
+          icon={<VscChromeClose />}
+          onClick={() => {
+            if (ipcRenderer) ipcRenderer.close();
+          }}
+        />
+      </Space.Compact>
+    </>
   );
 }

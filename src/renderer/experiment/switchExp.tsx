@@ -1,17 +1,18 @@
 import { useMap } from 'ahooks';
-import { Button, Select } from 'antd';
+import { Button, Select, Space } from 'antd';
 import { ElectronHandler } from 'main/preload';
 import { useEffect, useRef, useState } from 'react';
-import { InstrumentConfig } from 'renderer/typing/config.type';
+import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
 import { defaultExpMap } from './default';
 
 type propType = {
   exp: string;
+  styleConfig: StyleConfig;
   onChange: (name: string, config: InstrumentConfig) => void;
 };
 
-export default function SwitchExp({ exp, onChange }: propType) {
+export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
@@ -58,14 +59,22 @@ export default function SwitchExp({ exp, onChange }: propType) {
     onChange(name, expMap.get(name) as InstrumentConfig);
   }
 
+  useEffect(() => {
+    setIfOpen(false);
+    setTimeout(() => {
+      setIfOpen(true);
+    });
+  }, [styleConfig.setting.expHeight]);
+
   return (
     <div
       style={{
         position: 'fixed',
-        bottom: 200,
+        bottom: styleConfig.setting.expHeight,
         right: 0,
         zIndex: 200,
       }}
+      id="switchExp"
     >
       <Select
         placement="topLeft"
@@ -76,15 +85,25 @@ export default function SwitchExp({ exp, onChange }: propType) {
           changeConfig(value);
         }}
         style={{ width: 200 }}
+        showArrow={false}
       />
       <br />
-      <Button
-        onClick={() => {
-          loadExperiments();
-        }}
-      >
-        刷新
-      </Button>
+      <Space.Compact>
+        <Button
+          onClick={() => {
+            loadExperiments();
+          }}
+        >
+          刷新
+        </Button>
+        <Button
+          onClick={() => {
+            setIfOpen(!ifOpen);
+          }}
+        >
+          {ifOpen ? '收起' : '展开'}
+        </Button>
+      </Space.Compact>
     </div>
   );
 }

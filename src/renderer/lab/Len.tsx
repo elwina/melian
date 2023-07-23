@@ -31,7 +31,7 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
     lF.distancemm * hStyle.xScale -
     (lenWidth * hStyle.lenScaleX) / 2; // canvas左边界
   const heightCalc = hStyle.upHeight;
-  const widthCalc = lenWidth * hStyle.lenScaleX;
+  const widthCalc = lenWidth * hStyle.lenScaleX + 2;
 
   useEffect(() => {
     if (imageReady === false) {

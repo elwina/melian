@@ -240,6 +240,7 @@ export default function Square({ styleConfig, instrumentConfig }: propsType) {
       height={canvasHeight}
       ref={canvasRef}
       style={sty}
+      id="measure"
     />
   );
 }

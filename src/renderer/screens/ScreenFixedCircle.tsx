@@ -218,6 +218,7 @@ export default function ScreenFixedCircle({
       height={canvasHeight}
       ref={canvasRef}
       style={sty}
+      id="screen"
     />
   );
 }
