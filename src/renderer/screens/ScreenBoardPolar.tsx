@@ -151,6 +151,8 @@ export default function ScreenBoardPolar({
     left: sStyle.leftMargin,
     height: totalHeight,
     width: totalWidth,
+
+    zIndex: 60,
   };
 
   return (

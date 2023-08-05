@@ -240,6 +240,8 @@ export default function ScreenFixedCirclePolar({
     left: sStyle.leftMargin,
     height: canvasHeight,
     width: fullWidth,
+
+    zIndex: 60,
   };
 
   return (

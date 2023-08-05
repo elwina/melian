@@ -40,6 +40,8 @@ export default function Ctrl({
         left: hStyle.leftMargin,
         top: ch - hStyle.bottomMargin,
         width: 2 * hStyle.leftPadding + hStyle.holderWidthmm * hStyle.xScale,
+
+        zIndex: 20,
       }}
       id="ctrl"
     >

@@ -210,6 +210,8 @@ export default function ScreenFixedCircle({
     left: sStyle.leftMargin,
     height: canvasHeight,
     width: fullWidth,
+
+    zIndex: 60,
   };
 
   return (
