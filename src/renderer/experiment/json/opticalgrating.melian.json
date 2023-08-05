@@ -34,8 +34,8 @@
       "distancemm": 245,
       "hide": false,
       "option": {
-        "d": 0.06,
-        "b": 0.02,
+        "d": 3.334e-3,
+        "b": 1.667e-3,
         "N": 10000
       }
     },
@@ -59,7 +59,7 @@
     }
   ],
   "light": {
-    "type": "D65",
+    "type": "HG",
     "filter": 550
   },
   "screen": {

@@ -1,7 +1,7 @@
 import { normalization } from 'renderer/utils/array';
-import { D65Specteum, RedCyan } from './spectrum';
+import { D65Specteum, HG } from './spectrum';
 
-export type LightType = 'D65' | 'RedCyan';
+export type LightType = 'D65' | 'HG';
 
 export function getWaveInstense(lightType: LightType, filter: number) {
   let wave = [];
@@ -12,9 +12,9 @@ export function getWaveInstense(lightType: LightType, filter: number) {
         wave = D65Specteum.wave;
         instense = normalization(D65Specteum.instense);
         break;
-      case 'RedCyan':
-        wave = RedCyan.wave;
-        instense = normalization(RedCyan.instense);
+      case 'HG':
+        wave = HG.wave;
+        instense = normalization(HG.instense);
         break;
     }
   } else {
