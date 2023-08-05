@@ -27,7 +27,7 @@ export const D65Specteum = {
   ],
 };
 
-export const RedCyan = {
-  wave: [656, 492],
-  instense: [0.5, 0.5],
+export const HG = {
+  wave: [546.07, 576.183, 583.85, 434.055],
+  instense: [5, 5, 5, 5],
 };
