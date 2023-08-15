@@ -85,7 +85,7 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
   [
     'polarizer01',
     {
-      height: 60,
+      height: 30,
       width: 15,
       imgurl: polarizer01_svg,
     },
