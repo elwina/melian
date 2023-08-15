@@ -52,7 +52,7 @@ export default function EasyAction({
       );
       a.download = `${DateTime.now().toFormat(
         'yyyyLLdd-HH:mm:ss'
-      )}.melian.json`;
+      )}.mstyle.json`;
       a.click();
     }
 

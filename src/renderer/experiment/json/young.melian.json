@@ -1,5 +1,9 @@
 {
   "name": "杨氏双缝干涉",
+  "des": {
+    "type": "image",
+    "content": ["[young1]", "[young2]", "[young3]"]
+  },
   "lens": [
     {
       "id": 0,

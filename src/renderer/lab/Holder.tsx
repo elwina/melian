@@ -62,6 +62,8 @@ export default function Holder({ styleConfig }: propsType) {
         left: hStyle.leftMargin,
         bottom: hStyle.bottomMargin,
         backgroundColor: '#e4e4e4',
+
+        zIndex: 10,
       }}
     />
   );

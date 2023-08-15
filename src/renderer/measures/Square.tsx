@@ -231,7 +231,7 @@ export default function Square({ styleConfig, instrumentConfig }: propsType) {
     left: mStyle.leftMargin,
     height: canvasHeight,
     width: outWidth,
-    zIndex: 5,
+    zIndex: 30,
   };
 
   return (

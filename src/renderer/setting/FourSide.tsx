@@ -41,7 +41,6 @@ export default function FourSide({ values, onChange, options }: propsType) {
     display: 'grid',
     gridTemplateColumns: 'repeat(4,20px)',
     gridTemplateRows: 'repeat(4,20px)',
-    zIndex: 10,
   };
 
   function change(i: number, v: number) {

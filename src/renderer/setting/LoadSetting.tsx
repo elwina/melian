@@ -106,7 +106,7 @@ export default function LoadSetting({
         left: 0,
         width: settingWidth,
         height: styleConfig.setting.height,
-        zIndex: 100,
+        zIndex: 110,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
