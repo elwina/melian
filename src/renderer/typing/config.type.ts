@@ -1,4 +1,5 @@
 import type { LightType } from 'renderer/formula/lightwave';
+import type { DesType } from 'renderer/front/Frontpage';
 import type { MeasureStyles, MeasureType } from 'renderer/measures/mReg';
 import type { ScreenStyles, ScreenType } from 'renderer/screens/sReg';
 import type { SettingType } from 'renderer/setting/LoadSetting';
@@ -40,8 +41,14 @@ export interface SettingConfig {
   options: Record<string, any>;
 }
 
+export interface DesConfig {
+  type: DesType;
+  content: string[];
+}
+
 export interface InstrumentConfig {
   name: string;
+  des?: DesConfig;
   lens: LenConfig[];
   light: LightConfig;
   screen: ScreenConfig;
@@ -53,6 +60,7 @@ export interface InstrumentConfig {
 export interface StyleConfig {
   global: {
     dark: boolean;
+    front: boolean;
   };
   holder: {
     leftMargin: number;

@@ -4,6 +4,7 @@ import { ElectronHandler } from 'main/preload';
 import { sReg } from 'renderer/screens/sReg';
 import { mReg } from 'renderer/measures/mReg';
 import { ConfigProvider, theme } from 'antd';
+import FrontPage from 'renderer/front/Frontpage';
 import Holder from './Holder';
 import 'antd/dist/reset.css';
 import { InstrumentConfig, StyleConfig } from '../typing/config.type';
@@ -29,6 +30,7 @@ export default function Scene() {
   const [styleConfig, setStyleConfig] = useImmer<StyleConfig>({
     global: {
       dark: false,
+      front: true,
     },
     holder: {
       leftMargin: 50,
@@ -167,6 +169,9 @@ export default function Scene() {
               onChange={(name, config) => {
                 setExp(name);
                 setInstrumentConfig(config);
+                setStyleConfig((draft) => {
+                  draft.global.front = true;
+                });
               }}
             />
           </>
@@ -185,6 +190,15 @@ export default function Scene() {
             });
           }}
         />
+
+        {styleConfig.global.front && (
+          <FrontPage
+            instrumentConfig={instrumentConfig}
+            setInstrumentConfig={setInstrumentConfig}
+            styleConfig={styleConfig}
+            setStyleConfig={setStyleConfig}
+          />
+        )}
       </ConfigProvider>
     </>
   );
