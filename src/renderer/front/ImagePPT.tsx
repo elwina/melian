@@ -2,7 +2,6 @@ import { Button, Carousel, Image } from 'antd';
 import { useState } from 'react';
 import { InstrumentConfig } from 'renderer/typing/config.type';
 import { getImg } from './getImg';
-import './imagePPT.css';
 
 interface propsType {
   instrumentConfig: InstrumentConfig;
