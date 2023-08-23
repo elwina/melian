@@ -45,6 +45,7 @@ export default function Ctrl({
       }}
       id="ctrl"
     >
+      {/* <div style={{ clear: 'both' }} /> */}
       {lensConfig.map((len, i) => {
         return (
           <div
@@ -58,6 +59,7 @@ export default function Ctrl({
               alignItems: 'center',
               justifyItems: 'center',
             }}
+            id={`ctrl-${i}`}
           >
             <div>{inArray(i, ctrlConfig.showmm) ? len.distancemm : ' '}</div>
             {inArray(i, ctrlConfig.move) && (

@@ -116,12 +116,13 @@ export default function EasyAction({
   return (
     <>
       {contextHolder}
-      <Space.Compact>
+      <Space.Compact id="easyaction">
         <Tooltip title="开/关灯">
           <Button
             icon={<FaRegLightbulb />}
             type={styleConfig.global.dark ? 'primary' : 'default'}
             onClick={darkChange}
+            id="turnoff"
           />
         </Tooltip>
         <ColorPicker
@@ -175,37 +176,39 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
-        <Tooltip title="保存样式">
-          <Button icon={<DownloadOutlined />} onClick={download} />
-        </Tooltip>
-        <Tooltip title="加载样式">
-          {web ? (
-            <Upload
-              beforeUpload={(file) => {
-                if (file.type !== 'application/json') {
-                  message.error('请上传json文件');
-                }
-                const reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = (e) => {
-                  if (e.target) {
-                    const newStyleConfig = JSON.parse(
-                      e.target.result as string
-                    );
-                    onLoadStyle(newStyleConfig);
+        <div id="iostyle">
+          <Tooltip title="保存样式">
+            <Button icon={<DownloadOutlined />} onClick={download} />
+          </Tooltip>
+          <Tooltip title="加载样式">
+            {web ? (
+              <Upload
+                beforeUpload={(file) => {
+                  if (file.type !== 'application/json') {
+                    message.error('请上传json文件');
                   }
-                };
-                return false;
-              }}
-              accept=".mstyle.json"
-              showUploadList={false}
-            >
-              <Button icon={<UploadOutlined />} />
-            </Upload>
-          ) : (
-            <Button icon={<UploadOutlined />} onClick={load} />
-          )}
-        </Tooltip>
+                  const reader = new FileReader();
+                  reader.readAsText(file);
+                  reader.onload = (e) => {
+                    if (e.target) {
+                      const newStyleConfig = JSON.parse(
+                        e.target.result as string
+                      );
+                      onLoadStyle(newStyleConfig);
+                    }
+                  };
+                  return false;
+                }}
+                accept=".mstyle.json"
+                showUploadList={false}
+              >
+                <Button icon={<UploadOutlined />} />
+              </Upload>
+            ) : (
+              <Button icon={<UploadOutlined />} onClick={load} />
+            )}
+          </Tooltip>
+        </div>
         <Tooltip title="最大化">
           <Button
             icon={<VscChromeMaximize />}

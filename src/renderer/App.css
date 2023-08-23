@@ -23,3 +23,9 @@ body {
   background-color: #ffffff;
   color: #000000;
 }
+
+#ctrl::after {
+  content: "";
+  display: table;
+  clear: both;
+}

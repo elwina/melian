@@ -61,6 +61,7 @@ export default function FrontPage({
               });
               document.getElementById('autoResize')?.click();
             }}
+            className="enter-btn"
           >
             进入并定位
           </Button>
@@ -79,7 +80,7 @@ export default function FrontPage({
             直接进入
           </Button>
         </Tooltip>
-        <Space.Compact block size="large">
+        <Space.Compact block size="large" className="ppt-slider">
           <Button
             size="large"
             icon={<LeftCircleOutlined />}

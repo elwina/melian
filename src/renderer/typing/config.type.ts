@@ -61,7 +61,10 @@ export interface InstrumentConfig {
 export interface StyleConfig {
   global: {
     dark: boolean;
+    ifNotStyle: boolean;
     front: boolean;
+    guide: boolean;
+    expOpen: boolean;
     primaryColor: string;
   };
   holder: {

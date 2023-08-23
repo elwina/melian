@@ -9,10 +9,16 @@ import { defaultExpMap } from './default';
 type propType = {
   exp: string;
   styleConfig: StyleConfig;
+  setStyleConfig: Updater<StyleConfig>;
   onChange: (name: string, config: InstrumentConfig) => void;
 };
 
-export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
+export default function SwitchExp({
+  exp,
+  styleConfig,
+  setStyleConfig,
+  onChange,
+}: propType) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
@@ -43,7 +49,14 @@ export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
   const [expOpt, setExpOpt] = useState([
     { label: 'loading', value: 'loading' },
   ]);
-  const [ifOpen, setIfOpen] = useState<boolean>(false);
+
+  const ifOpen = styleConfig.global.expOpen;
+  const setIfOpen = (val: boolean) => {
+    setStyleConfig((draft) => {
+      draft.global.expOpen = val;
+    });
+  };
+
   useEffect(() => {
     const arr = Array.from(expMap);
     setIfOpen(false);
@@ -86,6 +99,7 @@ export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
         }}
         style={{ width: 200 }}
         showArrow={false}
+        popupClassName="exp-select"
       />
       <br />
       <Space.Compact>

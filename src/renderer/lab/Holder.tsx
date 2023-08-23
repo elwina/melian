@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { Ref, useEffect, useRef } from 'react';
 import { StyleConfig } from 'renderer/typing/config.type';
 
 interface propsType {
@@ -50,7 +50,7 @@ export default function Holder({ styleConfig }: propsType) {
     ctx.stroke();
     ctx.closePath();
     ctx.restore();
-  });
+  }, [styleConfig]);
 
   return (
     <canvas
@@ -65,6 +65,7 @@ export default function Holder({ styleConfig }: propsType) {
 
         zIndex: 10,
       }}
+      id="holder"
     />
   );
 }

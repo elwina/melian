@@ -3,7 +3,7 @@ import { useImmer } from 'use-immer';
 import { ElectronHandler } from 'main/preload';
 import { sReg } from 'renderer/screens/sReg';
 import { mReg } from 'renderer/measures/mReg';
-import { ConfigProvider, theme } from 'antd';
+import { Button, ConfigProvider, theme, Tour, TourProps } from 'antd';
 import FrontPage from 'renderer/front/Frontpage';
 import Holder from './Holder';
 import 'antd/dist/reset.css';
@@ -14,7 +14,7 @@ import LoadSetting from '../setting/LoadSetting';
 import SwitchExp from '../experiment/switchExp';
 import young from '../experiment/json/young.melian.json';
 
-export default function Scene() {
+export default function Scene(this: any) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
@@ -30,7 +30,10 @@ export default function Scene() {
   const [styleConfig, setStyleConfig] = useImmer<StyleConfig>({
     global: {
       dark: false,
+      ifNotStyle: true,
       front: true,
+      guide: true,
+      expOpen: false,
       primaryColor: '#1677ff',
     },
     holder: {
@@ -137,6 +140,155 @@ export default function Scene() {
       : 'light-mode';
   }, [styleConfig.global.dark]);
 
+  // 导览页面
+  // 仅适用于杨氏双缝
+  const steps: TourProps['steps'] = [
+    {
+      title: '欢迎使用',
+      description:
+        '欢迎来到波动光学演示系统! 作为物理学的一个重要学科分支，光学研究的发展完全符合以下认知规律：在观察和实验的基础上，对物理现象进行分析、抽象和综合，进而提出假说，形成理论，并不断反复经受实践的检验。光学的学习是需要实验为基础的。而本软件旨在通过模拟光的干涉、光的衍射和光的偏振中重要的实验，允许操作者改变参数、可视化地输出模拟结果，使学生对波动光学有更深的理解和掌握。本软件预期为广大师生提供优质的教学资源。如有不妥之处，请各位多多指正。',
+      target: null,
+    },
+    {
+      title: '讲解页面',
+      description: '这是讲解页面，您可以在这里播放教学PPT',
+      target: document.getElementById('ppt'),
+      placement: 'center',
+      type: 'primary',
+    },
+    {
+      title: '左右翻页',
+      description: '您可以通过点击左右箭头来翻页',
+      target: document
+        .getElementsByClassName('ppt-slider')
+        ?.item(0) as HTMLElement,
+    },
+    {
+      title: '进入并定位',
+      description:
+        '您可以通过点击这个按钮来进入实验操作界面，程序会自动为您定位到最佳布局，您需要等待几秒钟',
+      target: document
+        .getElementsByClassName('enter-btn')
+        ?.item(0) as HTMLElement,
+      nextButtonProps: {
+        onClick: () => {
+          (
+            document.getElementsByClassName('enter-btn')[0] as HTMLElement
+          ).click();
+        },
+      },
+    },
+    {
+      title: '定位中',
+      description:
+        '自动定位是需要时间的，程序将针对任何屏幕大小进行适配，您也可以在之后手动操控布局。请您在等待后方控件停止移动后，点击进入下一步',
+      target: null,
+    },
+    {
+      title: '观察屏',
+      description:
+        '这是观察屏，您可以在这里观察干涉条纹，以及任何您想观察的现象',
+      target: document.getElementById('screen'),
+    },
+    {
+      title: '测量头',
+      description: '这是测量头，您可以在这里读取游标卡尺/螺旋测微器的读数',
+      target: document.getElementById('measure'),
+    },
+    {
+      title: '光具座',
+      description: '这是光具座，其上方是光具，下方是操作杆',
+      target: document.getElementById('holder'),
+    },
+    {
+      title: '移动光具',
+      description: '您可以通过拖动光具来调整光具的位置，按住小手拖动即可',
+      target: document.getElementById('ctrl-5'),
+    },
+    {
+      title: '设置栏',
+      description:
+        '这是设置栏切换按钮，目前正处于参数调节模式，点击即可切换为样式调节。请点击进入下一步',
+      target: document.getElementById('switchSetting'),
+      nextButtonProps: {
+        onClick: () => {
+          setStyleConfig((draft) => {
+            draft.global.ifNotStyle = false;
+          });
+        },
+      },
+    },
+    {
+      title: '样式调节',
+      description:
+        '在这里您可以调节所有控件的样式，包括光具座、观察屏、测量头的位置尺寸大小等等',
+      target: document.getElementById('setting'),
+    },
+    {
+      title: '参数调节',
+      description: '请再次点击切换栏目，切换至参数调节',
+      target: document.getElementById('switchSetting'),
+      nextButtonProps: {
+        onClick: () => {
+          setStyleConfig((draft) => {
+            draft.global.ifNotStyle = true;
+          });
+        },
+      },
+    },
+    {
+      title: '设置栏',
+      description:
+        '在下方设置栏，您可以调节实验的参数，包括光源波长、双峰间距、目镜位置等等',
+      target: document.getElementById('setting'),
+    },
+    {
+      title: '调整双缝间距',
+      description:
+        '您可以通过点击预设值调整双缝间距，也可以点击自定义，然后拖动滑块来调整双缝间距',
+      target: document.getElementById('settings-1'),
+    },
+    {
+      title: '调整目镜位置',
+      description:
+        '您可以拖动下方的滚轮状横条，来粗调目镜位置。左边的柱状按钮显示的是粗调幅度，您可点击增大幅度',
+      target: document.getElementById('settings-2'),
+    },
+    {
+      title: '快速工具栏',
+      description:
+        '这是快速工具栏，您可以在这里进行关灯、更换主题颜色、自动定位、返回PPT页等操作',
+      target: document.getElementById('easyaction'),
+    },
+    {
+      title: '关灯',
+      description: '您可以通过点击这个按钮来切换关灯模式，以便于观察干涉条纹',
+      target: document.getElementById('turnoff'),
+    },
+    {
+      title: '自动定位',
+      description: '每次切换实验或者调节窗口大小后，可以点击自动定位重定位',
+      target: document.getElementById('autoResize'),
+    },
+    {
+      title: '导出/加载配置',
+      description:
+        '您可以通过点击这个按钮来导出/加载样式配置，以便记录下当前样式，这非常适合于课堂教学',
+      target: document.getElementById('iostyle'),
+    },
+    {
+      title: '切换实验',
+      description:
+        '右侧的窗口可以切换实验，您也可以将实验配置文件放进程序目录，后点击出刷新来自定义实验',
+      target: document.getElementsByClassName('exp-select')[0] as HTMLElement,
+    },
+    {
+      title: '教程结束',
+      description: '引导教程到此结束，祝您使用愉快',
+      target: null,
+    },
+  ];
+
   return (
     <>
       <ConfigProvider
@@ -171,6 +323,7 @@ export default function Scene() {
             <SwitchExp
               exp={exp}
               styleConfig={styleConfig}
+              setStyleConfig={setStyleConfig}
               onChange={(name, config) => {
                 setExp(name);
                 setInstrumentConfig(config);
@@ -204,6 +357,8 @@ export default function Scene() {
             setStyleConfig={setStyleConfig}
           />
         )}
+
+        <Tour steps={steps} zIndex={99999} />
       </ConfigProvider>
     </>
   );
