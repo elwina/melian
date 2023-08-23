@@ -1,7 +1,7 @@
 import { parse } from 'mathjs';
 import { CSSProperties, useEffect, useRef } from 'react';
-import { mutiLight2rgb } from 'renderer/formula/light2rgb';
-import { getWaveInstense } from 'renderer/formula/lightwave';
+import { mutiLight2rgb } from 'renderer/color/light2rgb2';
+import { getWaveInstense } from 'renderer/color/lightwave';
 import { parseRequire } from 'renderer/utils/parseRequire';
 import type {
   InstrumentConfig,
