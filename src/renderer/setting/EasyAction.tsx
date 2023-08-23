@@ -13,6 +13,7 @@ import {
   UploadOutlined,
   ExpandOutlined,
   FileTextOutlined,
+  SkinOutlined,
 } from '@ant-design/icons';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
@@ -146,6 +147,13 @@ export default function EasyAction({
               });
             }}
           />
+        </Tooltip>
+        <Tooltip title="换肤">
+          {/* <ColorPicker
+            value={styleConfig.global.primaryColor}
+            onChange={() => {}}
+          > */}
+          <Button icon={<SkinOutlined />} />
         </Tooltip>
         <Tooltip title="保存样式">
           <Button icon={<DownloadOutlined />} onClick={download} />

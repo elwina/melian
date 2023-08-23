@@ -31,6 +31,7 @@ export default function Scene() {
     global: {
       dark: false,
       front: true,
+      primaryColor: '#1677ff',
     },
     holder: {
       leftMargin: 50,
@@ -143,6 +144,10 @@ export default function Scene() {
           algorithm: styleConfig.global.dark
             ? theme.darkAlgorithm
             : theme.defaultAlgorithm,
+
+          token: {
+            colorPrimary: styleConfig.global.primaryColor,
+          },
         }}
       >
         <LoadSetting

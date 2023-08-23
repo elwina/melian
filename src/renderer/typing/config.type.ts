@@ -62,6 +62,7 @@ export interface StyleConfig {
   global: {
     dark: boolean;
     front: boolean;
+    primaryColor: string;
   };
   holder: {
     leftMargin: number;
