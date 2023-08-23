@@ -1,4 +1,4 @@
-import { Space, Button, Upload, message } from 'antd';
+import { Space, Button, Upload, message, Tooltip } from 'antd';
 import { DateTime } from 'luxon';
 import { ElectronHandler } from 'main/preload';
 import { useEffect, useRef, useState } from 'react';
@@ -12,6 +12,7 @@ import {
   DownloadOutlined,
   UploadOutlined,
   ExpandOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
@@ -115,66 +116,92 @@ export default function EasyAction({
     <>
       {contextHolder}
       <Space.Compact>
-        <Button
-          icon={<FaRegLightbulb />}
-          type={styleConfig.global.dark ? 'primary' : 'default'}
-          onClick={darkChange}
-        />
-        <Button
-          icon={<ExpandOutlined />}
-          onClick={async () => {
-            setOnResize(true);
-            autoResize(styleConfig, instrumentConfig, setStyleConfig);
-            await sleep(1500);
-            setResizeNum(resizeNum + 1);
-            // cilckResize();
-          }}
-          type={onResize ? 'primary' : 'default'}
-          id="autoResize"
-        />
-        <Button icon={<DownloadOutlined />} onClick={download} />
-        {web ? (
-          <Upload
-            beforeUpload={(file) => {
-              if (file.type !== 'application/json') {
-                message.error('请上传json文件');
-              }
-              const reader = new FileReader();
-              reader.readAsText(file);
-              reader.onload = (e) => {
-                if (e.target) {
-                  const newStyleConfig = JSON.parse(e.target.result as string);
-                  onLoadStyle(newStyleConfig);
-                }
-              };
-              return false;
+        <Tooltip title="开/关灯">
+          <Button
+            icon={<FaRegLightbulb />}
+            type={styleConfig.global.dark ? 'primary' : 'default'}
+            onClick={darkChange}
+          />
+        </Tooltip>
+        <Tooltip title="自动定位">
+          <Button
+            icon={<ExpandOutlined />}
+            onClick={async () => {
+              setOnResize(true);
+              autoResize(styleConfig, instrumentConfig, setStyleConfig);
+              await sleep(1500);
+              setResizeNum(resizeNum + 1);
+              // cilckResize();
             }}
-            accept=".mstyle.json"
-            showUploadList={false}
-          >
-            <Button icon={<UploadOutlined />} />
-          </Upload>
-        ) : (
-          <Button icon={<UploadOutlined />} onClick={load} />
-        )}
-        <Button
-          icon={<VscChromeMaximize />}
-          onClick={() => {
-            if (ipcRenderer) ipcRenderer.maximize();
-          }}
-        />{' '}
-        <Button
-          icon={<VscChromeRestore />}
-          onClick={() => {
-            if (ipcRenderer) ipcRenderer.unmaximize();
-          }}
-        />{' '}
-        <Button
-          icon={<VscChromeClose />}
-          onClick={() => {
-            if (ipcRenderer) ipcRenderer.close();
-          }}
-        />
+            type={onResize ? 'primary' : 'default'}
+            id="autoResize"
+          />
+        </Tooltip>
+        <Tooltip title="查看讲义">
+          <Button
+            icon={<FileTextOutlined />}
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.front = true;
+              });
+            }}
+          />
+        </Tooltip>
+        <Tooltip title="保存样式">
+          <Button icon={<DownloadOutlined />} onClick={download} />
+        </Tooltip>
+        <Tooltip title="加载样式">
+          {web ? (
+            <Upload
+              beforeUpload={(file) => {
+                if (file.type !== 'application/json') {
+                  message.error('请上传json文件');
+                }
+                const reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = (e) => {
+                  if (e.target) {
+                    const newStyleConfig = JSON.parse(
+                      e.target.result as string
+                    );
+                    onLoadStyle(newStyleConfig);
+                  }
+                };
+                return false;
+              }}
+              accept=".mstyle.json"
+              showUploadList={false}
+            >
+              <Button icon={<UploadOutlined />} />
+            </Upload>
+          ) : (
+            <Button icon={<UploadOutlined />} onClick={load} />
+          )}
+        </Tooltip>
+        <Tooltip title="最大化">
+          <Button
+            icon={<VscChromeMaximize />}
+            onClick={() => {
+              if (ipcRenderer) ipcRenderer.maximize();
+            }}
+          />
+        </Tooltip>
+        <Tooltip title="还原">
+          <Button
+            icon={<VscChromeRestore />}
+            onClick={() => {
+              if (ipcRenderer) ipcRenderer.unmaximize();
+            }}
+          />
+        </Tooltip>
+        <Tooltip title="关闭">
+          <Button
+            icon={<VscChromeClose />}
+            onClick={() => {
+              if (ipcRenderer) ipcRenderer.close();
+            }}
+          />
+        </Tooltip>
       </Space.Compact>
     </>
   );

@@ -1,5 +1,9 @@
 {
   "name": "光栅衍射",
+  "des": {
+    "type": "image",
+    "content": ["[opticalgrating1]", "[opticalgrating2]", "[opticalgrating3]"]
+  },
   "lens": [
     {
       "id": 0,

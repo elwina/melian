@@ -1,5 +1,14 @@
 {
   "name": "菲涅尔圆孔衍射",
+  "des": {
+    "type": "image",
+    "content": [
+      "[fresnel_hole1]",
+      "[fresnel_hole2]",
+      "[fresnel_hole3]",
+      "[fresnel_hole4]"
+    ]
+  },
   "lens": [
     {
       "id": 0,

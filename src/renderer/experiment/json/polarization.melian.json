@@ -1,5 +1,9 @@
 {
   "name": "偏振光互补色",
+  "des": {
+    "type": "image",
+    "content": ["[polarization1]", "[polarization2]", "[polarization3]"]
+  },
   "lens": [
     {
       "id": 0,
