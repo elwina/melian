@@ -65,7 +65,7 @@ export default function Scene() {
         bottomMargin: 515,
       },
       Board: {
-        mm2px: 10,
+        mm2px: 2,
         totalWidthmm: 200,
         totalHeightmm: 50,
         scaleX: 3,
