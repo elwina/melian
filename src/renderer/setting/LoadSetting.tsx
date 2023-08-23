@@ -7,7 +7,11 @@ import type {
 } from 'renderer/typing/config.type';
 import { parseRequireArray, parseSet } from 'renderer/utils/parseRequire';
 import { Updater } from 'use-immer';
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  MessageOutlined,
+} from '@ant-design/icons';
 import ButtonSlider from './ButtonSlider';
 import EasyAction from './EasyAction';
 import StyleAdjust from './StyleAdjust';
@@ -52,7 +56,11 @@ export default function LoadSetting({
     const values = parseRequireArray(s.target, instrumentConfig, styleConfig);
 
     return (
-      <Tooltip title={s.des} key={s.name + instrumentConfig.name}>
+      <Tooltip
+        title={s.des}
+        key={s.name + instrumentConfig.name}
+        overlayStyle={{ display: styleConfig.global.showTooltip ? '' : 'none' }}
+      >
         <div
           style={{
             display: 'inline-flex',
@@ -124,6 +132,9 @@ export default function LoadSetting({
               ? '允许操作者改变实验参数，点击可切换至样式调节'
               : '允许操作者改变仪器布局、大小等以适应多屏幕，点击可切换至参数调节'
           }
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
         >
           <Switch
             checkedChildren="参数调节"
@@ -134,8 +145,13 @@ export default function LoadSetting({
           />
         </Tooltip>
 
-        <Tooltip title="上/下移操作控件">
-          <Space.Compact>
+        <Space.Compact>
+          <Tooltip
+            title="上/下移操作控件"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
             <Button
               icon={<ArrowUpOutlined />}
               onClick={() => {
@@ -152,8 +168,8 @@ export default function LoadSetting({
                 });
               }}
             />
-          </Space.Compact>
-        </Tooltip>
+          </Tooltip>
+        </Space.Compact>
       </Space>
       {!ifNotStyle ? (
         <StyleAdjust

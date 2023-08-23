@@ -1,7 +1,7 @@
 import { useMap } from 'ahooks';
 import { Button, Select, Space } from 'antd';
 import { ElectronHandler } from 'main/preload';
-import { useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
 import { defaultExpMap } from './default';
@@ -11,6 +11,8 @@ type propType = {
   styleConfig: StyleConfig;
   setStyleConfig: Updater<StyleConfig>;
   onChange: (name: string, config: InstrumentConfig) => void;
+  show?: boolean;
+  onChangeExp?: (expMap: Map<string, InstrumentConfig>) => void;
 };
 
 export default function SwitchExp({
@@ -18,6 +20,8 @@ export default function SwitchExp({
   styleConfig,
   setStyleConfig,
   onChange,
+  show = true,
+  onChangeExp = () => {},
 }: propType) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
@@ -29,6 +33,10 @@ export default function SwitchExp({
   }
 
   const [expMap, { set: setExpMap }] = useMap(defaultExpMap);
+
+  useEffect(() => {
+    onChangeExp(expMap);
+  }, [expMap]);
 
   async function loadExperiments() {
     if (ipcRenderer) {
@@ -79,46 +87,49 @@ export default function SwitchExp({
     });
   }, [styleConfig.setting.expHeight]);
 
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: styleConfig.setting.expHeight,
-        right: 0,
-        zIndex: 200,
-      }}
-      id="switchExp"
-    >
-      <Select
-        placement="topLeft"
-        value={exp}
-        options={expOpt}
-        open={ifOpen}
-        onChange={(value) => {
-          changeConfig(value);
+  if (show)
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          bottom: styleConfig.setting.expHeight,
+          right: 0,
+          zIndex: 200,
         }}
-        style={{ width: 200 }}
-        showArrow={false}
-        popupClassName="exp-select"
-      />
-      <br />
-      <Space.Compact>
-        <Button
-          onClick={() => {
-            loadExperiments();
+        id="switchExp"
+      >
+        <Select
+          placement="topLeft"
+          value={exp}
+          options={expOpt}
+          open={ifOpen}
+          onChange={(value) => {
+            changeConfig(value);
           }}
-        >
-          刷新
-        </Button>
-        <Button
-          onClick={() => {
-            setIfOpen(!ifOpen);
-          }}
-          id="switchExpOpenBtn"
-        >
-          {ifOpen ? '收起' : '展开'}
-        </Button>
-      </Space.Compact>
-    </div>
-  );
+          style={{ width: 200 }}
+          showArrow={false}
+          popupClassName="exp-select"
+          dropdownStyle={{ zIndex: 5000 }}
+        />
+        <br />
+        <Space.Compact>
+          <Button
+            onClick={() => {
+              loadExperiments();
+            }}
+          >
+            刷新
+          </Button>
+          <Button
+            onClick={() => {
+              setIfOpen(!ifOpen);
+            }}
+            id="switchExpOpenBtn"
+          >
+            {ifOpen ? '收起' : '展开'}
+          </Button>
+        </Space.Compact>
+      </div>
+    );
+  else return null;
 }

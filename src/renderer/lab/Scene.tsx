@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { useImmer } from 'use-immer';
+import { DraftFunction, useImmer } from 'use-immer';
 import { ElectronHandler } from 'main/preload';
 import { sReg } from 'renderer/screens/sReg';
 import { mReg } from 'renderer/measures/mReg';
 import { Button, ConfigProvider, theme, Tour, TourProps } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
 import FrontPage from 'renderer/front/Frontpage';
+import { Welcome } from 'renderer/welcome/Welcome';
 import Holder from './Holder';
 import 'antd/dist/reset.css';
 import { InstrumentConfig, StyleConfig } from '../typing/config.type';
@@ -14,7 +16,7 @@ import LoadSetting from '../setting/LoadSetting';
 import SwitchExp from '../experiment/switchExp';
 import young from '../experiment/json/young.melian.json';
 
-export default function Scene(this: any) {
+export default function Scene() {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
@@ -31,7 +33,9 @@ export default function Scene(this: any) {
     global: {
       dark: false,
       ifNotStyle: true,
+      showTooltip: true,
       front: true,
+      welcome: true,
       guide: true,
       expOpen: false,
       primaryColor: '#1677ff',
@@ -289,6 +293,14 @@ export default function Scene(this: any) {
     },
   ];
 
+  function changeExp(name: string, config: InstrumentConfig) {
+    setExp(name);
+    setInstrumentConfig(config);
+    setStyleConfig((draft) => {
+      draft.global.front = true;
+    });
+  }
+
   return (
     <>
       <ConfigProvider
@@ -301,6 +313,7 @@ export default function Scene(this: any) {
             colorPrimary: styleConfig.global.primaryColor,
           },
         }}
+        locale={zhCN}
       >
         <LoadSetting
           styleConfig={styleConfig}
@@ -325,11 +338,12 @@ export default function Scene(this: any) {
               styleConfig={styleConfig}
               setStyleConfig={setStyleConfig}
               onChange={(name, config) => {
-                setExp(name);
-                setInstrumentConfig(config);
-                setStyleConfig((draft) => {
-                  draft.global.front = true;
-                });
+                changeExp(name, config);
+                // setExp(name);
+                // setInstrumentConfig(config);
+                // setStyleConfig((draft) => {
+                //   draft.global.front = true;
+                // });
               }}
             />
           </>
@@ -359,6 +373,12 @@ export default function Scene(this: any) {
         )}
 
         <Tour steps={steps} zIndex={99999} />
+        <Welcome
+          instrumentConfig={instrumentConfig}
+          setInstrumentConfig={setInstrumentConfig}
+          styleConfig={styleConfig}
+          setStyleConfig={setStyleConfig}
+        />
       </ConfigProvider>
     </>
   );

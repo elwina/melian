@@ -25,6 +25,7 @@ module.exports = {
     'react/jsx-no-useless-fragment': 'off',
     'prefer-destructuring': 'off',
     'no-empty': 'off',
+    'react/require-default-props': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -14,6 +14,7 @@ import {
   ExpandOutlined,
   FileTextOutlined,
   SkinOutlined,
+  MessageOutlined,
 } from '@ant-design/icons';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
@@ -117,7 +118,12 @@ export default function EasyAction({
     <>
       {contextHolder}
       <Space.Compact id="easyaction">
-        <Tooltip title="开/关灯">
+        <Tooltip
+          title="开/关灯"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<FaRegLightbulb />}
             type={styleConfig.global.dark ? 'primary' : 'default'}
@@ -148,11 +154,21 @@ export default function EasyAction({
             });
           }}
         >
-          <Tooltip title="换肤">
+          <Tooltip
+            title="换肤"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
             <Button icon={<SkinOutlined />} />
           </Tooltip>
         </ColorPicker>
-        <Tooltip title="自动定位">
+        <Tooltip
+          title="自动定位"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<ExpandOutlined />}
             onClick={async () => {
@@ -166,7 +182,12 @@ export default function EasyAction({
             id="autoResize"
           />
         </Tooltip>
-        <Tooltip title="查看讲义">
+        <Tooltip
+          title="查看讲义"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<FileTextOutlined />}
             onClick={() => {
@@ -176,11 +197,38 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
+        <Tooltip
+          title="显示提示"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
+          <Button
+            icon={<MessageOutlined />}
+            type={styleConfig.global.showTooltip ? 'primary' : 'default'}
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.showTooltip = !draft.global.showTooltip;
+              });
+            }}
+          />
+        </Tooltip>
+
         <div id="iostyle">
-          <Tooltip title="保存样式">
+          <Tooltip
+            title="保存样式"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
             <Button icon={<DownloadOutlined />} onClick={download} />
           </Tooltip>
-          <Tooltip title="加载样式">
+          <Tooltip
+            title="加载样式"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
             {web ? (
               <Upload
                 beforeUpload={(file) => {
@@ -209,7 +257,12 @@ export default function EasyAction({
             )}
           </Tooltip>
         </div>
-        <Tooltip title="最大化">
+        <Tooltip
+          title="最大化"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<VscChromeMaximize />}
             onClick={() => {
@@ -217,7 +270,12 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
-        <Tooltip title="还原">
+        <Tooltip
+          title="还原"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<VscChromeRestore />}
             onClick={() => {
@@ -225,7 +283,12 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
-        <Tooltip title="关闭">
+        <Tooltip
+          title="关闭"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<VscChromeClose />}
             onClick={() => {

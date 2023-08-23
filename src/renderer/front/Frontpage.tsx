@@ -50,7 +50,13 @@ export default function FrontPage({
         align="center"
         size="large"
       >
-        <Tooltip title="进入已调整为最佳布局的实验操作界面" zIndex={10001}>
+        <Tooltip
+          title="进入已调整为最佳布局的实验操作界面"
+          zIndex={10001}
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             size="large"
             type="primary"
@@ -67,7 +73,13 @@ export default function FrontPage({
           </Button>
         </Tooltip>
 
-        <Tooltip title="进入现有布局的实验操作界面" zIndex={10001}>
+        <Tooltip
+          title="进入现有布局的实验操作界面"
+          zIndex={10001}
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             size="large"
             block
