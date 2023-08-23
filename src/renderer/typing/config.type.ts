@@ -1,4 +1,4 @@
-import type { LightType } from 'renderer/formula/lightwave';
+import type { LightType } from 'renderer/color/lightwave';
 import type { DesType } from 'renderer/front/Frontpage';
 import type { MeasureStyles, MeasureType } from 'renderer/measures/mReg';
 import type { ScreenStyles, ScreenType } from 'renderer/screens/sReg';
