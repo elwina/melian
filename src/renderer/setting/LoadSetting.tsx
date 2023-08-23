@@ -1,5 +1,5 @@
 import { useBoolean } from 'ahooks';
-import { Button, Space, Switch } from 'antd';
+import { Button, Space, Switch, Tooltip } from 'antd';
 import { ElementType, useEffect, useState } from 'react';
 import type {
   InstrumentConfig,
@@ -56,29 +56,30 @@ export default function LoadSetting({
     const values = parseRequireArray(s.target, instrumentConfig, styleConfig);
 
     return (
-      <div
-        key={s.name + instrumentConfig.name}
-        style={{
-          display: 'inline-flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-        }}
-      >
-        <div>{s.name}</div>
-        <SettingComponent
-          values={values}
-          options={s.options}
-          onChange={(values: number[]) => {
-            const newSetDict = s.target.map((t, i) => [t, values[i]]);
-            parseSet(
-              Object.fromEntries(newSetDict),
-              setInstrumentConfig,
-              setStyleConfig
-            );
+      <Tooltip title={s.des} key={s.name + instrumentConfig.name}>
+        <div
+          style={{
+            display: 'inline-flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-around',
           }}
-        />
-      </div>
+        >
+          <div>{s.name}</div>
+          <SettingComponent
+            values={values}
+            options={s.options}
+            onChange={(values: number[]) => {
+              const newSetDict = s.target.map((t, i) => [t, values[i]]);
+              parseSet(
+                Object.fromEntries(newSetDict),
+                setInstrumentConfig,
+                setStyleConfig
+              );
+            }}
+          />
+        </div>
+      </Tooltip>
     );
   });
 

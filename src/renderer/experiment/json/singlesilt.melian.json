@@ -1,5 +1,14 @@
 {
   "name": "夫琅禾费单缝衍射",
+  "des": {
+    "type": "image",
+    "content": [
+      "[singlesilt1]",
+      "[singlesilt2]",
+      "[singlesilt3]",
+      "[singlesilt4]"
+    ]
+  },
   "lens": [
     {
       "id": 0,

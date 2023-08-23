@@ -146,6 +146,7 @@
     {
       "name": "目镜控制",
       "type": "TwoArrow",
+      "des": "粗调目镜",
       "target": ["measure.offsetmm", "screen.offsetmm"],
       "options": {
         "min": -5,

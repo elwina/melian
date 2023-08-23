@@ -37,6 +37,7 @@ export interface ControlConfig {
 export interface SettingConfig {
   name: string;
   type: SettingType;
+  des?: string;
   target: string[];
   options: Record<string, any>;
 }
