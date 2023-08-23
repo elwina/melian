@@ -1,4 +1,4 @@
-import { Space, Button, Upload, message, Tooltip } from 'antd';
+import { Space, Button, Upload, message, Tooltip, ColorPicker } from 'antd';
 import { DateTime } from 'luxon';
 import { ElectronHandler } from 'main/preload';
 import { useEffect, useRef, useState } from 'react';
@@ -124,6 +124,33 @@ export default function EasyAction({
             onClick={darkChange}
           />
         </Tooltip>
+        <ColorPicker
+          value={styleConfig.global.primaryColor}
+          presets={[
+            {
+              label: 'Recommended',
+              colors: [
+                '#1677ff',
+                '#722ed1',
+                '#7cb305',
+                '#cf1322',
+                '#fa541c',
+                '#eb2f96',
+              ],
+            },
+          ]}
+          disabledAlpha
+          placement="topRight"
+          onChange={(color) => {
+            setStyleConfig((draft) => {
+              draft.global.primaryColor = color.toHexString();
+            });
+          }}
+        >
+          <Tooltip title="换肤">
+            <Button icon={<SkinOutlined />} />
+          </Tooltip>
+        </ColorPicker>
         <Tooltip title="自动定位">
           <Button
             icon={<ExpandOutlined />}
@@ -147,13 +174,6 @@ export default function EasyAction({
               });
             }}
           />
-        </Tooltip>
-        <Tooltip title="换肤">
-          {/* <ColorPicker
-            value={styleConfig.global.primaryColor}
-            onChange={() => {}}
-          > */}
-          <Button icon={<SkinOutlined />} />
         </Tooltip>
         <Tooltip title="保存样式">
           <Button icon={<DownloadOutlined />} onClick={download} />

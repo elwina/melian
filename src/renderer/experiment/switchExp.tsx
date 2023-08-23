@@ -100,6 +100,7 @@ export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
           onClick={() => {
             setIfOpen(!ifOpen);
           }}
+          id="switchExpOpenBtn"
         >
           {ifOpen ? '收起' : '展开'}
         </Button>
