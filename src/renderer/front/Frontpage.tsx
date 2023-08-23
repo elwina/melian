@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import { Updater } from 'use-immer';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
@@ -50,30 +50,35 @@ export default function FrontPage({
         align="center"
         size="large"
       >
-        <Button
-          size="large"
-          type="primary"
-          block
-          onClick={() => {
-            setStyleConfig((draft) => {
-              draft.global.front = false;
-            });
-            document.getElementById('autoResize')?.click();
-          }}
-        >
-          进入并定位
-        </Button>
-        <Button
-          size="large"
-          block
-          onClick={() => {
-            setStyleConfig((draft) => {
-              draft.global.front = false;
-            });
-          }}
-        >
-          直接进入
-        </Button>
+        <Tooltip title="进入已调整为最佳布局的实验操作界面" zIndex={10001}>
+          <Button
+            size="large"
+            type="primary"
+            block
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.front = false;
+              });
+              document.getElementById('autoResize')?.click();
+            }}
+          >
+            进入并定位
+          </Button>
+        </Tooltip>
+
+        <Tooltip title="进入现有布局的实验操作界面" zIndex={10001}>
+          <Button
+            size="large"
+            block
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.front = false;
+              });
+            }}
+          >
+            直接进入
+          </Button>
+        </Tooltip>
         <Space.Compact block size="large">
           <Button
             size="large"

@@ -97,7 +97,7 @@
       }
     },
     {
-      "name": "圆孔半径",
+      "name": "圆孔半径R",
       "type": "ButtonSlider",
       "target": ["{1}.R_h"],
       "options": {
@@ -121,6 +121,7 @@
     {
       "name": "强度加倍",
       "type": "ButtonSlider",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
       "target": ["{2}.plus"],
       "options": {
         "options": [

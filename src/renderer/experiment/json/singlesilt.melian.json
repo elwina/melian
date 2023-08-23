@@ -129,7 +129,7 @@
       }
     },
     {
-      "name": "单缝间距",
+      "name": "单缝间距b",
       "type": "ButtonSlider",
       "target": ["{3}.a"],
       "options": {
@@ -152,8 +152,9 @@
       }
     },
     {
-      "name": "强度加成",
+      "name": "强度加倍",
       "type": "ButtonSlider",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
       "target": ["{5}.plus"],
       "options": {
         "options": [

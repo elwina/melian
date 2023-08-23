@@ -126,30 +126,41 @@ export default function LoadSetting({
         //   justifyContent: 'space-around',
         // }}
       >
-        <Switch
-          checkedChildren="参数调节"
-          unCheckedChildren="样式调节"
-          checked={ifNotStyle}
-          onChange={setIfNotStyle}
-        />
-        <Space.Compact>
-          <Button
-            icon={<ArrowUpOutlined />}
-            onClick={() => {
-              setStyleConfig((draft) => {
-                draft.setting.height += 2;
-              });
-            }}
+        <Tooltip
+          title={
+            ifNotStyle
+              ? '允许操作者改变实验参数，点击可切换至样式调节'
+              : '允许操作者改变仪器布局、大小等以适应多屏幕，点击可切换至参数调节'
+          }
+        >
+          <Switch
+            checkedChildren="参数调节"
+            unCheckedChildren="样式调节"
+            checked={ifNotStyle}
+            onChange={setIfNotStyle}
           />
-          <Button
-            icon={<ArrowDownOutlined />}
-            onClick={() => {
-              setStyleConfig((draft) => {
-                draft.setting.height -= 2;
-              });
-            }}
-          />
-        </Space.Compact>
+        </Tooltip>
+
+        <Tooltip title="上/下移操作控件">
+          <Space.Compact>
+            <Button
+              icon={<ArrowUpOutlined />}
+              onClick={() => {
+                setStyleConfig((draft) => {
+                  draft.setting.height += 2;
+                });
+              }}
+            />
+            <Button
+              icon={<ArrowDownOutlined />}
+              onClick={() => {
+                setStyleConfig((draft) => {
+                  draft.setting.height -= 2;
+                });
+              }}
+            />
+          </Space.Compact>
+        </Tooltip>
       </Space>
       {!ifNotStyle ? (
         <StyleAdjust

@@ -124,8 +124,9 @@
       }
     },
     {
-      "name": "d",
+      "name": "光栅常量d",
       "type": "ButtonSlider",
+      "des": "缝宽b与两缝之间不透明部分宽度a的和，反映光栅的周期空间性。",
       "target": ["{3}.d"],
       "options": {
         "options": [
@@ -146,7 +147,7 @@
       }
     },
     {
-      "name": "b",
+      "name": "缝宽b",
       "type": "ButtonSlider",
       "target": ["{3}.b"],
       "options": {
@@ -168,7 +169,7 @@
       }
     },
     {
-      "name": "缝数",
+      "name": "缝数N",
       "type": "ButtonSlider",
       "target": ["{3}.N"],
       "options": {
@@ -192,6 +193,7 @@
     {
       "name": "强度加倍",
       "type": "ButtonSlider",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
       "target": ["{5}.plus"],
       "options": {
         "options": [

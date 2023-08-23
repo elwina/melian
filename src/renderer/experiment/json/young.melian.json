@@ -92,6 +92,7 @@
     {
       "name": "滤光片",
       "type": "ButtonSlider",
+      "des": "确定滤光片颜色，选择透过滤光片的光的波长。如选“无”则表示不设置滤光片。",
       "target": ["light.filter", "{2}.wave"],
       "options": {
         "options": [
@@ -120,8 +121,9 @@
       }
     },
     {
-      "name": "双缝间距",
+      "name": "双缝间距d",
       "type": "ButtonSlider",
+      "des": "缝S1和S2之间的距离。",
       "target": ["{4}.d"],
       "options": {
         "options": [
@@ -144,19 +146,9 @@
       }
     },
     {
-      "name": "目镜控制",
-      "type": "TwoArrow",
-      "des": "粗调目镜",
-      "target": ["measure.offsetmm", "screen.offsetmm"],
-      "options": {
-        "min": -5,
-        "max": 5,
-        "step": 0.001
-      }
-    },
-    {
-      "name": "目镜控制2",
+      "name": "目镜粗调",
       "type": "CircleSlider",
+      "des": "圆圈示意精密螺纹旋转位置，阶梯控件可改变粗调步频，鼠标放置在滚轮上左右移动进行粗调。",
       "target": ["measure.offsetmm", "screen.offsetmm"],
       "options": {
         "min": -5,
@@ -166,8 +158,19 @@
       }
     },
     {
+      "name": "目镜细调",
+      "type": "TwoArrow",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001
+      }
+    },
+    {
       "name": "测量头类型",
       "type": "ButtonSelect",
+      "des": "使用不同的测量工具，1代表游标卡尺，2代表螺旋测微器。",
       "target": ["measure.type"],
       "options": {
         "options": [
