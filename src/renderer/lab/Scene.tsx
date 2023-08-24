@@ -36,7 +36,7 @@ export default function Scene() {
       showTooltip: true,
       front: true,
       welcome: true,
-      guide: true,
+      guide: false,
       expOpen: false,
       primaryColor: '#1677ff',
     },
@@ -201,7 +201,8 @@ export default function Scene() {
     },
     {
       title: '光具座',
-      description: '这是光具座，其上方是光具，下方是操作杆',
+      description:
+        '这是光具座，其上方是光具，下方是操作杆。下方显示的度数单位均为mm',
       target: document.getElementById('holder'),
     },
     {
@@ -250,13 +251,13 @@ export default function Scene() {
       title: '调整双缝间距',
       description:
         '您可以通过点击预设值调整双缝间距，也可以点击自定义，然后拖动滑块来调整双缝间距',
-      target: document.getElementById('settings-1'),
+      target: () => document.getElementById('settings-1')!,
     },
     {
       title: '调整目镜位置',
       description:
         '您可以拖动下方的滚轮状横条，来粗调目镜位置。左边的柱状按钮显示的是粗调幅度，您可点击增大幅度',
-      target: document.getElementById('settings-2'),
+      target: () => document.getElementById('settings-2')!,
     },
     {
       title: '快速工具栏',
@@ -298,6 +299,8 @@ export default function Scene() {
     setInstrumentConfig(config);
     setStyleConfig((draft) => {
       draft.global.front = true;
+      draft.global.dark = false;
+      draft.global.welcome = false;
     });
   }
 
@@ -372,13 +375,32 @@ export default function Scene() {
           />
         )}
 
-        <Tour steps={steps} zIndex={99999} />
-        <Welcome
-          instrumentConfig={instrumentConfig}
-          setInstrumentConfig={setInstrumentConfig}
-          styleConfig={styleConfig}
-          setStyleConfig={setStyleConfig}
+        <Tour
+          steps={steps}
+          zIndex={99999}
+          open={styleConfig.global.guide}
+          onClose={() => {
+            setStyleConfig((draft) => {
+              draft.global.guide = false;
+            });
+          }}
+          onFinish={() => {
+            setStyleConfig((draft) => {
+              draft.global.guide = false;
+            });
+          }}
         />
+        {styleConfig.global.welcome && (
+          <Welcome
+            instrumentConfig={instrumentConfig}
+            setInstrumentConfig={setInstrumentConfig}
+            styleConfig={styleConfig}
+            setStyleConfig={setStyleConfig}
+            onChange={(name, config) => {
+              changeExp(name, config);
+            }}
+          />
+        )}
       </ConfigProvider>
     </>
   );

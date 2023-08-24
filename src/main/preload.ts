@@ -6,8 +6,6 @@ export type Channels =
   | 'ipc-example'
   | 'saveConf'
   | 'loadConf'
-  | 'exportConfig'
-  | 'importConfig'
   | 'loadExperiments';
 
 const electronHandler = {

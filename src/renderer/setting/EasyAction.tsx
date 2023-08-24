@@ -45,6 +45,7 @@ export default function EasyAction({
   const web = !ipcRenderer;
 
   const [messageApi, contextHolder] = message.useMessage();
+  // const [messageApi, contextHolder2] = message.useMessage();
 
   const dPathRef = useRef('');
   const download = async () => {
@@ -57,6 +58,7 @@ export default function EasyAction({
         'yyyyLLdd-HH:mm:ss'
       )}.mstyle.json`;
       a.click();
+      messageApi.success('下载成功');
     }
 
     if (!web) {
@@ -78,9 +80,11 @@ export default function EasyAction({
     ]);
     if (!status) {
       // 加载失败
-      throw new Error('加载失败');
+      messageApi.error('加载失败');
+      // throw new Error('加载失败');
     } else {
       // 加载成功
+      messageApi.success('加载成功');
       dPathRef.current = path;
       onLoadStyle(config);
     }
@@ -117,6 +121,7 @@ export default function EasyAction({
   return (
     <>
       {contextHolder}
+      {/* {contextHolder2} */}
       <Space.Compact id="easyaction">
         <Tooltip
           title="开/关灯"
@@ -239,10 +244,17 @@ export default function EasyAction({
                   reader.readAsText(file);
                   reader.onload = (e) => {
                     if (e.target) {
-                      const newStyleConfig = JSON.parse(
-                        e.target.result as string
-                      );
-                      onLoadStyle(newStyleConfig);
+                      try {
+                        const newStyleConfig = JSON.parse(
+                          e.target.result as string
+                        );
+                        onLoadStyle(newStyleConfig);
+                        message.success('加载成功');
+                      } catch {
+                        message.error('文件格式错误');
+                      }
+                    } else {
+                      message.error('加载失败');
                     }
                   };
                   return false;

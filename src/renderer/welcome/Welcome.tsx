@@ -9,6 +9,7 @@ interface propsType {
   instrumentConfig: InstrumentConfig;
   setInstrumentConfig: Updater<InstrumentConfig>;
   setStyleConfig: Updater<StyleConfig>;
+  onChange: (name: string, config: InstrumentConfig) => void;
 }
 
 export function Welcome({
@@ -16,6 +17,7 @@ export function Welcome({
   instrumentConfig,
   setInstrumentConfig,
   setStyleConfig,
+  onChange,
 }: propsType) {
   const [expMap, setExpMap] = useState(new Map<string, InstrumentConfig>());
 
@@ -28,11 +30,30 @@ export function Welcome({
     backdropFilter: 'blur(5px)',
   };
 
+  function enterExp(name: string) {
+    const config = expMap.get(name)!;
+    onChange(name, config);
+  }
+
+  function enterGuide() {
+    setStyleConfig((draft) => {
+      draft.global.guide = true;
+    });
+    enterExp('杨氏双缝干涉');
+  }
+
   const choices = Array.from(expMap.keys()).map((name) => {
     return (
-      <div style={ustyle}>
+      <button
+        style={ustyle}
+        type="button"
+        onClick={() => {
+          enterExp(name);
+        }}
+        key={name}
+      >
         <div>{name}</div>
-      </div>
+      </button>
     );
   });
 
@@ -65,7 +86,7 @@ export function Welcome({
             flexDirection: 'column',
             justifyContent: 'top',
             alignItems: 'center',
-            overflow: 'hidden',
+            overflow: 'auto',
           }}
         >
           <div
@@ -80,20 +101,17 @@ export function Welcome({
             欢迎来到波动光学演示系统！
           </div>
 
-          <div style={ustyle}>
+          <button
+            style={ustyle}
+            type="button"
+            onClick={() => {
+              enterGuide();
+            }}
+          >
             <div>教程</div>
-          </div>
+          </button>
+
           {choices}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'top',
-            alignItems: 'center',
-          }}
-        >
-          <div>其他</div>
         </div>
       </div>
 

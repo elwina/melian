@@ -59,20 +59,6 @@ export default class MenuBuilder {
     const subMenuProgram: DarwinMenuItemConstructorOptions = {
       label: 'Melian',
       submenu: [
-        {
-          label: '导入配置',
-          accelerator: 'Ctrl+I',
-          click: () => {
-            this.mainWindow.webContents.send('importConfig');
-          },
-        },
-        {
-          label: '导出配置',
-          accelerator: 'Ctrl+E',
-          click: () => {
-            this.mainWindow.webContents.send('exportConfig');
-          },
-        },
         { label: '分割线', type: 'separator' },
         {
           label: '重新加载',
@@ -206,20 +192,6 @@ export default class MenuBuilder {
       {
         label: '程序',
         submenu: [
-          {
-            label: '导入配置',
-            accelerator: 'Ctrl+I',
-            click: () => {
-              this.mainWindow.webContents.send('importConfig');
-            },
-          },
-          {
-            label: '导出配置',
-            accelerator: 'Ctrl+E',
-            click: () => {
-              this.mainWindow.webContents.send('exportConfig');
-            },
-          },
           { label: '分割线', type: 'separator' },
           {
             label: '重新加载',

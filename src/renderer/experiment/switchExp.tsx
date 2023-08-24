@@ -107,7 +107,7 @@ export default function SwitchExp({
             changeConfig(value);
           }}
           style={{ width: 200 }}
-          showArrow={false}
+          suffixIcon={null}
           popupClassName="exp-select"
           dropdownStyle={{ zIndex: 5000 }}
         />
@@ -128,6 +128,15 @@ export default function SwitchExp({
           >
             {ifOpen ? '收起' : '展开'}
           </Button>
+          <Button
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.welcome = true;
+              });
+            }}
+          >
+            欢迎页
+          </Button>{' '}
         </Space.Compact>
       </div>
     );

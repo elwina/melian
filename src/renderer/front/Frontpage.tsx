@@ -92,6 +92,17 @@ export default function FrontPage({
             直接进入
           </Button>
         </Tooltip>
+        <Button
+          size="large"
+          block
+          onClick={() => {
+            setStyleConfig((draft) => {
+              draft.global.welcome = true;
+            });
+          }}
+        >
+          返回欢迎页
+        </Button>
         <Space.Compact block size="large" className="ppt-slider">
           <Button
             size="large"
