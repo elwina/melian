@@ -19,6 +19,10 @@ async function main() {
 
     const { version } = data;
     data.version = newVersion;
+    if (file === './release/app/package-lock.json') {
+      console.log(data);
+      // data."".version=newVersion;
+    }
     await writeFile(file, JSON.stringify(data, null, 2), 'utf8');
     console.log(`Updated ${file} version from ${version} to ${newVersion}`);
   }
