@@ -7,8 +7,8 @@
   "lens": [
     {
       "id": 0,
-      "uname": "light01",
-      "name": "光源",
+      "uname": "laser01",
+      "name": "激光光源",
       "distancemm": 0,
       "hide": false,
       "option": {}
@@ -26,7 +26,7 @@
       "uname": "filter01",
       "name": "滤光片",
       "distancemm": 220,
-      "hide": false,
+      "hide": true,
       "option": {
         "wave": "660"
       }
@@ -89,12 +89,12 @@
     }
   },
   "control": {
-    "showmm": [0, 1, 2, 3, 4, 5],
-    "move": [3, 4, 5]
+    "showmm": [0, 4, 5],
+    "move": [4, 5]
   },
   "setting": [
     {
-      "name": "滤光片",
+      "name": "激光",
       "type": "ButtonSlider",
       "target": ["light.filter", "{2}.wave"],
       "options": {
@@ -131,16 +131,16 @@
       "options": {
         "options": [
           {
-            "name": "0.2mm",
-            "value": 0.2
+            "name": "0.06mm",
+            "value": 0.06
           },
           {
-            "name": "0.02mm",
-            "value": 0.02
+            "name": "0.10mm",
+            "value": 0.1
           }
         ],
-        "min": 0.001,
-        "max": 0.1,
+        "min": 0.1,
+        "max": 0.15,
         "step": 0.001,
         "toFixedPoint": 3,
         "unit": "mm"
@@ -153,12 +153,12 @@
       "options": {
         "options": [
           {
-            "name": "0.2mm",
-            "value": 0.2
-          },
-          {
             "name": "0.02mm",
             "value": 0.02
+          },
+          {
+            "name": "0.03mm",
+            "value": 0.03
           }
         ],
         "min": 0.001,
@@ -179,8 +179,8 @@
             "value": 2
           },
           {
-            "name": "100",
-            "value": 100
+            "name": "10000",
+            "value": 10000
           }
         ],
         "min": 2,

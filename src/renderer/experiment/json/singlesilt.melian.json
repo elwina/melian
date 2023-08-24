@@ -43,7 +43,7 @@
       "distancemm": 250,
       "hide": false,
       "option": {
-        "a": 0.08
+        "a": 0.01
       }
     },
     {
@@ -58,8 +58,8 @@
     {
       "id": 5,
       "uname": "measure_head01",
-      "name": "测量头",
-      "distancemm": 965,
+      "name": "目镜",
+      "distancemm": 800,
       "hide": false,
       "option": {
         "plus": 1
@@ -71,11 +71,12 @@
     "filter": -1
   },
   "screen": {
-    "type": "FixedCircle",
+    "type": "Board",
     "options": {
+      "color": "#000000",
       "seemm": 8,
       "offsetmm": 0,
-      "mmwidth": 20,
+      "mmwidth": 60,
       "mmheight": 20,
       "require": {
         "a": "{3}.a",
@@ -87,15 +88,15 @@
     }
   },
   "measure": {
-    "type": "Square",
+    "type": "None",
     "options": {
       "initmm": 10,
       "offsetmm": 0
     }
   },
   "control": {
-    "showmm": [0, 1, 2, 3, 4, 5],
-    "move": [3, 4, 5]
+    "showmm": [4, 5],
+    "move": [4, 5]
   },
   "setting": [
     {
@@ -139,9 +140,9 @@
             "value": 0.01
           },
           {
-            "name": "1mm",
+            "name": "0.08mm",
 
-            "value": 1
+            "value": 0.08
           }
         ],
         "min": 0.01,
@@ -165,13 +166,56 @@
           {
             "name": "2",
             "value": 2
+          },
+          {
+            "name": "200",
+            "value": 200
           }
         ],
-        "min": 0.1,
-        "max": 20,
-        "step": 0.1,
+        "min": 1,
+        "max": 1000,
+        "step": 1,
         "toFixedPoint": 1,
         "unit": "倍"
+      }
+    },
+    {
+      "name": "测量模式",
+      "type": "ButtonSelect",
+      "target": ["measure.type", "screen.type"],
+      "options": {
+        "options": [
+          {
+            "name": "关",
+            "values": ["None", "Board"]
+          },
+          {
+            "name": "开",
+            "values": ["Square", "FixedCircle"]
+          }
+        ]
+      }
+    },
+    {
+      "name": "目镜粗调",
+      "type": "CircleSlider",
+      "des": "圆圈示意精密螺纹旋转位置，阶梯控件可改变粗调步频，鼠标放置在滚轮上左右移动进行粗调。",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001,
+        "round": 0.5
+      }
+    },
+    {
+      "name": "目镜细调",
+      "type": "TwoArrow",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001
       }
     }
   ]
