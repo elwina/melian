@@ -1,4 +1,15 @@
+import { Button, Space } from 'antd';
 import { CSSProperties, useRef, useState } from 'react';
+import {
+  CaretUpOutlined,
+  UpSquareOutlined,
+  DownSquareOutlined,
+  CheckOutlined,
+  StopOutlined,
+  SendOutlined,
+} from '@ant-design/icons';
+import { useKeyPress } from 'ahooks';
+
 import SwitchExp from 'renderer/experiment/switchExp';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
@@ -40,8 +51,20 @@ export function Welcome({
     });
     enterExp('杨氏双缝干涉');
   }
+  const [ifKey, setIfKey] = useState(false);
+  const [keynow, setKeynow] = useState(0);
 
-  const choices = Array.from(expMap.keys()).map((name) => {
+  useKeyPress('uparrow', () => {
+    document.getElementById('welcome-btn-up')?.click();
+  });
+  useKeyPress('downarrow', () => {
+    document.getElementById('welcome-btn-down')?.click();
+  });
+  useKeyPress('enter', () => {
+    document.getElementById('welcome-btn-enter')?.click();
+  });
+
+  const choices = Array.from(expMap.keys()).map((name, i) => {
     return (
       <button
         style={ustyle}
@@ -51,8 +74,12 @@ export function Welcome({
           enterExp(name);
         }}
         key={name}
+        id={`welcome-mainbtn-${i + 1}`}
       >
-        <div>{name}</div>
+        <div>
+          {ifKey && i + 1 === keynow && <SendOutlined />}
+          {name}
+        </div>
       </button>
     );
   });
@@ -110,12 +137,66 @@ export function Welcome({
               enterGuide();
             }}
             className="custom-btn btn-5"
+            id="welcome-mainbtn-0"
           >
+            {ifKey && keynow === 0 && <SendOutlined />}
             教程（杨氏双缝）
           </button>
 
           {choices}
         </div>
+      </div>
+
+      <div
+        style={{
+          position: 'fixed',
+          bottom: 0,
+          right: 0,
+          zIndex: 100001,
+        }}
+      >
+        <Space.Compact>
+          <Button
+            icon={<UpSquareOutlined />}
+            onClick={() => {
+              if (ifKey && keynow !== 0) {
+                setKeynow(keynow - 1);
+              } else if (!ifKey) {
+                setIfKey(true);
+                setKeynow(0);
+              }
+            }}
+            id="welcome-btn-up"
+          />
+          <Button
+            icon={<DownSquareOutlined />}
+            onClick={() => {
+              if (ifKey && keynow !== choices.length) {
+                setKeynow(keynow + 1);
+              } else if (!ifKey) {
+                setIfKey(true);
+                setKeynow(choices.length);
+              }
+            }}
+            id="welcome-btn-down"
+          />
+          <Button
+            icon={<CheckOutlined />}
+            onClick={() => {
+              if (ifKey) {
+                setIfKey(false);
+                document.getElementById(`welcome-mainbtn-${keynow}`)?.click();
+              }
+            }}
+            id="welcome-btn-enter"
+          />
+          <Button
+            icon={<StopOutlined />}
+            onClick={() => {
+              setIfKey(false);
+            }}
+          />
+        </Space.Compact>
       </div>
 
       <SwitchExp

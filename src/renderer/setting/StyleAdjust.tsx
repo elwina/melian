@@ -153,6 +153,19 @@ export default function StyleAdjust({
     },
   };
 
+  const fourSide16 = {
+    name: '观察屏2',
+    target: ['style.screen.FixedCircle.mm2px'],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 1,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+
   const fourSide5 = {
     name: '尺位置',
     target: [
@@ -441,7 +454,7 @@ export default function StyleAdjust({
     },
   };
   const fourSide13 = {
-    name: '观察屏',
+    name: '观察屏2',
     target: [
       'style.screen.Board.mm2px',
       'style.screen.Board.totalHeightmm',
@@ -505,7 +518,7 @@ export default function StyleAdjust({
     },
   };
   const fourSide15 = {
-    name: '观察屏',
+    name: '观察屏2',
     target: [
       'style.screen.BoardPolar.px2mm',
       'style.screen.BoardPolar.totalHeightmm',
@@ -539,6 +552,7 @@ export default function StyleAdjust({
     const re: any[] = [fourSide1, fourSide2, fourSide3];
     if (instrumentConfig.screen.type === 'FixedCircle') {
       re.push(fourSide4);
+      re.push(fourSide16);
     }
     if (instrumentConfig.screen.type === 'FixedCirclePolar') {
       re.push(fourSide11);
