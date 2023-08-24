@@ -53,7 +53,7 @@
       "id": 5,
       "uname": "measure_head01",
       "name": "测量头",
-      "distancemm": 965,
+      "distancemm": 865,
       "hide": false,
       "option": {}
     }
@@ -67,7 +67,7 @@
     "options": {
       "seemm": 8,
       "offsetmm": 0,
-      "mmwidth": 30,
+      "mmwidth": 50,
       "mmheight": 20,
       "require": {
         "d": "{4}.d",
@@ -85,8 +85,8 @@
     }
   },
   "control": {
-    "showmm": [0, 1, 2, 3, 4, 5],
-    "move": [3, 4, 5]
+    "showmm": [0, 4, 5],
+    "move": [4, 5]
   },
   "setting": [
     {
@@ -176,11 +176,11 @@
         "options": [
           {
             "name": "1",
-            "values": ["Square"]
+            "values": ["Circle"]
           },
           {
             "name": "2",
-            "values": ["Circle"]
+            "values": ["Square"]
           }
         ]
       }

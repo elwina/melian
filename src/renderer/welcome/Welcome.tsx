@@ -3,6 +3,7 @@ import SwitchExp from 'renderer/experiment/switchExp';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
 import backjpg from '../../../assets/back1.jpg';
+import './Welcome.css';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -22,12 +23,10 @@ export function Welcome({
   const [expMap, setExpMap] = useState(new Map<string, InstrumentConfig>());
 
   const ustyle: CSSProperties = {
-    color: '#ffffff',
-    fontSize: '2rem',
-    fontFamily: 'STSong SimSun',
-
+    // color: '#ffffff',
+    fontFamily: 'STSong,SimSun',
     marginTop: '2rem',
-    backdropFilter: 'blur(5px)',
+    // backdropFilter: 'blur(5px)',
   };
 
   function enterExp(name: string) {
@@ -46,6 +45,7 @@ export function Welcome({
     return (
       <button
         style={ustyle}
+        className="custom-btn btn-5"
         type="button"
         onClick={() => {
           enterExp(name);
@@ -91,14 +91,16 @@ export function Welcome({
         >
           <div
             style={{
-              fontSize: '3rem',
+              fontSize: '3.5rem',
               color: '#ffffff',
-              fontFamily: 'STFangsong FangSong',
+              fontFamily: 'STFangsong,FangSong',
 
-              marginTop: '2rem',
+              marginTop: '3rem',
+              marginBottom: '2rem',
             }}
+            className="title"
           >
-            欢迎来到波动光学演示系统！
+            欢迎来到波动光学演示系统
           </div>
 
           <button
@@ -107,8 +109,9 @@ export function Welcome({
             onClick={() => {
               enterGuide();
             }}
+            className="custom-btn btn-5"
           >
-            <div>教程</div>
+            教程（杨氏双缝）
           </button>
 
           {choices}

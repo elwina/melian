@@ -260,6 +260,19 @@ export default function Scene() {
       target: () => document.getElementById('settings-2')!,
     },
     {
+      title: '更换测量头',
+      description:
+        '您可以通过点击这个按钮来更换测量头，目前支持游标卡尺和螺旋测微器',
+      target: () => document.getElementById('settings-4')!,
+      nextButtonProps: {
+        onClick: () => {
+          setInstrumentConfig((draft) => {
+            draft.measure.type = 'Circle';
+          });
+        },
+      },
+    },
+    {
       title: '快速工具栏',
       description:
         '这是快速工具栏，您可以在这里进行关灯、更换主题颜色、自动定位、返回PPT页等操作',
