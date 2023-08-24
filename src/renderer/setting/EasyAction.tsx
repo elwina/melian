@@ -1,4 +1,4 @@
-import { Space, Button, Upload, message, Tooltip } from 'antd';
+import { Space, Button, Upload, message, Tooltip, ColorPicker } from 'antd';
 import { DateTime } from 'luxon';
 import { ElectronHandler } from 'main/preload';
 import { useEffect, useRef, useState } from 'react';
@@ -13,6 +13,8 @@ import {
   UploadOutlined,
   ExpandOutlined,
   FileTextOutlined,
+  SkinOutlined,
+  MessageOutlined,
 } from '@ant-design/icons';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
@@ -43,6 +45,7 @@ export default function EasyAction({
   const web = !ipcRenderer;
 
   const [messageApi, contextHolder] = message.useMessage();
+  // const [messageApi, contextHolder2] = message.useMessage();
 
   const dPathRef = useRef('');
   const download = async () => {
@@ -55,6 +58,7 @@ export default function EasyAction({
         'yyyyLLdd-HH:mm:ss'
       )}.mstyle.json`;
       a.click();
+      messageApi.success('下载成功');
     }
 
     if (!web) {
@@ -76,9 +80,11 @@ export default function EasyAction({
     ]);
     if (!status) {
       // 加载失败
-      throw new Error('加载失败');
+      messageApi.error('加载失败');
+      // throw new Error('加载失败');
     } else {
       // 加载成功
+      messageApi.success('加载成功');
       dPathRef.current = path;
       onLoadStyle(config);
     }
@@ -115,15 +121,59 @@ export default function EasyAction({
   return (
     <>
       {contextHolder}
-      <Space.Compact>
-        <Tooltip title="开/关灯">
+      {/* {contextHolder2} */}
+      <Space.Compact id="easyaction">
+        <Tooltip
+          title="开/关灯"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<FaRegLightbulb />}
             type={styleConfig.global.dark ? 'primary' : 'default'}
             onClick={darkChange}
+            id="turnoff"
           />
         </Tooltip>
-        <Tooltip title="自动定位">
+        <ColorPicker
+          value={styleConfig.global.primaryColor}
+          presets={[
+            {
+              label: 'Recommended',
+              colors: [
+                '#1677ff',
+                '#722ed1',
+                '#7cb305',
+                '#cf1322',
+                '#fa541c',
+                '#eb2f96',
+              ],
+            },
+          ]}
+          disabledAlpha
+          placement="topRight"
+          onChange={(color) => {
+            setStyleConfig((draft) => {
+              draft.global.primaryColor = color.toHexString();
+            });
+          }}
+        >
+          <Tooltip
+            title="换肤"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
+            <Button icon={<SkinOutlined />} />
+          </Tooltip>
+        </ColorPicker>
+        <Tooltip
+          title="自动定位"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<ExpandOutlined />}
             onClick={async () => {
@@ -137,7 +187,12 @@ export default function EasyAction({
             id="autoResize"
           />
         </Tooltip>
-        <Tooltip title="查看讲义">
+        <Tooltip
+          title="查看讲义"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<FileTextOutlined />}
             onClick={() => {
@@ -147,38 +202,79 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
-        <Tooltip title="保存样式">
-          <Button icon={<DownloadOutlined />} onClick={download} />
+        <Tooltip
+          title="显示提示"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
+          <Button
+            icon={<MessageOutlined />}
+            type={styleConfig.global.showTooltip ? 'primary' : 'default'}
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.showTooltip = !draft.global.showTooltip;
+              });
+            }}
+          />
         </Tooltip>
-        <Tooltip title="加载样式">
-          {web ? (
-            <Upload
-              beforeUpload={(file) => {
-                if (file.type !== 'application/json') {
-                  message.error('请上传json文件');
-                }
-                const reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = (e) => {
-                  if (e.target) {
-                    const newStyleConfig = JSON.parse(
-                      e.target.result as string
-                    );
-                    onLoadStyle(newStyleConfig);
+
+        <div id="iostyle">
+          <Tooltip
+            title="保存样式"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
+            <Button icon={<DownloadOutlined />} onClick={download} />
+          </Tooltip>
+          <Tooltip
+            title="加载样式"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
+            }}
+          >
+            {web ? (
+              <Upload
+                beforeUpload={(file) => {
+                  if (file.type !== 'application/json') {
+                    message.error('请上传json文件');
                   }
-                };
-                return false;
-              }}
-              accept=".mstyle.json"
-              showUploadList={false}
-            >
-              <Button icon={<UploadOutlined />} />
-            </Upload>
-          ) : (
-            <Button icon={<UploadOutlined />} onClick={load} />
-          )}
-        </Tooltip>
-        <Tooltip title="最大化">
+                  const reader = new FileReader();
+                  reader.readAsText(file);
+                  reader.onload = (e) => {
+                    if (e.target) {
+                      try {
+                        const newStyleConfig = JSON.parse(
+                          e.target.result as string
+                        );
+                        onLoadStyle(newStyleConfig);
+                        message.success('加载成功');
+                      } catch {
+                        message.error('文件格式错误');
+                      }
+                    } else {
+                      message.error('加载失败');
+                    }
+                  };
+                  return false;
+                }}
+                accept=".mstyle.json"
+                showUploadList={false}
+              >
+                <Button icon={<UploadOutlined />} />
+              </Upload>
+            ) : (
+              <Button icon={<UploadOutlined />} onClick={load} />
+            )}
+          </Tooltip>
+        </div>
+        <Tooltip
+          title="最大化"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<VscChromeMaximize />}
             onClick={() => {
@@ -186,7 +282,12 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
-        <Tooltip title="还原">
+        <Tooltip
+          title="还原"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<VscChromeRestore />}
             onClick={() => {
@@ -194,7 +295,12 @@ export default function EasyAction({
             }}
           />
         </Tooltip>
-        <Tooltip title="关闭">
+        <Tooltip
+          title="关闭"
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
           <Button
             icon={<VscChromeClose />}
             onClick={() => {

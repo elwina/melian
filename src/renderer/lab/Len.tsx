@@ -110,49 +110,51 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
     });
   }, [imageReady, hStyle, lF, lenConfig, styleConfig]);
 
-  return (
-    <>
-      <div style={{ display: 'none' }}>
-        <img
-          src={svgurl}
-          ref={imageRef}
-          height={lenHeight}
-          width={lenWidth}
-          style={{ backgroundColor: '#ffffff00' }}
-          alt=" "
-          onLoad={() => {
-            setImageReady(true);
-          }}
-        />
-      </div>
-      {!styleConfig.global.dark ? (
-        <>
-          <canvas
+  if (!lF.hide)
+    return (
+      <>
+        <div style={{ display: 'none' }}>
+          <img
+            src={svgurl}
+            ref={imageRef}
+            height={lenHeight}
+            width={lenWidth}
+            style={{ backgroundColor: '#ffffff00' }}
+            alt=" "
+            onLoad={() => {
+              setImageReady(true);
+            }}
+          />
+        </div>
+        {!styleConfig.global.dark ? (
+          <>
+            <canvas
+              style={{
+                position: 'fixed',
+                bottom: bottomCalc,
+                left: leftCalc,
+                backgroundColor: '#ffffff00',
+              }}
+              height={heightCalc}
+              width={widthCalc}
+              ref={canvaRef}
+            />
+          </>
+        ) : (
+          <div
             style={{
               position: 'fixed',
               bottom: bottomCalc,
-              left: leftCalc,
-              backgroundColor: '#ffffff00',
+              left: leftCalc + widthCalc / 2,
+              transform: 'translateX(-50%)',
+              writingMode: 'vertical-rl',
+              textOrientation: 'upright',
             }}
-            height={heightCalc}
-            width={widthCalc}
-            ref={canvaRef}
-          />
-        </>
-      ) : (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: bottomCalc,
-            left: leftCalc + widthCalc / 2,
-            transform: 'translateX(-50%)',
-            writingMode: 'vertical-rl',
-            textOrientation: 'upright',
-          }}
-        >
-          {lF.name}
-        </div>
-      )}
-    </>
-  );
+          >
+            {lF.name}
+          </div>
+        )}
+      </>
+    );
+  else return <div />;
 }

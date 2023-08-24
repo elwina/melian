@@ -1,7 +1,7 @@
 import { useMap } from 'ahooks';
 import { Button, Select, Space } from 'antd';
 import { ElectronHandler } from 'main/preload';
-import { useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
 import { defaultExpMap } from './default';
@@ -9,10 +9,20 @@ import { defaultExpMap } from './default';
 type propType = {
   exp: string;
   styleConfig: StyleConfig;
+  setStyleConfig: Updater<StyleConfig>;
   onChange: (name: string, config: InstrumentConfig) => void;
+  show?: boolean;
+  onChangeExp?: (expMap: Map<string, InstrumentConfig>) => void;
 };
 
-export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
+export default function SwitchExp({
+  exp,
+  styleConfig,
+  setStyleConfig,
+  onChange,
+  show = true,
+  onChangeExp = () => {},
+}: propType) {
   let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
   try {
     ipcRenderer = window.electron.ipcRenderer
@@ -23,6 +33,10 @@ export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
   }
 
   const [expMap, { set: setExpMap }] = useMap(defaultExpMap);
+
+  useEffect(() => {
+    onChangeExp(expMap);
+  }, [expMap]);
 
   async function loadExperiments() {
     if (ipcRenderer) {
@@ -43,7 +57,14 @@ export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
   const [expOpt, setExpOpt] = useState([
     { label: 'loading', value: 'loading' },
   ]);
-  const [ifOpen, setIfOpen] = useState<boolean>(false);
+
+  const ifOpen = styleConfig.global.expOpen;
+  const setIfOpen = (val: boolean) => {
+    setStyleConfig((draft) => {
+      draft.global.expOpen = val;
+    });
+  };
+
   useEffect(() => {
     const arr = Array.from(expMap);
     setIfOpen(false);
@@ -66,44 +87,58 @@ export default function SwitchExp({ exp, styleConfig, onChange }: propType) {
     });
   }, [styleConfig.setting.expHeight]);
 
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: styleConfig.setting.expHeight,
-        right: 0,
-        zIndex: 200,
-      }}
-      id="switchExp"
-    >
-      <Select
-        placement="topLeft"
-        value={exp}
-        options={expOpt}
-        open={ifOpen}
-        onChange={(value) => {
-          changeConfig(value);
+  if (show)
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          bottom: styleConfig.setting.expHeight,
+          right: 0,
+          zIndex: 200,
         }}
-        style={{ width: 200 }}
-        showArrow={false}
-      />
-      <br />
-      <Space.Compact>
-        <Button
-          onClick={() => {
-            loadExperiments();
+        id="switchExp"
+      >
+        <Select
+          placement="topLeft"
+          value={exp}
+          options={expOpt}
+          open={ifOpen}
+          onChange={(value) => {
+            changeConfig(value);
           }}
-        >
-          刷新
-        </Button>
-        <Button
-          onClick={() => {
-            setIfOpen(!ifOpen);
-          }}
-        >
-          {ifOpen ? '收起' : '展开'}
-        </Button>
-      </Space.Compact>
-    </div>
-  );
+          style={{ width: 200 }}
+          suffixIcon={null}
+          popupClassName="exp-select"
+          dropdownStyle={{ zIndex: 5000 }}
+        />
+        <br />
+        <Space.Compact>
+          <Button
+            onClick={() => {
+              loadExperiments();
+            }}
+          >
+            刷新
+          </Button>
+          <Button
+            onClick={() => {
+              setIfOpen(!ifOpen);
+            }}
+            id="switchExpOpenBtn"
+          >
+            {ifOpen ? '收起' : '展开'}
+          </Button>
+          <Button
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.welcome = true;
+              });
+            }}
+          >
+            欢迎页
+          </Button>{' '}
+        </Space.Compact>
+      </div>
+    );
+  else return null;
 }

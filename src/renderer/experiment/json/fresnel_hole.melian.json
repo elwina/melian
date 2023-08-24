@@ -12,8 +12,8 @@
   "lens": [
     {
       "id": 0,
-      "uname": "light01",
-      "name": "光源",
+      "uname": "laser01",
+      "name": "激光",
       "distancemm": 0,
       "hide": false,
       "option": { "wave": "660" }
@@ -22,7 +22,7 @@
       "id": 1,
       "uname": "holes01",
       "name": "孔",
-      "distancemm": 30,
+      "distancemm": 40,
       "hide": false,
       "option": { "R_h": 0.5 }
     },
@@ -31,7 +31,7 @@
       "id": 2,
       "uname": "board01",
       "name": "光屏",
-      "distancemm": 60,
+      "distancemm": 75,
       "hide": false,
       "option": {
         "rangePlus": 1,
@@ -67,15 +67,11 @@
   },
   "setting": [
     {
-      "name": "滤光片",
+      "name": "激光",
       "type": "ButtonSlider",
       "target": ["light.filter", "{0}.wave"],
       "options": {
         "options": [
-          {
-            "name": "无",
-            "value": -1
-          },
           {
             "name": "红",
             "value": 660
@@ -97,7 +93,7 @@
       }
     },
     {
-      "name": "圆孔半径",
+      "name": "圆孔半径R",
       "type": "ButtonSlider",
       "target": ["{1}.R_h"],
       "options": {
@@ -121,6 +117,7 @@
     {
       "name": "强度加倍",
       "type": "ButtonSlider",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
       "target": ["{2}.plus"],
       "options": {
         "options": [

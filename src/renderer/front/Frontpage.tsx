@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import { Updater } from 'use-immer';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
@@ -50,31 +50,60 @@ export default function FrontPage({
         align="center"
         size="large"
       >
+        <Tooltip
+          title="进入已调整为最佳布局的实验操作界面"
+          zIndex={10001}
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
+          <Button
+            size="large"
+            type="primary"
+            block
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.front = false;
+              });
+              document.getElementById('autoResize')?.click();
+            }}
+            className="enter-btn"
+          >
+            进入并定位
+          </Button>
+        </Tooltip>
+
+        <Tooltip
+          title="进入现有布局的实验操作界面"
+          zIndex={10001}
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
+          <Button
+            size="large"
+            block
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.front = false;
+              });
+            }}
+          >
+            直接进入
+          </Button>
+        </Tooltip>
         <Button
           size="large"
-          type="primary"
           block
           onClick={() => {
             setStyleConfig((draft) => {
-              draft.global.front = false;
-            });
-            document.getElementById('autoResize')?.click();
-          }}
-        >
-          进入并定位
-        </Button>
-        <Button
-          size="large"
-          block
-          onClick={() => {
-            setStyleConfig((draft) => {
-              draft.global.front = false;
+              draft.global.welcome = true;
             });
           }}
         >
-          直接进入
+          返回欢迎页
         </Button>
-        <Space.Compact block size="large">
+        <Space.Compact block size="large" className="ppt-slider">
           <Button
             size="large"
             icon={<LeftCircleOutlined />}

@@ -9,7 +9,7 @@ export default function LenGene({ styleConfig, instrumentConfig }: propsType) {
   const lens = instrumentConfig.lens;
 
   return (
-    <>
+    <div>
       {lens.map((len) => {
         return (
           <Len
@@ -19,6 +19,6 @@ export default function LenGene({ styleConfig, instrumentConfig }: propsType) {
           />
         );
       })}
-    </>
+    </div>
   );
 }

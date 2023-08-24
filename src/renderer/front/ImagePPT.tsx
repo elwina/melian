@@ -29,6 +29,7 @@ export function ImagePPT({ instrumentConfig, nowPage }: propsType) {
             objectFit: 'contain',
             objectPosition: 'center',
           }}
+          id="ppt"
         />
       </div>
     </>

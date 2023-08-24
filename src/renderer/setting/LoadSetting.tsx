@@ -7,7 +7,11 @@ import type {
 } from 'renderer/typing/config.type';
 import { parseRequireArray, parseSet } from 'renderer/utils/parseRequire';
 import { Updater } from 'use-immer';
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  MessageOutlined,
+} from '@ant-design/icons';
 import ButtonSlider from './ButtonSlider';
 import EasyAction from './EasyAction';
 import StyleAdjust from './StyleAdjust';
@@ -46,17 +50,17 @@ export default function LoadSetting({
 }: propsType) {
   const settingConfig = instrumentConfig.setting;
 
-  const RenderingSettings = settingConfig.map((s) => {
+  const RenderingSettings = settingConfig.map((s, i) => {
     const SettingComponent = settingComponent[s.type];
-    // const firstValue = parseRequire(
-    //   { first: s.target[0] },
-    //   instrumentConfig
-    // ).first;
 
     const values = parseRequireArray(s.target, instrumentConfig, styleConfig);
 
     return (
-      <Tooltip title={s.des} key={s.name + instrumentConfig.name}>
+      <Tooltip
+        title={s.des}
+        key={s.name + instrumentConfig.name}
+        overlayStyle={{ display: styleConfig.global.showTooltip ? '' : 'none' }}
+      >
         <div
           style={{
             display: 'inline-flex',
@@ -64,6 +68,7 @@ export default function LoadSetting({
             alignItems: 'center',
             justifyContent: 'space-around',
           }}
+          id={`settings-${i}`}
         >
           <div>{s.name}</div>
           <SettingComponent
@@ -83,7 +88,11 @@ export default function LoadSetting({
     );
   });
 
-  const [ifNotStyle, { set: setIfNotStyle }] = useBoolean(true);
+  const ifNotStyle = styleConfig.global.ifNotStyle;
+  const setIfNotStyle = () =>
+    setStyleConfig((draft) => {
+      draft.global.ifNotStyle = !draft.global.ifNotStyle;
+    });
   const [settingWidth, setSettingWidth] = useState(
     document.body.clientWidth - 20
   );
@@ -116,39 +125,50 @@ export default function LoadSetting({
       }}
       id="setting"
     >
-      <Space
-        direction="vertical"
-        align="center"
-        // style={{
-        //   display: 'inline-flex',
-        //   flexDirection: 'column',
-        //   alignItems: 'center',
-        //   justifyContent: 'space-around',
-        // }}
-      >
-        <Switch
-          checkedChildren="参数调节"
-          unCheckedChildren="样式调节"
-          checked={ifNotStyle}
-          onChange={setIfNotStyle}
-        />
+      <Space direction="vertical" align="center">
+        <Tooltip
+          title={
+            ifNotStyle
+              ? '允许操作者改变实验参数，点击可切换至样式调节'
+              : '允许操作者改变仪器布局、大小等以适应多屏幕，点击可切换至参数调节'
+          }
+          overlayStyle={{
+            display: styleConfig.global.showTooltip ? '' : 'none',
+          }}
+        >
+          <Switch
+            checkedChildren="参数调节"
+            unCheckedChildren="样式调节"
+            checked={ifNotStyle}
+            onChange={setIfNotStyle}
+            id="switchSetting"
+          />
+        </Tooltip>
+
         <Space.Compact>
-          <Button
-            icon={<ArrowUpOutlined />}
-            onClick={() => {
-              setStyleConfig((draft) => {
-                draft.setting.height += 2;
-              });
+          <Tooltip
+            title="上/下移操作控件"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
             }}
-          />
-          <Button
-            icon={<ArrowDownOutlined />}
-            onClick={() => {
-              setStyleConfig((draft) => {
-                draft.setting.height -= 2;
-              });
-            }}
-          />
+          >
+            <Button
+              icon={<ArrowUpOutlined />}
+              onClick={() => {
+                setStyleConfig((draft) => {
+                  draft.setting.height += 2;
+                });
+              }}
+            />
+            <Button
+              icon={<ArrowDownOutlined />}
+              onClick={() => {
+                setStyleConfig((draft) => {
+                  draft.setting.height -= 2;
+                });
+              }}
+            />
+          </Tooltip>
         </Space.Compact>
       </Space>
       {!ifNotStyle ? (

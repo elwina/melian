@@ -9,6 +9,7 @@ export const defaultExpMap: Map<string, InstrumentConfig> = new Map([
   [young.name, young as InstrumentConfig],
   [opticalgrating.name, opticalgrating as InstrumentConfig],
   [singlesilt.name, singlesilt as InstrumentConfig],
-  [polarization.name, polarization as InstrumentConfig],
   [fresnel_hole.name, fresnel_hole as InstrumentConfig],
+
+  [polarization.name, polarization as InstrumentConfig],
 ]);

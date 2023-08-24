@@ -61,7 +61,13 @@ export interface InstrumentConfig {
 export interface StyleConfig {
   global: {
     dark: boolean;
+    ifNotStyle: boolean;
+    showTooltip: boolean;
     front: boolean;
+    welcome: boolean;
+    guide: boolean;
+    expOpen: boolean;
+    primaryColor: string;
   };
   holder: {
     leftMargin: number;

@@ -575,6 +575,7 @@ export default function StyleAdjust({
           flexDirection: 'column',
           alignItems: 'center',
         }}
+        id="style-adjust"
       >
         <div>{s.name}</div>
         <FourSide
