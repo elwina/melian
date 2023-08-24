@@ -104,7 +104,7 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
     'crystal01',
     {
       height: 30,
-      width: 12,
+      width: 30,
       imgurl: crystal01_svg,
     },
   ],
