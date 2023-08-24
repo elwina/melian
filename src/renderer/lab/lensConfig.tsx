@@ -40,7 +40,7 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
     'light01',
     {
       height: 40,
-      width: 30,
+      width: 20,
       imgurl: light01_svg,
     },
   ],
@@ -72,7 +72,7 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
     'measure_head02',
     {
       height: 60,
-      width: 35,
+      width: 25,
       imgurl: measure_lens02_svg,
     },
   ],
@@ -87,7 +87,7 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
   [
     'raster01',
     {
-      height: 60,
+      height: 40,
       width: 15,
       imgurl: raster01_svg,
     },

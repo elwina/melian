@@ -1,0 +1,126 @@
+{
+  "name": "马吕斯实验",
+  "lens": [
+    {
+      "id": 0,
+      "uname": "laser01",
+      "name": "激光",
+      "distancemm": 0,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 1,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 50,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 2,
+      "uname": "polarizer01",
+      "name": "偏振片1",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 3,
+      "uname": "polarizer01",
+      "name": "偏振片2",
+      "distancemm": 200,
+      "hide": false,
+      "option": {
+        "phi": 0
+      }
+    },
+    {
+      "id": 6,
+      "uname": "board01",
+      "name": "光屏",
+      "distancemm": 250,
+      "hide": false,
+      "option": {}
+    }
+  ],
+  "light": {
+    "type": "D65",
+    "filter": 660
+  },
+  "screen": {
+    "type": "FixedCircle",
+    "options": {
+      "seemm": 8,
+      "offsetmm": 0,
+      "mmwidth": 50,
+      "mmheight": 20,
+      "require": {
+        "phi": "{3}.phi"
+      },
+      "func": "cos(phi deg)^2"
+    }
+  },
+  "measure": {
+    "type": "None",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
+  },
+  "control": {
+    "showmm": [],
+    "move": []
+  },
+  "setting": [
+    {
+      "name": "激光",
+      "type": "ButtonSlider",
+      "target": ["light.filter"],
+      "options": {
+        "options": [
+          {
+            "name": "红",
+            "value": 656
+          },
+          {
+            "name": "青",
+            "value": 492
+          }
+        ],
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": "nm"
+      }
+    },
+    {
+      "name": "偏转夹角",
+      "type": "ButtonSlider",
+      "target": ["{3}.phi"],
+      "options": {
+        "options": [
+          {
+            "name": "0",
+            "value": 0
+          },
+          {
+            "name": "45",
+            "value": 45
+          },
+          {
+            "name": "90",
+            "value": 90
+          }
+        ],
+        "min": 0,
+        "max": 360,
+        "step": 1,
+        "toFixedPoint": 1,
+        "unit": "°",
+        "showValue": true
+      }
+    }
+  ]
+}
