@@ -3,6 +3,7 @@ import single_slit01_svg from '../../../assets/lens/single_slit01.svg';
 import light01_svg from '../../../assets/lens/light01.svg';
 import double_slit01_svg from '../../../assets/lens/double_slit01.svg';
 import measure_lens01_svg from '../../../assets/lens/measure_lens01.svg';
+import measure_lens02_svg from '../../../assets/lens/measure_lens02.svg';
 import board01_svg from '../../../assets/lens/board01.svg';
 import raster01_svg from '../../../assets/lens/raster01.svg';
 import polarizer01_svg from '../../../assets/lens/polarizer01.svg';
@@ -65,6 +66,14 @@ export const lensConfig: Map<string, LenModelConfig> = new Map([
       height: 60,
       width: 60,
       imgurl: measure_lens01_svg,
+    },
+  ],
+  [
+    'measure_head02',
+    {
+      height: 60,
+      width: 35,
+      imgurl: measure_lens02_svg,
     },
   ],
   [
