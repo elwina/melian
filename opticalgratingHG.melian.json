@@ -1,0 +1,213 @@
+{
+  "name": "光栅衍射HG",
+  "des": {
+    "type": "image",
+    "content": ["[opticalgrating1]", "[opticalgrating2]", "[opticalgrating3]"]
+  },
+  "lens": [
+    {
+      "id": 0,
+      "uname": "laser01",
+      "name": "激光光源",
+      "distancemm": 0,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 1,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 2,
+      "uname": "filter01",
+      "name": "滤光片",
+      "distancemm": 220,
+      "hide": true,
+      "option": {
+        "wave": "660"
+      }
+    },
+    {
+      "id": 3,
+      "uname": "raster01",
+      "name": "光栅",
+      "distancemm": 245,
+      "hide": false,
+      "option": {
+        "d": 0.06,
+        "b": 0.02,
+        "N": 10000
+      }
+    },
+    {
+      "id": 4,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 365,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 5,
+      "uname": "board01",
+      "name": "光屏",
+      "distancemm": 965,
+      "hide": false,
+      "option": {
+        "plus": 1
+      }
+    }
+  ],
+  "light": {
+    "type": "HG",
+    "filter": 550
+  },
+  "screen": {
+    "type": "Board",
+    "options": {
+      "color": "#000000",
+      "require": {
+        "d": "{3}.d",
+        "b": "{3}.b",
+        "N": "{3}.N",
+        "r0_2": "[5]",
+        "r0_1": "[4]",
+        "plus": "{5}.plus"
+      },
+      "func": "plus * sin ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 / ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 * sin(N * PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2 / sin(PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2"
+    }
+  },
+  "measure": {
+    "type": "None",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
+  },
+  "control": {
+    "showmm": [0, 4, 5],
+    "move": [4, 5]
+  },
+  "setting": [
+    {
+      "name": "激光",
+      "type": "ButtonSlider",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "options": [
+          {
+            "name": "无",
+            "value": -1
+          },
+          {
+            "name": "红",
+            "value": 660
+          },
+          {
+            "name": "绿",
+            "value": 550
+          },
+          {
+            "name": "蓝",
+            "value": 450
+          }
+        ],
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": "nm"
+      }
+    },
+    {
+      "name": "光栅常量d",
+      "type": "ButtonSlider",
+      "des": "缝宽b与两缝之间不透明部分宽度a的和，反映光栅的周期空间性。",
+      "target": ["{3}.d"],
+      "options": {
+        "options": [
+          {
+            "name": "0.06mm",
+            "value": 0.06
+          },
+          {
+            "name": "0.10mm",
+            "value": 0.1
+          }
+        ],
+        "min": 0.1,
+        "max": 0.15,
+        "step": 0.001,
+        "toFixedPoint": 3,
+        "unit": "mm"
+      }
+    },
+    {
+      "name": "缝宽b",
+      "type": "ButtonSlider",
+      "target": ["{3}.b"],
+      "options": {
+        "options": [
+          {
+            "name": "0.02mm",
+            "value": 0.02
+          },
+          {
+            "name": "0.03mm",
+            "value": 0.03
+          }
+        ],
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "toFixedPoint": 3,
+        "unit": "mm"
+      }
+    },
+    {
+      "name": "缝数N",
+      "type": "ButtonSlider",
+      "target": ["{3}.N"],
+      "options": {
+        "options": [
+          {
+            "name": "2",
+            "value": 2
+          },
+          {
+            "name": "10000",
+            "value": 10000
+          }
+        ],
+        "min": 2,
+        "max": 20000,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    },
+    {
+      "name": "强度加倍",
+      "type": "ButtonSlider",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
+      "target": ["{5}.plus"],
+      "options": {
+        "options": [
+          {
+            "name": "1",
+            "value": 1
+          }
+        ],
+        "min": 0.1,
+        "max": 5,
+        "step": 1,
+        "toFixedPoint": 1,
+        "unit": ""
+      }
+    }
+  ]
+}

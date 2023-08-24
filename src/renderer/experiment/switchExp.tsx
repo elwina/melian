@@ -52,6 +52,13 @@ export default function SwitchExp({
 
   useEffect(() => {
     loadExperiments();
+    const i = setInterval(() => {
+      loadExperiments();
+    }, 3000);
+
+    return () => {
+      clearInterval(i);
+    };
   }, []);
 
   const [expOpt, setExpOpt] = useState([
@@ -114,6 +121,7 @@ export default function SwitchExp({
         <br />
         <Space.Compact>
           <Button
+            className="loadExpBtn"
             onClick={() => {
               loadExperiments();
             }}
