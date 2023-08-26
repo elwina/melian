@@ -74,6 +74,7 @@ export default function Ctrl({
                 <DragMove
                   id={i}
                   styleConfig={styleConfig}
+                  instrumentConfig={instrumentConfig}
                   onchange={onchange}
                 />
                 <AiFillCaretLeft
