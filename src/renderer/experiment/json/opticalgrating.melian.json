@@ -1,5 +1,5 @@
 {
-  "name": "光栅衍射",
+  "name": "平面光栅衍射",
   "des": {
     "type": "image",
     "content": ["[opticalgrating1]", "[opticalgrating2]", "[opticalgrating3]"]
