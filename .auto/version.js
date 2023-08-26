@@ -9,7 +9,7 @@ const [newVersion] = args;
 fileList = [
   './package.json',
   './release/app/package.json',
-  './release/app/package-lock.json',
+  // './release/app/package-lock.json',
 ];
 
 async function main() {
@@ -26,9 +26,13 @@ async function main() {
     console.log(`Updated ${file} version from ${version} to ${newVersion}`);
   }
 
+  execSync('npm run package');
+  console.log(`Packaged app.`);
   execSync(`git add *`);
   execSync(`git commit -m "New Version ${newVersion}."`);
   console.log(`Committed changes.`);
+  execSync(`git push`);
+  console.log('Pushed changes.');
 }
 
 main();

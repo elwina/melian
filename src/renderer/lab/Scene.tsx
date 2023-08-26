@@ -207,7 +207,7 @@ export default function Scene() {
     {
       title: '光具座',
       description:
-        '这是光具座，其上方是光具，下方是操作杆。下方显示的度数单位均为mm',
+        '这是光具座，其上方是光具，下方是操作杆。下方显示的读数单位均为mm',
       target: () => document.getElementById('holder')!,
     },
     {
