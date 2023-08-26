@@ -61,7 +61,14 @@ export default function Ctrl({
             }}
             id={`ctrl-${i}`}
           >
-            <div>{inArray(i, ctrlConfig.showmm) ? len.distancemm : ' '}</div>
+            <div>
+              {inArray(i, ctrlConfig.showmm) && len.distancemm === 0
+                ? `${len.distancemm}mm`
+                : ''}
+              {inArray(i, ctrlConfig.showmm) && len.distancemm !== 0
+                ? len.distancemm
+                : ''}
+            </div>
             {inArray(i, ctrlConfig.move) && (
               <>
                 <DragMove

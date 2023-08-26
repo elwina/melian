@@ -29,6 +29,10 @@ async function main() {
   execSync(`git add *`);
   execSync(`git commit -m "New Version ${newVersion}."`);
   console.log(`Committed changes.`);
+  execSync('npm run package');
+  console.log(`Packaged app.`);
+  execSync(`git push`);
+  console.log('Pushed changes.');
 }
 
 main();
