@@ -13,8 +13,10 @@ import { useKeyPress } from 'ahooks';
 import SwitchExp from 'renderer/experiment/switchExp';
 import { InstrumentConfig, StyleConfig } from 'renderer/typing/config.type';
 import { Updater } from 'use-immer';
-import backjpg from '../../../assets/back1.jpg';
 import './Welcome.css';
+import { VscChromeClose } from 'react-icons/vsc';
+import { ElectronHandler } from 'main/preload';
+import backjpg from '../../../assets/back1.jpg';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -31,6 +33,16 @@ export function Welcome({
   setStyleConfig,
   onChange,
 }: propsType) {
+  let ipcRenderer: ElectronHandler['ipcRenderer'] | null;
+  try {
+    ipcRenderer = window.electron.ipcRenderer
+      ? window.electron.ipcRenderer
+      : null;
+  } catch {
+    ipcRenderer = null;
+  }
+  const web = !ipcRenderer;
+
   const [expMap, setExpMap] = useState(new Map<string, InstrumentConfig>());
 
   const ustyle: CSSProperties = {
@@ -191,9 +203,11 @@ export function Welcome({
             id="welcome-btn-enter"
           />
           <Button
-            icon={<StopOutlined />}
+            icon={ifKey ? <StopOutlined /> : <VscChromeClose />}
             onClick={() => {
-              setIfKey(false);
+              if (ifKey) {
+                setIfKey(false);
+              } else if (ipcRenderer) ipcRenderer.close();
             }}
           />
         </Space.Compact>
