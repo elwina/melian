@@ -103,7 +103,7 @@ export function Welcome({
           zIndex: 100000,
 
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: '9fr 16fr',
         }}
       >
         <div />
