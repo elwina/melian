@@ -110,7 +110,7 @@ const createWindow = async () => {
     const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
       title: '选择保存位置',
       defaultPath: oldPath,
-      filters: [{ name: '样式配置文件', extensions: ['mstyle.json'] }],
+      filters: [{ name: '样式配置文件', extensions: ['me.json'] }],
     });
 
     if (!filePath) return '';
@@ -144,7 +144,7 @@ const createWindow = async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
       title: '选择保存位置',
       defaultPath: oldPath,
-      filters: [{ name: '配置文件', extensions: ['mstyle.json'] }],
+      filters: [{ name: '配置文件', extensions: ['me.json'] }],
     });
 
     return !canceled ? filePaths[0] : '';

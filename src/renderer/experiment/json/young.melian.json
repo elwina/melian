@@ -170,7 +170,7 @@
     {
       "name": "测量头类型",
       "type": "ButtonSelect",
-      "des": "使用不同的测量工具，1代表游标卡尺，2代表螺旋测微器。",
+      "des": "使用不同的测量工具，1代表螺旋测微器，2代表游标卡尺。",
       "target": ["measure.type"],
       "options": {
         "options": [

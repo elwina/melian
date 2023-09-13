@@ -21,11 +21,15 @@ import { Updater } from 'use-immer';
 import { autoResize } from 'renderer/utils/autoResize';
 import { sleep } from 'renderer/utils/common';
 
+interface AllConfig {
+  style: StyleConfig;
+  ins: InstrumentConfig;
+}
 interface propsType {
   styleConfig: StyleConfig;
   setStyleConfig: Updater<StyleConfig>;
   instrumentConfig: InstrumentConfig;
-  onLoadStyle: (config: StyleConfig) => void;
+  onLoadStyle: (config: AllConfig) => void;
 }
 
 export default function EasyAction({
@@ -49,14 +53,16 @@ export default function EasyAction({
 
   const dPathRef = useRef('');
   const download = async () => {
+    const allConfig: AllConfig = {
+      style: styleConfig,
+      ins: instrumentConfig,
+    };
     if (web) {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(
-        new Blob([JSON.stringify(styleConfig, null, 2)])
+        new Blob([JSON.stringify(allConfig, null, 2)])
       );
-      a.download = `${DateTime.now().toFormat(
-        'yyyyLLdd-HH:mm:ss'
-      )}.mstyle.json`;
+      a.download = `${DateTime.now().toFormat('yyyyLLdd-HH:mm:ss')}.me.json`;
       a.click();
       messageApi.success('下载成功');
     }
@@ -65,7 +71,7 @@ export default function EasyAction({
       if (!ipcRenderer) return;
       const path = await ipcRenderer.invoke('saveConf', [
         dPathRef.current,
-        styleConfig,
+        allConfig,
       ]);
       if (path !== '') {
         dPathRef.current = path;
@@ -259,7 +265,7 @@ export default function EasyAction({
                   };
                   return false;
                 }}
-                accept=".mstyle.json"
+                accept=".me.json"
                 showUploadList={false}
               >
                 <Button icon={<UploadOutlined />} />

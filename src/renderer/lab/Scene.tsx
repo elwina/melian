@@ -256,7 +256,7 @@ export default function Scene() {
     {
       title: '设置栏',
       description:
-        '在下方设置栏，您可以调节实验的参数，包括光源波长、双峰间距、目镜位置等等',
+        '在下方设置栏，您可以调节实验的参数，包括光源波长、双缝间距、目镜位置等等',
       target: () => document.getElementById('setting')!,
       prevButtonProps: {
         onClick: () => {
@@ -356,6 +356,9 @@ export default function Scene() {
           instrumentConfig={instrumentConfig}
           setInstrumentConfig={setInstrumentConfig}
           setStyleConfig={setStyleConfig}
+          setExp={(ename) => {
+            setExp(ename);
+          }}
         />
         <RenderScreen
           instrumentConfig={instrumentConfig}
