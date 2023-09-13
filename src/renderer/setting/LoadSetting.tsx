@@ -25,6 +25,7 @@ interface propsType {
   instrumentConfig: InstrumentConfig;
   setInstrumentConfig: Updater<InstrumentConfig>;
   setStyleConfig: Updater<StyleConfig>;
+  setExp: (exp: string) => void;
 }
 
 export type SettingType =
@@ -47,6 +48,7 @@ export default function LoadSetting({
   instrumentConfig,
   setInstrumentConfig,
   setStyleConfig,
+  setExp,
 }: propsType) {
   const settingConfig = instrumentConfig.setting;
 
@@ -185,7 +187,9 @@ export default function LoadSetting({
         setStyleConfig={setStyleConfig}
         instrumentConfig={instrumentConfig}
         onLoadStyle={(config) => {
-          setStyleConfig(config);
+          setStyleConfig(config.style);
+          setInstrumentConfig(config.ins);
+          setExp(config.ins.name);
         }}
       />
     </div>

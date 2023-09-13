@@ -356,6 +356,9 @@ export default function Scene() {
           instrumentConfig={instrumentConfig}
           setInstrumentConfig={setInstrumentConfig}
           setStyleConfig={setStyleConfig}
+          setExp={(ename) => {
+            setExp(ename);
+          }}
         />
         <RenderScreen
           instrumentConfig={instrumentConfig}
