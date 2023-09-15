@@ -33,6 +33,12 @@ export default function ButtonSlider({ values, onChange, options }: propsType) {
     }
   }, [customD, ifCustom]);
 
+  useEffect(() => {
+    if (ifCustom) {
+      setCustomD(value);
+    }
+  }, [value]);
+
   return (
     <>
       {options.showValue && (
