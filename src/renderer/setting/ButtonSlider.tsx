@@ -39,6 +39,13 @@ export default function ButtonSlider({ values, onChange, options }: propsType) {
     }
   }, [value]);
 
+  useEffect(() => {
+    if (ifCustom && (value < options.min || value > options.max)) {
+      setCustomD(options.min);
+      change(options.min);
+    }
+  }, [ifCustom]);
+
   return (
     <>
       {options.showValue && (
