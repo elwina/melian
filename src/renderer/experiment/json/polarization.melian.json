@@ -133,7 +133,8 @@
         "max": 720,
         "step": 1,
         "toFixedPoint": 0,
-        "unit": "nm"
+        "unit": "nm",
+        "showValue": true
       }
     },
     {
@@ -236,7 +237,7 @@
           }
         ],
         "min": 0,
-        "max": 5,
+        "max": 10,
         "step": 1,
         "toFixedPoint": 0,
         "unit": ""
