@@ -8,6 +8,10 @@ interface propsType {
     step: number;
     min: number;
     max: number;
+
+    showValue?: boolean;
+    unit?: string;
+    toFixedPoint?: number;
   };
 }
 
@@ -18,21 +22,29 @@ export default function TwoArrow({ values, onChange, options }: propsType) {
     onChange(Array.from({ length: values.length }, () => v));
   }
   return (
-    <Space.Compact>
-      <Button
-        type="primary"
-        icon={<CaretLeftFilled />}
-        onClick={() => change(value - options.step)}
-        size="large"
-        disabled={value - options.step <= options.min}
-      />{' '}
-      <Button
-        type="primary"
-        icon={<CaretRightFilled />}
-        onClick={() => change(value + options.step)}
-        size="large"
-        disabled={value + options.step >= options.max}
-      />
-    </Space.Compact>
+    <>
+      {options.showValue && (
+        <div>
+          {value.toFixed(options.toFixedPoint ?? 0)}
+          {options.unit ?? ''}
+        </div>
+      )}
+      <Space.Compact>
+        <Button
+          type="primary"
+          icon={<CaretLeftFilled />}
+          onClick={() => change(value - options.step)}
+          size="large"
+          disabled={value - options.step <= options.min}
+        />{' '}
+        <Button
+          type="primary"
+          icon={<CaretRightFilled />}
+          onClick={() => change(value + options.step)}
+          size="large"
+          disabled={value + options.step >= options.max}
+        />
+      </Space.Compact>
+    </>
   );
 }

@@ -98,7 +98,7 @@
     }
   },
   "measure": {
-    "type": "Circle",
+    "type": "None",
     "options": {
       "initmm": 10,
       "offsetmm": 0
@@ -133,6 +133,20 @@
         "max": 720,
         "step": 1,
         "toFixedPoint": 0,
+        "unit": "nm",
+        "showValue": true
+      }
+    },
+    {
+      "name": "微调",
+      "type": "TwoArrow",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "showValue": true,
+        "toFixedPoint": 0,
         "unit": "nm"
       }
     },
@@ -161,16 +175,6 @@
         "toFixedPoint": 4,
         "unit": "mm",
         "showValue": true
-      }
-    },
-    {
-      "name": "微调",
-      "type": "TwoArrow",
-      "target": ["{4}.d"],
-      "options": {
-        "min": 0,
-        "max": 0.01,
-        "step": 0.0001
       }
     },
     {
@@ -233,7 +237,7 @@
           }
         ],
         "min": 0,
-        "max": 5,
+        "max": 10,
         "step": 1,
         "toFixedPoint": 0,
         "unit": ""

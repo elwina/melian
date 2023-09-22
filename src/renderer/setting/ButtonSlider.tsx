@@ -33,6 +33,18 @@ export default function ButtonSlider({ values, onChange, options }: propsType) {
     }
   }, [customD, ifCustom]);
 
+  // useEffect(() => {
+  //   if (ifCustom) {
+  //     setCustomD(value);
+  //   }
+  // }, [value]);
+
+  useEffect(() => {
+    if (ifCustom && (value < options.min || value > options.max)) {
+      setCustomD(options.min);
+    }
+  }, [ifCustom]);
+
   return (
     <>
       {options.showValue && (
@@ -70,8 +82,8 @@ export default function ButtonSlider({ values, onChange, options }: propsType) {
         </Radio.Button> */}
           <Radio.Button value="custom" checked={ifCustom}>
             自定义
-            {customD.toFixed(options.toFixedPoint)}
-            {options.unit}
+            {!options.showValue &&
+              customD.toFixed(options.toFixedPoint) + options.unit}
           </Radio.Button>
           <Slider
             step={options.step}
