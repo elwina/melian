@@ -1,136 +1,43 @@
-# Melian 波动光学演示系统
+<div align="center"> <img src="./assets/icon.png" width = 100 height = 100 /> </div>
 
-```
-melian
-├─ .auto
-│  └─ version.js
-├─ .gitignore
-├─ assets
-│  ├─ assets.d.ts
-│  ├─ back1.jpg
-│  ├─ des
-│  │  ├─ fresnel_hole1.png
-│  │  ├─ fresnel_hole2.png
-│  │  ├─ fresnel_hole3.png
-│  │  ├─ fresnel_hole4.png
-│  │  ├─ opticalgrating1.png
-│  │  ├─ opticalgrating2.png
-│  │  ├─ opticalgrating3.png
-│  │  ├─ polarization1.png
-│  │  ├─ polarization2.png
-│  │  ├─ polarization3.png
-│  │  ├─ polarization4.png
-│  │  ├─ singlesilt1.png
-│  │  ├─ singlesilt2.png
-│  │  ├─ singlesilt3.png
-│  │  ├─ singlesilt4.png
-│  │  ├─ young1.png
-│  │  ├─ young2.png
-│  │  └─ young3.png
-│  ├─ entitlements.mac.plist
-│  ├─ icon.ico
-│  ├─ icon.png
-│  ├─ icon.svg
-│  ├─ lens
-│  │  ├─ bead01.svg
-│  │  ├─ board01.svg
-│  │  ├─ convex_lens01.svg
-│  │  ├─ crystal01.svg
-│  │  ├─ double_slit01.svg
-│  │  ├─ holes01.svg
-│  │  ├─ laser01.svg
-│  │  ├─ light01.svg
-│  │  ├─ measure_lens01.svg
-│  │  ├─ measure_lens02.svg
-│  │  ├─ needle01.svg
-│  │  ├─ polarizer01.svg
-│  │  ├─ raster01.svg
-│  │  └─ single_slit01.svg
-│  └─ settings
-│     ├─ CircleS.svg
-│     └─ CircleS2.png
-├─ package-lock.json
-├─ package.json
-├─ README.md
-├─ release
-│  └─ app
-│     ├─ package-lock.json
-│     └─ package.json
-├─ src
-│  ├─ main
-│  │  ├─ main.ts
-│  │  ├─ menu.ts
-│  │  ├─ preload.ts
-│  │  └─ util.ts
-│  ├─ renderer
-│  │  ├─ App.css
-│  │  ├─ App.tsx
-│  │  ├─ color
-│  │  │  ├─ CIE_2015_10_Degree_Standard_Observer.ts
-│  │  │  ├─ light2rgb2.ts
-│  │  │  ├─ light2rgb_old.ts
-│  │  │  ├─ lightwave.ts
-│  │  │  └─ spectrum.ts
-│  │  ├─ experiment
-│  │  │  ├─ default.ts
-│  │  │  ├─ json
-│  │  │  │  ├─ fresnel_hole.melian.json
-│  │  │  │  ├─ opticalgrating.melian.json
-│  │  │  │  ├─ polarization.melian.json
-│  │  │  │  ├─ singlesilt.melian.json
-│  │  │  │  └─ young.melian.json
-│  │  │  └─ switchExp.tsx
-│  │  ├─ front
-│  │  │  ├─ Frontpage.tsx
-│  │  │  ├─ getImg.tsx
-│  │  │  └─ ImagePPT.tsx
-│  │  ├─ index.ejs
-│  │  ├─ index.tsx
-│  │  ├─ lab
-│  │  │  ├─ Ctrl.tsx
-│  │  │  ├─ DragMove.tsx
-│  │  │  ├─ Holder.tsx
-│  │  │  ├─ Len.tsx
-│  │  │  ├─ LenGene.tsx
-│  │  │  ├─ lensConfig.tsx
-│  │  │  └─ Scene.tsx
-│  │  ├─ measures
-│  │  │  ├─ Circle.tsx
-│  │  │  ├─ mReg.tsx
-│  │  │  └─ Square.tsx
-│  │  ├─ preload.d.ts
-│  │  ├─ react.d.ts
-│  │  ├─ screens
-│  │  │  ├─ ScreenBoard.tsx
-│  │  │  ├─ ScreenBoardPolar.tsx
-│  │  │  ├─ ScreenFixedCircle.tsx
-│  │  │  ├─ ScreenFixedCirclePolar.tsx
-│  │  │  └─ sReg.tsx
-│  │  ├─ setting
-│  │  │  ├─ ButtonSelect.tsx
-│  │  │  ├─ ButtonSlider.tsx
-│  │  │  ├─ CircleSlider.tsx
-│  │  │  ├─ EasyAction.tsx
-│  │  │  ├─ FourSide.tsx
-│  │  │  ├─ LoadSetting.tsx
-│  │  │  ├─ StyleAdjust.tsx
-│  │  │  └─ TwoArrow.tsx
-│  │  ├─ typing
-│  │  │  ├─ config.type.ts
-│  │  │  ├─ measure.type.ts
-│  │  │  └─ screen.type.ts
-│  │  ├─ utils
-│  │  │  ├─ array.ts
-│  │  │  ├─ autoResize.ts
-│  │  │  ├─ common.ts
-│  │  │  ├─ number.ts
-│  │  │  ├─ parseRequire.ts
-│  │  │  └─ type.ts
-│  │  └─ welcome
-│  │     ├─ Welcome.css
-│  │     └─ Welcome.tsx
-│  └─ __tests__
-│     └─ App.test.tsx
-└─ tsconfig.json
+# 波动光学演示系统 Melian
 
-```
+## 制作团队
+
+### 开发
+
+Yuxuan Wang (王宇轩) (Elwina Vardal)
+
+### 宣传
+
+Jiasheng Wu (吴家盛) (微信公众号:南师数字化实验室)
+
+### 其他贡献者
+
+Xin Kai
+
+## 著作权与开源协议
+
+本项目已经申请软件著作权，著作权人为王宇轩。
+
+本项目采用 GPLv3 协议开源，任何人可以在遵守协议的前提下自由使用、修改、发布本项目，参见 [LICENSE](./LICENSE) 文件。
+
+署名方式：在你的程序中，如果使用了本项目的代码，请必须在程序中**显著位置**注明“本程序使用了 Elwina (王宇轩) 开发的 Melian(波动光学演示系统) 项目的代码”。
+
+### 注意
+
+- 一旦你的程序使用了本项目的代码，你的程序也**必须**遵守 GPLv3 协议。
+- 你可以*免费*使用、复制、修改、分发受保护程序，但分发时**一定**要提供源码。
+- 你可以*收费*。比如可以针对软件的技术支持收费；但**不能**收许可费、版税、专利许可费、授权费这类费用。
+- 在你遵守 GPLv3 协议的**前提**下，版权人承诺不会告你侵权。
+
+本项目中的所有图片、视频、音频 (包括使用 canvas 绘制的仪器) 等资源文件均采用 CC BY-SA 4.0 协议开源，任何人可以在遵守协议的前提下自由使用、修改、发布本项目中的资源文件。
+
+署名方式：在你的程序中，如果使用了本项目的资源文件，请必须在程序中**显著位置**注明“本程序使用了 Elwina (王宇轩) 开发的 Melian(波动光学演示系统) 项目的资源文件”。
+
+### 注意
+
+- 你可以对内容进行修改、再创作，但必须署名、以相同方式共享、分享时没有附加限制。
+- 你可以将资源文件用于商业目的。
+
+以上协议修改于 2023 年 12 月 2 日。
