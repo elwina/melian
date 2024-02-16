@@ -1,0 +1,247 @@
+{
+  "name": "偏振光互补色",
+  "des": {
+    "type": "image",
+    "content": [
+      "[polarization1]",
+      "[polarization2]",
+      "[polarization3]",
+      "[polarization4]"
+    ]
+  },
+  "lens": [
+    {
+      "id": 0,
+      "uname": "light01",
+      "name": "光源",
+      "distancemm": 0,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 1,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 2,
+      "uname": "filter01",
+      "name": "滤光片",
+      "distancemm": 220,
+      "hide": false,
+      "option": {
+        "wave": "660"
+      }
+    },
+    {
+      "id": 3,
+      "uname": "polarizer01",
+      "name": "偏振片1",
+      "distancemm": 245,
+      "hide": false,
+      "option": {
+        "phi": 90
+      }
+    },
+    {
+      "id": 4,
+      "uname": "crystal01",
+      "name": "波片",
+      "distancemm": 345,
+      "hide": false,
+      "option": {
+        "d": 0.0062
+      }
+    },
+    {
+      "id": 5,
+      "uname": "polarizer01",
+      "name": "偏振片2",
+      "distancemm": 445,
+      "hide": false,
+      "option": {
+        "phi": 90
+      }
+    },
+    {
+      "id": 6,
+      "uname": "measure_head01",
+      "name": "观察目镜",
+      "distancemm": 545,
+      "hide": false,
+      "option": {
+        "plus": 1
+      }
+    }
+  ],
+  "light": {
+    "type": "D65",
+    "filter": -1
+  },
+  "screen": {
+    "type": "FixedCircle",
+    "options": {
+      "seemm": 8,
+      "offsetmm": 0,
+      "mmwidth": 20,
+      "mmheight": 20,
+      "require": {
+        "d": "{4}.d",
+        "a": "{3}.phi",
+        "b": "{5}.phi",
+        "plus": "{6}.plus"
+      },
+      "func": "plus*(cos(a deg)^2*cos(b deg)^2+sin(a deg)^2*sin(b deg)^2+2*cos(a deg)*cos(b deg)*sin(a deg)*sin(b deg)*cos(2*PI/l*0.17195*d))"
+    }
+  },
+  "measure": {
+    "type": "None",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
+  },
+  "control": {
+    "showmm": [],
+    "move": []
+  },
+  "setting": [
+    {
+      "name": "滤光片",
+      "des": "确定滤光片颜色，选择透过滤光片的光的波长。如选“无”则表示不设置滤光片。",
+      "type": "ButtonSlider",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "options": [
+          {
+            "name": "无",
+            "value": -1
+          },
+          {
+            "name": "红",
+            "value": 656
+          },
+          {
+            "name": "青",
+            "value": 492
+          }
+        ],
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": "nm",
+        "showValue": true
+      }
+    },
+    {
+      "name": "微调",
+      "type": "TwoArrow",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "showValue": true,
+        "toFixedPoint": 0,
+        "unit": "nm"
+      }
+    },
+    {
+      "name": "波片厚度d",
+      "type": "ButtonSlider",
+      "target": ["{4}.d"],
+      "options": {
+        "options": [
+          {
+            "name": "0.0041",
+            "value": 0.0041
+          },
+          {
+            "name": "0.0062",
+            "value": 0.0062
+          },
+          {
+            "name": "0.0250",
+            "value": 0.025
+          }
+        ],
+        "min": 0.0,
+        "max": 0.01,
+        "step": 0.001,
+        "toFixedPoint": 4,
+        "unit": "mm",
+        "showValue": true
+      }
+    },
+    {
+      "name": "偏转角phi1",
+      "des": "偏振片光轴相对波片主截面偏转角",
+      "type": "ButtonSlider",
+      "target": ["{3}.phi"],
+      "options": {
+        "options": [
+          {
+            "name": "45",
+            "value": 45
+          },
+          {
+            "name": "-45",
+
+            "value": -45
+          }
+        ],
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    },
+    {
+      "name": "偏转角phi2",
+      "des": "偏振片光轴相对波片主截面偏转角",
+      "type": "ButtonSlider",
+      "target": ["{5}.phi"],
+      "options": {
+        "options": [
+          {
+            "name": "45",
+            "value": 45
+          },
+          {
+            "name": "-45",
+            "value": -45
+          }
+        ],
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    },
+    {
+      "name": "强度加成",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
+      "type": "ButtonSlider",
+      "target": ["{6}.plus"],
+      "options": {
+        "options": [
+          {
+            "name": "4",
+            "value": 4
+          }
+        ],
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": ""
+      }
+    }
+  ]
+}

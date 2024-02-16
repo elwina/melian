@@ -1,0 +1,28 @@
+<svg id="组_2" data-name="组 2" xmlns="http://www.w3.org/2000/svg" width="731" height="1350" viewBox="0 0 731 1350">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 10px;
+      }
+
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        stroke-dasharray: 40 20;
+      }
+    </style>
+  </defs>
+  <path id="矩形_1" data-name="矩形 1" class="cls-1" d="M330,312l54-41,1,837-55,41V312Z"/>
+  <path id="形状_1" data-name="形状 1" class="cls-1" d="M383,277H341l-45.514,31.98-1.711,832.95h39.339"/>
+  <path id="形状_2" data-name="形状 2" class="cls-1" d="M295,320V309h42v11H295Z"/>
+  <path id="矩形_1-2" data-name="矩形 1" class="cls-1" d="M449,241l55-42v841l-55,41V241Z"/>
+  <path id="形状_1-2" data-name="形状 1" class="cls-1" d="M503,205H461l-46,36-1.5,832.52H452.84"/>
+  <path id="形状_2-2" data-name="形状 2" class="cls-1" d="M415,251l-0.63-10.855L453,240v11H415Z"/>
+  <ellipse id="椭圆_1_拷贝" data-name="椭圆 1 拷贝" class="cls-2" cx="405.688" cy="675.001" rx="325" ry="674.439"/>
+  <path id="椭圆_1" data-name="椭圆 1" class="cls-1" d="M419.665,1349.44c-4.7.07-89.405,0-94.352,0C145.825,1349.44.322,1047.49,0.322,675S145.825,0.556,325.313.556c7.25,0,85.279-.2,92.605,0"/>
+  <ellipse id="椭圆_1_拷贝_2" data-name="椭圆 1 拷贝 2" class="cls-3" cx="325.312" cy="675.001" rx="325" ry="674.439"/>
+</svg>

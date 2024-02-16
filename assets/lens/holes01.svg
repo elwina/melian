@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2287" height="2922" viewBox="0 0 2287 2922">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 20px;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="形状_1" data-name="形状 1" class="cls-1" d="M66,2004l91,78"/>
+  <path id="形状_1_拷贝" data-name="形状 1 拷贝" class="cls-1" d="M66,396l91,78"/>
+  <path id="形状_1_拷贝_2" data-name="形状 1 拷贝 2" class="cls-1" d="M2133,47l91,78"/>
+  <path id="矩形_1" data-name="矩形 1" class="cls-1" d="M143,472L2224,124V1749L143,2097V472Z"/>
+  <path id="矩形_1_拷贝_2" data-name="矩形 1 拷贝 2" class="cls-1" d="M418,896L2035,620V1645.19L418,1921V896Z"/>
+  <path id="矩形_1_拷贝" data-name="矩形 1 拷贝" class="cls-1" d="M53,2020V395L2134,47"/>
+  <circle id="椭圆_1" data-name="椭圆 1" cx="1693" cy="1271" r="15"/>
+  <circle id="椭圆_1_拷贝_3" data-name="椭圆 1 拷贝 3" cx="1149" cy="1358" r="35"/>
+  <circle id="椭圆_1_拷贝_2" data-name="椭圆 1 拷贝 2" cx="1439" cy="1311" r="25"/>
+  <circle id="椭圆_1_拷贝" data-name="椭圆 1 拷贝" cx="822" cy="1403" r="45"/>
+  <path id="形状_3" data-name="形状 3" class="cls-2" d="M1028,1942h20v954h-20V1942Z"/>
+  <path id="形状_3_拷贝" data-name="形状 3 拷贝" class="cls-2" d="M1227,1910h20v986h-20V1910Z"/>
+  <path id="形状_4" data-name="形状 4" class="cls-1" d="M1038,2879c36.3,18.26,71.51,23,99,23,24.98,0,54.66-2.05,101-24"/>
+</svg>

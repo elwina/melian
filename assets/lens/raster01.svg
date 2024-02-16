@@ -1,0 +1,55 @@
+<svg id="组_1" data-name="组 1" xmlns="http://www.w3.org/2000/svg" width="1080" height="1568" viewBox="0 0 1080 1568">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 20px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path id="矩形_1" data-name="矩形 1" class="cls-1" d="M54,508.5l1011-319v840L54,1348.5v-840Z"/>
+  <path id="矩形_1_拷贝" data-name="矩形 1 拷贝" class="cls-1" d="M16,1324.5c-0.048-30.01,1-839,1-839l1011-319"/>
+  <path id="形状_4" data-name="形状 4" class="cls-1" d="M1018,180.5l10-14,37,23-10,15Z"/>
+  <path id="形状_4_拷贝" data-name="形状 4 拷贝" class="cls-1" d="M17,495.5l10-14,37,23-10,15Z"/>
+  <path id="形状_4_拷贝_2" data-name="形状 4 拷贝 2" class="cls-1" d="M17,1324.5l10-14,37,23-10,15Z"/>
+  <path id="矩形_2" data-name="矩形 2" class="cls-2" d="M183,581.5l778-247-1,627-778,247Z"/>
+  <path id="形状_5" data-name="形状 5" class="cls-3" d="M205,571.5h10v637H205v-637Z"/>
+  <path id="形状_5_拷贝" data-name="形状 5 拷贝" class="cls-3" d="M234,555.5h10v637H234v-637Z"/>
+  <path id="形状_5_拷贝_2" data-name="形状 5 拷贝 2" class="cls-3" d="M263,550.5h10v637H263v-637Z"/>
+  <path id="形状_5_拷贝_3" data-name="形状 5 拷贝 3" class="cls-3" d="M292,538.5h10v637H292v-637Z"/>
+  <path id="形状_5_拷贝_4" data-name="形状 5 拷贝 4" class="cls-3" d="M321,533.5h10v637H321v-637Z"/>
+  <path id="形状_5_拷贝_5" data-name="形状 5 拷贝 5" class="cls-3" d="M350,517.5h10v637H350v-637Z"/>
+  <path id="形状_5_拷贝_6" data-name="形状 5 拷贝 6" class="cls-3" d="M379,512.5h10v637H379v-637Z"/>
+  <path id="形状_5_拷贝_7" data-name="形状 5 拷贝 7" class="cls-3" d="M408,500.5h10v637H408v-637Z"/>
+  <path id="形状_5_拷贝_8" data-name="形状 5 拷贝 8" class="cls-3" d="M437,498.5h10v637H437v-637Z"/>
+  <path id="形状_5_拷贝_9" data-name="形状 5 拷贝 9" class="cls-3" d="M466,482.5h10v637H466v-637Z"/>
+  <path id="形状_5_拷贝_10" data-name="形状 5 拷贝 10" class="cls-3" d="M495,477.5h10v637H495v-637Z"/>
+  <path id="形状_5_拷贝_11" data-name="形状 5 拷贝 11" class="cls-3" d="M524,465.5h10v637H524v-637Z"/>
+  <path id="形状_5_拷贝_12" data-name="形状 5 拷贝 12" class="cls-3" d="M553,460.5h10v637H553v-637Z"/>
+  <path id="形状_5_拷贝_13" data-name="形状 5 拷贝 13" class="cls-3" d="M582,444.5h10v637H582v-637Z"/>
+  <path id="形状_5_拷贝_14" data-name="形状 5 拷贝 14" class="cls-3" d="M611,439.5h10v637H611v-637Z"/>
+  <path id="形状_5_拷贝_15" data-name="形状 5 拷贝 15" class="cls-3" d="M640,427.5h10v637H640v-637Z"/>
+  <path id="形状_5_拷贝_16" data-name="形状 5 拷贝 16" class="cls-3" d="M669,409.5h10v656H669v-656Z"/>
+  <path id="形状_5_拷贝_17" data-name="形状 5 拷贝 17" class="cls-3" d="M698,407.5h10v637H698v-637Z"/>
+  <path id="形状_5_拷贝_18" data-name="形状 5 拷贝 18" class="cls-3" d="M727,391.5h10v653H727v-653Z"/>
+  <path id="形状_5_拷贝_19" data-name="形状 5 拷贝 19" class="cls-3" d="M756,386.5h10v644H756v-644Z"/>
+  <path id="形状_5_拷贝_20" data-name="形状 5 拷贝 20" class="cls-3" d="M785,374.5h10v649H785v-649Z"/>
+  <path id="形状_5_拷贝_21" data-name="形状 5 拷贝 21" class="cls-3" d="M814,369.5h10v642H814v-642Z"/>
+  <path id="形状_5_拷贝_22" data-name="形状 5 拷贝 22" class="cls-3" d="M843,353.5h10v652H843v-652Z"/>
+  <path id="形状_5_拷贝_23" data-name="形状 5 拷贝 23" class="cls-3" d="M872,348.5h10v649H872v-649Z"/>
+  <path id="形状_5_拷贝_24" data-name="形状 5 拷贝 24" class="cls-3" d="M901,336.5h10v645H901v-645Z"/>
+  <path id="形状_5_拷贝_25" data-name="形状 5 拷贝 25" class="cls-3" d="M927,336.5h10v637H927v-637Z"/>
+  <path id="形状_5_拷贝_26" data-name="形状 5 拷贝 26" class="cls-3" d="M956,331.5h10v637H956v-637Z"/>
+  <path id="形状_6_拷贝" data-name="形状 6 拷贝" class="cls-1" d="M532,1187.5h20l-1,379H531Z"/>
+  <path id="形状_6_拷贝_2" data-name="形状 6 拷贝 2" class="cls-1" d="M591,1170.5h20l-1,393H590Z"/>
+  <path id="形状_6" data-name="形状 6" class="cls-1" d="M544,1556.5c10.347,9.19,13.342,12,28,12,16.422,0,17.425-7.96,27-15"/>
+</svg>
