@@ -26,6 +26,7 @@ module.exports = {
     'prefer-destructuring': 'off',
     'no-empty': 'off',
     'react/require-default-props': 'off',
+    'no-nested-ternary': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -130,7 +130,7 @@ export default function EasyAction({
       {/* {contextHolder2} */}
       <Space.Compact id="easyaction">
         <Tooltip
-          title="开/关灯"
+          title={styleConfig.global.english ? 'Light' : '开/关灯'}
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}
@@ -166,7 +166,7 @@ export default function EasyAction({
           }}
         >
           <Tooltip
-            title="换肤"
+            title={styleConfig.global.english ? 'Color' : '换肤'}
             overlayStyle={{
               display: styleConfig.global.showTooltip ? '' : 'none',
             }}
@@ -175,7 +175,7 @@ export default function EasyAction({
           </Tooltip>
         </ColorPicker>
         <Tooltip
-          title="自动定位"
+          title={styleConfig.global.english ? 'Auto Resize' : '自动定位'}
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}
@@ -193,23 +193,25 @@ export default function EasyAction({
             id="autoResize"
           />
         </Tooltip>
-        <Tooltip
-          title="查看讲义"
-          overlayStyle={{
-            display: styleConfig.global.showTooltip ? '' : 'none',
-          }}
-        >
-          <Button
-            icon={<FileTextOutlined />}
-            onClick={() => {
-              setStyleConfig((draft) => {
-                draft.global.front = true;
-              });
+        {!styleConfig.global.english && (
+          <Tooltip
+            title="查看讲义"
+            overlayStyle={{
+              display: styleConfig.global.showTooltip ? '' : 'none',
             }}
-          />
-        </Tooltip>
+          >
+            <Button
+              icon={<FileTextOutlined />}
+              onClick={() => {
+                setStyleConfig((draft) => {
+                  draft.global.front = true;
+                });
+              }}
+            />
+          </Tooltip>
+        )}
         <Tooltip
-          title="显示提示"
+          title={styleConfig.global.english ? 'Show Tips' : '显示提示'}
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}
@@ -227,7 +229,7 @@ export default function EasyAction({
 
         <div id="iostyle">
           <Tooltip
-            title="保存样式"
+            title={styleConfig.global.english ? 'Save' : '保存样式'}
             overlayStyle={{
               display: styleConfig.global.showTooltip ? '' : 'none',
             }}
@@ -235,7 +237,7 @@ export default function EasyAction({
             <Button icon={<DownloadOutlined />} onClick={download} />
           </Tooltip>
           <Tooltip
-            title="加载样式"
+            title={styleConfig.global.english ? 'Load' : '加载样式'}
             overlayStyle={{
               display: styleConfig.global.showTooltip ? '' : 'none',
             }}
@@ -276,7 +278,7 @@ export default function EasyAction({
           </Tooltip>
         </div>
         <Tooltip
-          title="最大化"
+          title={styleConfig.global.english ? 'Maximize' : '最大化'}
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}
@@ -289,7 +291,7 @@ export default function EasyAction({
           />
         </Tooltip>
         <Tooltip
-          title="还原"
+          title={styleConfig.global.english ? 'Restore' : '还原'}
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}
@@ -302,7 +304,7 @@ export default function EasyAction({
           />
         </Tooltip>
         <Tooltip
-          title="关闭"
+          title={styleConfig.global.english ? 'Close' : '关闭'}
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}

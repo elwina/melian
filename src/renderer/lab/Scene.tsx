@@ -39,6 +39,7 @@ export default function Scene() {
       guide: false,
       expOpen: false,
       primaryColor: '#1677ff',
+      english: false,
     },
     holder: {
       leftMargin: 50,
@@ -334,6 +335,11 @@ export default function Scene() {
       draft.global.front = true;
       draft.global.dark = false;
       draft.global.welcome = false;
+      if (/[A-Za-z0-9]+/.test(config.name)) {
+        draft.global.english = true;
+      } else {
+        draft.global.english = false;
+      }
     });
   }
 
@@ -402,7 +408,7 @@ export default function Scene() {
           }}
         />
 
-        {styleConfig.global.front && (
+        {styleConfig.global.front && !styleConfig.global.english && (
           <FrontPage
             instrumentConfig={instrumentConfig}
             setInstrumentConfig={setInstrumentConfig}

@@ -190,7 +190,7 @@ export default class MenuBuilder {
   buildDefaultTemplate() {
     const templateDefault: MenuItemConstructorOptions[] = [
       {
-        label: '程序',
+        label: '程序Program',
         submenu: [
           { label: '分割线', type: 'separator' },
           {
@@ -255,7 +255,7 @@ export default class MenuBuilder {
 
     if (!process.env.CONTEST)
       templateDefault.push({
-        label: '关于',
+        label: '关于About',
         submenu: [
           {
             label: "Elwina's Github",

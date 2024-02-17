@@ -7,6 +7,7 @@ import {
   CheckOutlined,
   StopOutlined,
   SendOutlined,
+  TranslationOutlined,
 } from '@ant-design/icons';
 import { useKeyPress } from 'ahooks';
 
@@ -139,7 +140,9 @@ export function Welcome({
             }}
             className="title"
           >
-            欢迎来到波动光学演示系统
+            {styleConfig.global.english
+              ? 'Welcome to Wave Optics Demo System'
+              : '欢迎来到波动光学演示系统'}
           </div>
 
           <button
@@ -168,6 +171,15 @@ export function Welcome({
         }}
       >
         <Space.Compact>
+          <Button
+            icon={<TranslationOutlined />}
+            onClick={() => {
+              setStyleConfig((draft) => {
+                draft.global.english = !draft.global.english;
+              });
+            }}
+          />
+
           <Button
             icon={<UpSquareOutlined />}
             onClick={() => {

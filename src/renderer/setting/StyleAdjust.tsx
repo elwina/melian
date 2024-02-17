@@ -578,7 +578,7 @@ export default function StyleAdjust({
     setAll(re);
   }, [instrumentConfig, setAll]);
 
-  const RenderingSettings = all.map((s) => {
+  const RenderingSettings = all.map((s, i) => {
     const values = parseRequireArray(s.target, undefined, styleConfig);
 
     return (
@@ -591,7 +591,11 @@ export default function StyleAdjust({
         }}
         id="style-adjust"
       >
-        <div>{s.name}</div>
+        {styleConfig.global.english ? (
+          <div>Adjust {i + 1}</div>
+        ) : (
+          <div>{s.name}</div>
+        )}
         <FourSide
           values={values}
           options={s.options}

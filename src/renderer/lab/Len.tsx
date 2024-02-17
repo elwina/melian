@@ -105,9 +105,14 @@ export default function Len({ styleConfig, lenConf: lF }: propsType) {
     ctx.font = `normal ${hStyle.fontSize}px 黑体`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    textStartH.forEach((h, i) => {
-      ctx.fillText(lF.name[i], cwidth / 2, h);
-    });
+
+    if (styleConfig.global.english) {
+      ctx.fillText(lF.name, cwidth / 2, 0, cwidth);
+    } else {
+      textStartH.forEach((h, i) => {
+        ctx.fillText(lF.name[i], cwidth / 2, h);
+      });
+    }
   }, [imageReady, hStyle, lF, lenConfig, styleConfig]);
 
   if (!lF.hide)

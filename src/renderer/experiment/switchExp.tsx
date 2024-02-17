@@ -126,7 +126,7 @@ export default function SwitchExp({
               loadExperiments();
             }}
           >
-            刷新
+            {styleConfig.global.english ? 'Refresh' : '刷新'}
           </Button>
           <Button
             onClick={() => {
@@ -134,7 +134,13 @@ export default function SwitchExp({
             }}
             id="switchExpOpenBtn"
           >
-            {ifOpen ? '收起' : '展开'}
+            {ifOpen
+              ? styleConfig.global.english
+                ? 'Hide'
+                : '收起'
+              : styleConfig.global.english
+              ? 'Show'
+              : '展开'}
           </Button>
           <Button
             onClick={() => {
@@ -143,7 +149,7 @@ export default function SwitchExp({
               });
             }}
           >
-            欢迎页
+            {styleConfig.global.english ? 'Welcome' : '欢迎'}
           </Button>{' '}
         </Space.Compact>
       </div>
