@@ -68,6 +68,7 @@ export interface StyleConfig {
     guide: boolean;
     expOpen: boolean;
     primaryColor: string;
+    english?: boolean;
   };
   holder: {
     leftMargin: number;

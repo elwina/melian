@@ -11,6 +11,7 @@ import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   MessageOutlined,
+  TranslationOutlined,
 } from '@ant-design/icons';
 import ButtonSlider from './ButtonSlider';
 import EasyAction from './EasyAction';
@@ -130,17 +131,22 @@ export default function LoadSetting({
       <Space direction="vertical" align="center">
         <Tooltip
           title={
-            ifNotStyle
+            !styleConfig.global.english &&
+            (ifNotStyle
               ? '允许操作者改变实验参数，点击可切换至样式调节'
-              : '允许操作者改变仪器布局、大小等以适应多屏幕，点击可切换至参数调节'
+              : '允许操作者改变仪器布局、大小等以适应多屏幕，点击可切换至参数调节')
           }
           overlayStyle={{
             display: styleConfig.global.showTooltip ? '' : 'none',
           }}
         >
           <Switch
-            checkedChildren="参数调节"
-            unCheckedChildren="样式调节"
+            checkedChildren={
+              styleConfig.global.english ? 'Style Adjust' : '样式调节'
+            }
+            unCheckedChildren={
+              styleConfig.global.english ? 'Setting Adjust' : '参数调节'
+            }
             checked={ifNotStyle}
             onChange={setIfNotStyle}
             id="switchSetting"
@@ -149,7 +155,6 @@ export default function LoadSetting({
 
         <Space.Compact>
           <Tooltip
-            title="上/下移操作控件"
             overlayStyle={{
               display: styleConfig.global.showTooltip ? '' : 'none',
             }}
@@ -159,6 +164,14 @@ export default function LoadSetting({
               onClick={() => {
                 setStyleConfig((draft) => {
                   draft.setting.height += 2;
+                });
+              }}
+            />
+            <Button
+              icon={<TranslationOutlined />}
+              onClick={() => {
+                setStyleConfig((draft) => {
+                  draft.global.english = !draft.global.english;
                 });
               }}
             />
