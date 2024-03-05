@@ -141,7 +141,7 @@ export function Welcome({
             className="title"
           >
             {styleConfig.global.english
-              ? 'Welcome to Wave Optics Demo System'
+              ? 'Welcome to Optics Experiment System'
               : '欢迎来到波动光学演示系统'}
           </div>
 
