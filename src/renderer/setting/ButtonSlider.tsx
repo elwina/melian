@@ -15,6 +15,7 @@ interface propsType {
     toFixedPoint: number;
     unit: string;
     showValue?: boolean;
+    english?: boolean;
   };
 }
 
@@ -81,7 +82,7 @@ export default function ButtonSlider({ values, onChange, options }: propsType) {
           0.25mm
         </Radio.Button> */}
           <Radio.Button value="custom" checked={ifCustom}>
-            自定义
+            {options.english ? 'Custom' : '自定义'}
             {!options.showValue &&
               customD.toFixed(options.toFixedPoint) + options.unit}
           </Radio.Button>
