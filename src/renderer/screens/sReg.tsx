@@ -8,18 +8,21 @@ import ScreenBoard from './ScreenBoard';
 import ScreenBoardPolar from './ScreenBoardPolar';
 import ScreenFixedCircle from './ScreenFixedCircle';
 import ScreenFixedCirclePolar from './ScreenFixedCirclePolar';
+import FastScreenBoard from './FastScreenBoard ';
 
 export type ScreenType =
   | 'FixedCircle'
   | 'FixedCirclePolar'
   | 'Board'
-  | 'BoardPolar';
+  | 'BoardPolar'
+  | 'FastBoard';
 
 export const sReg: Record<ScreenType, ElementType> = {
   FixedCircle: ScreenFixedCircle,
   FixedCirclePolar: ScreenFixedCirclePolar,
   Board: ScreenBoard,
   BoardPolar: ScreenBoardPolar,
+  FastBoard: FastScreenBoard,
 };
 
 // Record<ScreenType, Record<string, any>>

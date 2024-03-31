@@ -29,5 +29,14 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "go.testEnvVars": {
+    "GOARCH": "wasm",
+    "GOOS": "js"
+  },
+  "go.toolsEnvVars": {
+    "GOARCH": "wasm",
+    "GOOS": "js"
+  },
+  "go.installDependenciesWhenBuilding": false
 }
