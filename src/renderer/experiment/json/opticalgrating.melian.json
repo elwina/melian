@@ -67,7 +67,7 @@
     "filter": 550
   },
   "screen": {
-    "type": "Board",
+    "type": "FastBoard",
     "options": {
       "color": "#000000",
       "require": {
@@ -78,7 +78,7 @@
         "r0_1": "[4]",
         "plus": "{5}.plus"
       },
-      "func": "plus * sin ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 / ( PI * b * sin( atan (y /(r0_2-r0_1))) / l)^2 * sin(N * PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2 / sin(PI * d *sin(atan( y/(r0_2-r0_1))) / l )^2"
+      "func": "plus * sin ( pi * b * sin(y /(r0_2-r0_1)) / l)^2 / ( pi * b * sin( y /(r0_2-r0_1)) / l)^2 * sin(N * pi * d *sin(y/(r0_2-r0_1)) / l )^2 / sin(pi * d *sin( y/(r0_2-r0_1)) / l )^2"
     }
   },
   "measure": {

@@ -2,7 +2,9 @@
   "files.associations": {
     ".eslintrc": "jsonc",
     ".prettierrc": "jsonc",
-    ".eslintignore": "ignore"
+    ".eslintignore": "ignore",
+    "stdlib.h": "c",
+    "math.h": "c"
   },
 
   "eslint.validate": [
@@ -29,5 +31,15 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "go.testEnvVars": {
+    "GOARCH": "wasm",
+    "GOOS": "js"
+  },
+  "go.toolsEnvVars": {
+    "GOARCH": "wasm",
+    "GOOS": "js"
+  },
+  "go.installDependenciesWhenBuilding": false,
+  "C_Cpp.intelliSenseEngineFallback": "disabled"
 }
