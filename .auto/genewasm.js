@@ -1,23 +1,21 @@
-const { execSync } = require('child_process');
+const { exec, execSync, spawnSync, ChildProcess } = require('child_process');
 const { copyFileSync } = require('fs');
+const process = require('process');
 
 async function main() {
-  execSync('tinygo build -o gen1.wasm -target wasm .', {
-    cwd: 'wasm/gen1',
-  });
-  copyFileSync('wasm/gen1/gen1.wasm', 'assets/wasm/gen1.wasm');
+  try {
+    re = execSync('.\\gen1.bat', {
+      cwd: 'wasm/gen1',
+      env: { ...process.env, PATH: process.env.PATH },
+      encoding: 'utf-8',
+    });
+    console.log(re.stdout ?? '');
+    console.log(re.stderr ?? 'ok');
+  } catch (e) {
+    console.log(e.stdout);
+    console.log(e.stderr);
+  }
+  copyFileSync('wasm/gen1/gen1.js', 'src/renderer/wasm/gen1.js');
 }
 
-async function main2() {
-  execSync('go build -o gen1.wasm .', {
-    cwd: 'wasm/gen1',
-    env: {
-      GOOS: 'js',
-      GOARCH: 'wasm',
-      GOCACHE: 'D:/.cache',
-    },
-  });
-  copyFileSync('wasm/gen1/gen1.wasm', 'assets/wasm/gen1.wasm');
-}
-
-main2();
+main();

@@ -1,5 +1,5 @@
 import { max, parse } from 'mathjs';
-import { CSSProperties, useEffect, useRef } from 'react';
+import { CSSProperties, MutableRefObject, useEffect, useRef } from 'react';
 import { mutiLight2rgb } from 'renderer/color/light2rgb2';
 import { getWaveInstense } from 'renderer/color/lightwave';
 import { parseRequire } from 'renderer/utils/parseRequire';
@@ -8,12 +8,8 @@ import type {
   StyleConfig,
 } from 'renderer/typing/config.type';
 import type { ScreenBoardOptionsType } from 'renderer/typing/screen.type';
-import gen1 from '../../../assets/wasm/gen1.wasm';
-import { InfFastScreenBoard } from '../proto/gen1.pb';
 
-declare const global: {
-  Go: any;
-};
+import WASMGEN1 from 'renderer/wasm/gen1';
 
 interface propsType {
   styleConfig: StyleConfig;
@@ -34,21 +30,37 @@ export default function FastScreenBoard({
   const totalWidth = sStyle.totalWidthmm * sStyle.mm2px * sStyle.scaleX;
   const totalHeight = sStyle.totalHeightmm * sStyle.mm2px * sStyle.scaleY;
 
-  const go = new global.Go();
+  const wasm1: MutableRefObject<any> = useRef();
+  const varsArr: MutableRefObject<string[]> = useRef([]);
+
+  useEffect(() => {
+    const fetchwasm = async () => {
+      // 处理func变量
+      const varsA: string[] = [];
+
+      Object.keys(screenConfig.require).forEach((key) => {
+        if (screenConfig.func.indexOf(key) !== -1) {
+          varsA.push(key);
+        }
+      });
+      varsArr.current = varsA;
+
+      let varsInputString = varsA.join('/');
+      varsInputString = `${varsInputString}/`;
+
+      wasm1.current = await WASMGEN1();
+      wasm1.current.ccall(
+        'exprFastScreenBoard',
+        'number',
+        ['string', 'string', 'number'],
+        [screenConfig.func, varsA ? varsInputString : '', varsA?.length]
+      );
+    };
+    fetchwasm();
+  }, []);
 
   useEffect(() => {
     (async () => {
-      const importObject = go.importObject;
-      const wasmModule = await WebAssembly.instantiateStreaming(
-        fetch(gen1),
-        importObject
-      );
-      go.run(wasmModule.instance);
-      const exports: any = wasmModule.instance.exports;
-      const memory = exports.memory;
-      // const wasmByteMemoryArray = new Uint8Array(memory.buffer);
-      const wasmByteMemoryArray = new Uint8Array(memory);
-
       // 核心生成图片
       const { wave, instense } = getWaveInstense(
         lightConfig.type,
@@ -61,40 +73,67 @@ export default function FastScreenBoard({
 
       const row = sStyle.totalHeightmm * sStyle.mm2px;
 
-      // 把公式中的替换掉
-      let func = screenConfig.func;
-      Object.keys(req).forEach((key) => {
-        func = func.replace(new RegExp(key, 'g'), req[key]);
-      });
+      if (wasm1.current == null) return;
 
-      // 生成pb
-      const pbInfFastScreenBoard = new InfFastScreenBoard({
-        totalWidthmm: sStyle.totalWidthmm,
-        mm2px: sStyle.mm2px,
-        totalWave: wave.length,
-        row: row,
-        func: func,
-        wave: wave,
-        instense: instense,
-      });
-      console.log(pbInfFastScreenBoard);
-      const inbyte = pbInfFastScreenBoard.serializeBinary();
-      const inbyteLength = inbyte.length;
+      const arrayLength = 4 * pxNum * row;
+      console.log(req);
 
-      const o = exports.goAdd();
-      console.log(o);
-      // const tbptr = await exports.getTBufferPointer();
-      // eslint-disable-next-line no-undef
-      const tbptr = await exports.getTBufferPointer();
-      wasmByteMemoryArray.set(inbyte, tbptr);
-      // eslint-disable-next-line no-undef
-      await setTBufferSize(inbyteLength);
+      const vars = [];
+      for (let i = 0; i < varsArr.current.length; i++) {
+        vars.push(req[varsArr.current[i]]);
+      }
+      console.log(vars);
 
-      const grsize = await global.geneFastScreenBoard();
+      // 进入参数
 
-      const grptr = await global.getOBufferPointer();
+      const waveptr = wasm1.current.ccall('getPointWave', 'number', [], []);
+      const instenseptr = wasm1.current.ccall(
+        'getPointInstense',
+        'number',
+        [],
+        []
+      );
+      const varsPtr = wasm1.current.ccall(
+        'getPointReceiveVars',
+        'number',
+        [],
+        []
+      );
 
-      const imageDataArray = wasmByteMemoryArray.slice(grptr, grptr + grsize);
+      const heapView1 = new Int32Array(
+        wasm1.current.HEAPU8.buffer,
+        waveptr,
+        wave.length
+      );
+      heapView1.set(wave);
+
+      const heapView2 = new Float64Array(
+        wasm1.current.HEAPU8.buffer,
+        instenseptr,
+        instense.length
+      );
+      heapView2.set(instense);
+
+      const heapView3 = new Float64Array(
+        wasm1.current.HEAPU8.buffer,
+        varsPtr,
+        vars.length
+      );
+      heapView3.set(vars);
+
+      const arrayPointer = wasm1.current.ccall(
+        'genFastScreenBoard',
+        'number',
+        ['number', 'number', 'number', 'number'],
+        [sStyle.totalWidthmm, sStyle.mm2px, wave.length, row]
+      );
+
+      const wasmByteMemoryArray = wasm1.current.HEAPU8;
+      // console.log(wasmByteMemoryArray);
+      const imageDataArray = wasmByteMemoryArray.slice(
+        arrayPointer,
+        arrayPointer + arrayLength
+      );
       const bitmapArr = new Uint8ClampedArray(imageDataArray);
 
       if (canvasRef.current == null) return;

@@ -1,0 +1,1 @@
+int checkNANINF(double n);

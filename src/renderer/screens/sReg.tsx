@@ -9,13 +9,15 @@ import ScreenBoardPolar from './ScreenBoardPolar';
 import ScreenFixedCircle from './ScreenFixedCircle';
 import ScreenFixedCirclePolar from './ScreenFixedCirclePolar';
 import FastScreenBoard from './FastScreenBoard ';
+import FastScreenBoardUni from './FastScreenBoardUni';
 
 export type ScreenType =
   | 'FixedCircle'
   | 'FixedCirclePolar'
   | 'Board'
   | 'BoardPolar'
-  | 'FastBoard';
+  | 'FastBoard'
+  | 'FastBoardUni';
 
 export const sReg: Record<ScreenType, ElementType> = {
   FixedCircle: ScreenFixedCircle,
@@ -23,6 +25,7 @@ export const sReg: Record<ScreenType, ElementType> = {
   Board: ScreenBoard,
   BoardPolar: ScreenBoardPolar,
   FastBoard: FastScreenBoard,
+  FastBoardUni: FastScreenBoardUni,
 };
 
 // Record<ScreenType, Record<string, any>>

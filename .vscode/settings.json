@@ -2,7 +2,9 @@
   "files.associations": {
     ".eslintrc": "jsonc",
     ".prettierrc": "jsonc",
-    ".eslintignore": "ignore"
+    ".eslintignore": "ignore",
+    "stdlib.h": "c",
+    "math.h": "c"
   },
 
   "eslint.validate": [
@@ -38,5 +40,6 @@
     "GOARCH": "wasm",
     "GOOS": "js"
   },
-  "go.installDependenciesWhenBuilding": false
+  "go.installDependenciesWhenBuilding": false,
+  "C_Cpp.intelliSenseEngineFallback": "disabled"
 }

@@ -65,3 +65,23 @@ export interface ScreenBoardPolarStyleType {
   leftMargin: number;
   bottomMargin: number;
 }
+
+export interface FastScreenBoardUniOptionsType {
+  color: string;
+
+  require: Record<string, string>;
+  func: string;
+}
+
+export interface FastScreenBoardUniStyleType {
+  mm2px: number;
+
+  totalWidthmm: number;
+  totalHeightmm: number;
+
+  scaleX: number;
+  scaleY: number;
+
+  leftMargin: number;
+  bottomMargin: number;
+}

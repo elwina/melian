@@ -33,3 +33,4 @@ npm-debug.log.*
 !.erb
 
 src/renderer/proto/*
+src/renderer/wasm/*
