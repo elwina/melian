@@ -1,5 +1,5 @@
 {
-  "name": "菲涅尔圆孔衍射",
+  "name": "菲涅尔圆孔衍射V1",
   "des": {
     "type": "image",
     "content": [
@@ -40,7 +40,7 @@
     }
   ],
   "light": {
-    "type": "D65",
+    "type": "HG",
     "filter": 660
   },
   "screen": {
@@ -72,6 +72,10 @@
       "target": ["light.filter", "{0}.wave"],
       "options": {
         "options": [
+          {
+            "name": "无",
+            "value": -1
+          },
           {
             "name": "红",
             "value": 660

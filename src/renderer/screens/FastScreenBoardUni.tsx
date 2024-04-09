@@ -23,7 +23,7 @@ export default function FastScreenBoardUni({
   styleConfig,
   instrumentConfig,
 }: propsType) {
-  const sStyle = styleConfig.screen.FastScreenBoardUni;
+  const sStyle = styleConfig.screen.FastBoardUni;
   const lightConfig = instrumentConfig.light;
   const screenConfig = instrumentConfig.screen
     .options as FastScreenBoardUniOptionsType;

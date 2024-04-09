@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include "tool.h"
 
 // 从3900开始到7800，每一个对应3个值，0是3900的1值
 
@@ -3927,7 +3928,7 @@ int light2rgb(double la, unsigned char *r, unsigned char *g, unsigned char *b)
 unsigned char calcrr(double rr, int totalWave)
 {
   double t = round(rr / (double)totalWave);
-  if (t > 255)
+  if (t > 255 || checkNANINF(rr))
   {
     return (unsigned char)255;
   }

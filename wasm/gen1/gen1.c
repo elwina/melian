@@ -138,48 +138,52 @@ unsigned char (*genFastScreenBoard(int totalWidthmm, int mm2px, int totalWave, i
 
   double x;
   double l;
-  for (i = 0; i < row; i++)
+  // for (i = 0; i < row; i++)
+  // {
+  for (int j = 0; j < pxnum; j++)
   {
-    for (int j = 0; j < pxnum; j++)
+    double rr = 0;
+    double rg = 0;
+    double rb = 0;
+
+    x = (-(double)(pxnum) / 2.0 + (double)j) / ((double)mm2px);
+    y_FastScreenBoard = x;
+
+    for (int k = 0; k < totalWave; k++)
     {
-      double rr = 0;
-      double rg = 0;
-      double rb = 0;
+      l = wave[k];
+      l_FastScreenBoard = l * 1e-6;
+      double instense1 = instense[k];
 
-      x = (-(double)(pxnum) / 2.0 + (double)j) / ((double)mm2px);
-      y_FastScreenBoard = x;
-
-      for (int k = 0; k < totalWave; k++)
+      double instense2 = te_eval(expr);
+      if (checkNANINF(instense2))
       {
-        l = wave[k];
-        l_FastScreenBoard = l * 1e-6;
-        double instense1 = instense[k];
-
-        double instense2 = te_eval(expr);
-        if (checkNANINF(instense2))
-        {
-          instense2 = 1;
-        }
-
-        // printf("l:%f, instense1:%f, instense2:%f\n", l, instense1, instense2);
-
-        double trueInstense = instense1 * instense2;
-        unsigned char r, g, b;
-        light2rgb(l, &r, &g, &b);
-        rr += (double)r * trueInstense;
-        rg += (double)g * trueInstense;
-        rb += (double)b * trueInstense;
+        instense2 = 10000;
       }
-      unsigned char rrr = calcrr(rr, totalWave);
-      unsigned char rrg = calcrr(rg, totalWave);
-      unsigned char rrb = calcrr(rb, totalWave);
 
-      re[index++] = rrr;
-      re[index++] = rrg;
-      re[index++] = rrb;
-      re[index++] = (unsigned char)255;
+      double trueInstense = instense1 * instense2;
+      unsigned char r, g, b;
+      light2rgb(l, &r, &g, &b);
+      rr += (double)r * trueInstense;
+      rg += (double)g * trueInstense;
+      rb += (double)b * trueInstense;
     }
+    unsigned char rrr = calcrr(rr, totalWave);
+    unsigned char rrg = calcrr(rg, totalWave);
+    unsigned char rrb = calcrr(rb, totalWave);
+
+    re[index++] = rrr;
+    re[index++] = rrg;
+    re[index++] = rrb;
+    re[index++] = (unsigned char)255;
   }
+
+  // 复制每一行
+  for (i = 1; i < row; i++)
+  {
+    memcpy(&re[i * pxnum * 4], re, pxnum * 4);
+  }
+  // }
 
   return &re;
 }
@@ -265,7 +269,7 @@ unsigned char (*genFastScreenBoardUni(int totalWidthmm, int totalHeightmm, int m
         double instense2 = te_eval(expr);
         if (checkNANINF(instense2))
         {
-          instense2 = 1;
+          instense2 = 10000;
         }
 
         double trueInstense = instense1 * instense2;

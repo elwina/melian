@@ -1,0 +1,86 @@
+{
+  "name": "晶体衍射",
+  "lens": [
+    {
+      "id": 0,
+      "uname": "laser01",
+      "name": "激光",
+      "distancemm": 0,
+      "hide": false,
+      "option": { "wave": "550" }
+    },
+    {
+      "id": 1,
+      "uname": "holes01",
+      "name": "孔",
+      "distancemm": 40,
+      "hide": false,
+      "option": {}
+    },
+
+    {
+      "id": 2,
+      "uname": "board01",
+      "name": "光屏",
+      "distancemm": 75,
+      "hide": false,
+      "option": {
+        "h": 0.1,
+        "ne": 2.2,
+        "n0": 2.29
+      }
+    }
+  ],
+  "light": {
+    "type": "HG",
+    "filter": 550
+  },
+  "screen": {
+    "type": "FastBoardUni",
+    "options": {
+      "color": "#000000",
+      "require": {
+        "h": "{2}.h",
+        "p_2": "[2]",
+        "p_1": "[1]",
+        "n0": "{2}.n0",
+        "ne": "{2}.ne"
+      },
+      "func": "0.5*(sin(2*t)^2)*(1-cos(pi/l*h*(n0^3)*(1/(ne^2)-1/(n0^2))*(sin(0.5*(asin(sin(atan2(y/(p_2-p_1)))/n0)+asin(sin(atan2(y/(p_2-p_1)))/ne))))^2))"
+    }
+  },
+  "measure": {
+    "type": "None",
+    "options": {}
+  },
+  "control": {
+    "showmm": [0, 1, 2],
+    "move": [0, 1, 2]
+  },
+  "setting": [
+    {
+      "name": "强度加倍",
+      "type": "ButtonSlider",
+      "des": "在原有值基础上增强光强。用于观察弱光。",
+      "target": ["{2}.h"],
+      "options": {
+        "options": [
+          {
+            "name": "1",
+            "value": 1
+          },
+          {
+            "name": "2",
+
+            "value": 2
+          }
+        ],
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1,
+        "toFixedPoint": 1,
+        "unit": ""
+      }
+    }
+  ]
+}

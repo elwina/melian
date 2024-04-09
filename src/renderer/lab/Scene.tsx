@@ -83,15 +83,15 @@ export default function Scene() {
         bottomMargin: 515,
       },
       BoardPolar: {
-        px2mm: 4,
+        px2mm: 1,
         totalWidthmm: 240,
         totalHeightmm: 240,
-        scaleX: 6,
-        scaleY: 6,
+        scaleX: 3,
+        scaleY: 3,
         leftMargin: 205,
         bottomMargin: 515,
       },
-      FastScreenBoardUni: {
+      FastBoardUni: {
         mm2px: 1,
         totalWidthmm: 120,
         totalHeightmm: 120,
@@ -344,7 +344,7 @@ export default function Scene() {
       draft.global.front = true;
       draft.global.dark = false;
       draft.global.welcome = false;
-      if (/[A-Za-z0-9]+/.test(config.name)) {
+      if (/^[A-Za-z0-9]+$/.test(config.name)) {
         draft.global.english = true;
       } else {
         draft.global.english = false;

@@ -1,5 +1,6 @@
 import { ElementType } from 'react';
 import type {
+  FastScreenBoardUniStyleType,
   ScreenBoardPolarStyleType,
   ScreenBoardStyleType,
   ScreenFixedCircleStyleType,
@@ -34,5 +35,6 @@ export type ScreenStyles = {
   FixedCirclePolar: ScreenFixedCircleStyleType;
   Board: ScreenBoardStyleType;
   BoardPolar: ScreenBoardPolarStyleType;
+  FastBoardUni: FastScreenBoardUniStyleType;
   [key: string]: Record<string, any>;
 };
