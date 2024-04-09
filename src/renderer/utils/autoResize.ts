@@ -33,7 +33,7 @@ export function autoResize(
     const nowHeight = screenHTML.clientHeight;
     const nowWidth = screenHTML.clientWidth;
 
-    if (type === 'Board') {
+    if (type === 'Board' || type === 'FastBoard') {
       const oldXScale = styleConfig.screen[type].scaleX;
       const oldYScale = styleConfig.screen[type].scaleY;
       const newXScale = (oldXScale * w) / nowWidth;
@@ -43,7 +43,7 @@ export function autoResize(
         draft.screen[type].scaleY = newYScale;
       });
     }
-    if (type === 'BoardPolar') {
+    if (type === 'BoardPolar' || type === 'FastBoardUni') {
       const targethw = Math.min(h, w);
       const oldScale = styleConfig.screen[type].scaleX;
       const newScale = (oldScale * targethw) / nowWidth;
@@ -72,7 +72,9 @@ export function autoResize(
       type === 'Board' ||
       type === 'BoardPolar' ||
       type === 'FixedCircle' ||
-      type === 'FixedCirclePolar'
+      type === 'FixedCirclePolar' ||
+      type === 'FastBoard' ||
+      type === 'FastBoardUni'
     ) {
       // 定位
       setStyleConfig((draft) => {
@@ -99,7 +101,9 @@ export function autoResize(
       type === 'Board' ||
       type === 'BoardPolar' ||
       type === 'FixedCircle' ||
-      type === 'FixedCirclePolar'
+      type === 'FixedCirclePolar' ||
+      type === 'FastBoard' ||
+      type === 'FastBoardUni'
     ) {
       // 定位
       setStyleConfig((draft) => {

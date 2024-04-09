@@ -91,6 +91,15 @@ export default function Scene() {
         leftMargin: 205,
         bottomMargin: 515,
       },
+      FastBoard: {
+        mm2px: 2,
+        totalWidthmm: 200,
+        totalHeightmm: 50,
+        scaleX: 3,
+        scaleY: 3,
+        leftMargin: 205,
+        bottomMargin: 515,
+      },
       FastBoardUni: {
         mm2px: 1,
         totalWidthmm: 120,

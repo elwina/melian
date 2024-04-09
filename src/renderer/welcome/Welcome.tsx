@@ -131,7 +131,7 @@ export function Welcome({
         >
           <div
             style={{
-              fontSize: '3.5rem',
+              fontSize: '2.5rem',
               color: '#ffffff',
               fontFamily: 'STFangsong,FangSong',
 
@@ -142,7 +142,7 @@ export function Welcome({
           >
             {styleConfig.global.english
               ? 'Welcome to Optics Experiment System'
-              : '欢迎来到波动光学演示系统'}
+              : '欢迎来到波动光学可视化演示系统'}
           </div>
 
           <button
