@@ -14,6 +14,8 @@ interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
+const CONTEST = 1;
+
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -180,7 +182,7 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    if (process.env.CONTEST) {
+    if (process.env.CONTEST || CONTEST) {
       return [subMenuProgram];
     }
 
@@ -253,7 +255,7 @@ export default class MenuBuilder {
     //         ],
     // },
 
-    if (!process.env.CONTEST)
+    if (!process.env.CONTEST || !CONTEST)
       templateDefault.push({
         label: '关于About',
         submenu: [
