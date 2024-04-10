@@ -167,20 +167,6 @@ export default class MenuBuilder {
         },
       ],
     };
-    const subMenuContest: MenuItemConstructorOptions = {
-      label: 'About',
-      submenu: [
-        {
-          label: '仅供竞赛使用!',
-        },
-      ],
-    };
-
-    const subMenuView =
-      process.env.NODE_ENV === 'development' ||
-      process.env.DEBUG_PROD === 'true'
-        ? subMenuViewDev
-        : subMenuViewProd;
 
     if (process.env.CONTEST || CONTEST) {
       return [subMenuProgram];
@@ -212,50 +198,8 @@ export default class MenuBuilder {
         ],
       },
     ];
-    // {
-    //   label: '&View',
-    //   submenu:
-    //     process.env.NODE_ENV === 'development' ||
-    //     process.env.DEBUG_PROD === 'true'
-    //       ? [
-    //           {
-    //             label: '&Reload',
-    //             accelerator: 'Ctrl+R',
-    //             click: () => {
-    //               this.mainWindow.webContents.reload();
-    //             },
-    //           },
-    //           {
-    //             label: 'Toggle &Full Screen',
-    //             accelerator: 'F11',
-    //             click: () => {
-    //               this.mainWindow.setFullScreen(
-    //                 !this.mainWindow.isFullScreen()
-    //               );
-    //             },
-    //           },
-    //           {
-    //             label: 'Toggle &Developer Tools',
-    //             accelerator: 'Alt+Ctrl+I',
-    //             click: () => {
-    //               this.mainWindow.webContents.toggleDevTools();
-    //             },
-    //           },
-    //         ]
-    //       : [
-    //           {
-    //             label: 'Toggle &Full Screen',
-    //             accelerator: 'F11',
-    //             click: () => {
-    //               this.mainWindow.setFullScreen(
-    //                 !this.mainWindow.isFullScreen()
-    //               );
-    //             },
-    //           },
-    //         ],
-    // },
 
-    if (!process.env.CONTEST || !CONTEST)
+    if (!process.env.CONTEST && CONTEST !== 1)
       templateDefault.push({
         label: '关于About',
         submenu: [
