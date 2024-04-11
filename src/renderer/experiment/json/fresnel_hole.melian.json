@@ -40,7 +40,7 @@
     }
   ],
   "light": {
-    "type": "D65",
+    "type": "HG",
     "filter": 660
   },
   "screen": {
