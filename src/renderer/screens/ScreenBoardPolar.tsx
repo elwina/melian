@@ -36,6 +36,8 @@ export default function ScreenBoardPolar({
 
   useEffect(() => {
     (async () => {
+      const startTime = new Date();
+
       // 核心生成图片
       const { wave, instense } = getWaveInstense(
         lightConfig.type,
@@ -138,6 +140,9 @@ export default function ScreenBoardPolar({
           dwidth,
           dheight
         );
+
+        const endTime = new Date();
+        console.log('Time:', endTime.getTime() - startTime.getTime());
       } catch {
         return;
       }

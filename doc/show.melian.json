@@ -1,7 +1,7 @@
 {
-  "name": "菲涅尔圆孔衍射V1",
+  "name": "菲涅尔圆孔衍射V2", // 实验名称
   "des": {
-    "type": "image",
+    "type": "image", // PPT展示课件
     "content": [
       "[fresnel_hole1]",
       "[fresnel_hole2]",
@@ -10,13 +10,16 @@
     ]
   },
   "lens": [
+    // 镜头定义
     {
       "id": 0,
-      "uname": "laser01",
-      "name": "激光",
-      "distancemm": 0,
-      "hide": false,
-      "option": { "wave": "660" }
+      "uname": "laser01", // 镜头图像定义
+      "name": "激光", // 镜头名称定义
+      "distancemm": 0, // 初始摆放位置
+      "hide": false, // 是否隐藏
+      "option": {
+        "wave": "660" // 参数
+      }
     },
     {
       "id": 1,
@@ -40,38 +43,48 @@
     }
   ],
   "light": {
-    "type": "D65",
-    "filter": 660
+    // 光源定义
+    "type": "D65", // 光源类型
+    "filter": 660 // 滤光片参数
   },
   "screen": {
-    "type": "BoardPolar",
+    // 屏幕定义
+    "type": "FastBoardUni", // 屏幕类型
     "options": {
-      "color": "#000000",
+      // 屏幕参数
+      "color": "#000000", // 屏幕颜色
       "require": {
-        "R_h": "{1}.R_h",
-        "d2": "[2]",
+        // 函数需求
+        "R_h": "{1}.R_h", // 这个表示id为1的镜头的R_h参数
+        "d2": "[2]", // 这个表示id为2的镜头的位置坐标
         "d1": "[1]",
         "d0": "[0]",
         "plus": "{2}.plus"
       },
+      // 光强函数
+      // 其中l表示波长，r表示屏幕上的点到光源的距离，是程序内部会添加的值，其他值来源于上面的require
       "func": "plus*(-(floor(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))%2)+(R_h^2/l*(1/ (sqrt((d2-d0)^2+(r)^2)-sqrt(R_h^2+(d1-d0)^2))+1/sqrt(R_h^2+(d1-d0)^2)))%1)^2"
     }
   },
   "measure": {
-    "type": "None",
+    // 测量工具
+    "type": "None", // 测量工具类型
     "options": {}
   },
   "control": {
-    "showmm": [0, 1, 2, 3, 4, 5],
-    "move": [0, 1, 2]
+    "showmm": [0, 1, 2, 3, 4, 5], // 定义光具座上显示坐标的镜头
+    "move": [0, 1, 2] // 定义可以移动的镜头
   },
   "setting": [
+    // 工具栏
     {
-      "name": "激光",
-      "type": "ButtonSlider",
-      "target": ["light.filter", "{0}.wave"],
+      "name": "激光", // 工具栏名称
+      "type": "ButtonSlider", // 工具栏组件类型
+      "target": ["light.filter", "{0}.wave"], // 工具栏控制的参数
       "options": {
+        // 工具栏参数
         "options": [
+          // 以下是每个工具类型不同的参数
           {
             "name": "无",
             "value": -1

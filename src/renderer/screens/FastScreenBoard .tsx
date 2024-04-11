@@ -20,7 +20,7 @@ export default function FastScreenBoard({
   styleConfig,
   instrumentConfig,
 }: propsType) {
-  const sStyle = styleConfig.screen.Board;
+  const sStyle = styleConfig.screen.FastBoard;
   const lightConfig = instrumentConfig.light;
   const screenConfig = instrumentConfig.screen
     .options as ScreenBoardOptionsType;
@@ -57,7 +57,7 @@ export default function FastScreenBoard({
       );
     };
     fetchwasm();
-  }, []);
+  }, [instrumentConfig.name]);
 
   useEffect(() => {
     (async () => {

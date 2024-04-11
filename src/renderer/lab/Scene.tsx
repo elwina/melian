@@ -102,8 +102,8 @@ export default function Scene() {
       },
       FastBoardUni: {
         mm2px: 1,
-        totalWidthmm: 120,
-        totalHeightmm: 120,
+        totalWidthmm: 240,
+        totalHeightmm: 240,
         scaleX: 3,
         scaleY: 3,
         leftMargin: 205,

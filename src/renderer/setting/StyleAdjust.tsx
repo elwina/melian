@@ -546,6 +546,134 @@ export default function StyleAdjust({
     },
   };
 
+  const fourSide17 = {
+    name: '观察屏',
+    target: [
+      'style.screen.FastBoardUni.bottomMargin',
+      'style.screen.FastBoardUni.leftMargin',
+      'style.screen.FastBoardUni.scaleY',
+      'style.screen.FastBoardUni.scaleX',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 2,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+  const fourSide18 = {
+    name: '观察屏2',
+    target: [
+      'style.screen.FastBoardUni.mm2px',
+      'style.screen.FastBoardUni.totalHeightmm',
+      'style.screen.FastBoardUni.totalWidthmm',
+    ],
+    options: {
+      hmiddle: {
+        valueIndex: 0,
+        step: 1,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 2,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+
+  const fourSide19 = {
+    name: '观察屏',
+    target: [
+      'style.screen.FastBoard.bottomMargin',
+      'style.screen.FastBoard.leftMargin',
+      'style.screen.FastBoard.scaleY',
+      'style.screen.FastBoard.scaleX',
+    ],
+    options: {
+      vmiddle: {
+        valueIndex: 0,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      hmiddle: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 2,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 3,
+        step: 0.1,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+  const fourSide20 = {
+    name: '观察屏2',
+    target: [
+      'style.screen.FastBoard.mm2px',
+      'style.screen.FastBoard.totalHeightmm',
+      'style.screen.FastBoard.totalWidthmm',
+    ],
+    options: {
+      hmiddle: {
+        valueIndex: 0,
+        step: 1,
+        min: 0,
+        max: MAX,
+      },
+      side: {
+        valueIndex: 1,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+      bottom: {
+        valueIndex: 2,
+        step: 5,
+        min: 0,
+        max: MAX,
+      },
+    },
+  };
+
   const [all, setAll] = useImmer([fourSide1, fourSide2, fourSide3]);
 
   useEffect(() => {
@@ -564,6 +692,14 @@ export default function StyleAdjust({
     if (instrumentConfig.screen.type === 'BoardPolar') {
       re.push(fourSide14);
       re.push(fourSide15);
+    }
+    if (instrumentConfig.screen.type === 'FastBoardUni') {
+      re.push(fourSide17);
+      re.push(fourSide18);
+    }
+    if (instrumentConfig.screen.type === 'FastBoard') {
+      re.push(fourSide19);
+      re.push(fourSide20);
     }
     if (instrumentConfig.measure.type === 'Square') {
       re.push(fourSide5);

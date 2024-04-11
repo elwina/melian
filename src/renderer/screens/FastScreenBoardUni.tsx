@@ -60,10 +60,12 @@ export default function FastScreenBoardUni({
       );
     };
     fetchwasm();
-  }, []);
+  }, [instrumentConfig.name]);
 
   useEffect(() => {
     (async () => {
+      const startTime = new Date();
+
       // 核心生成图片
       const { wave, instense } = getWaveInstense(
         lightConfig.type,
@@ -82,7 +84,7 @@ export default function FastScreenBoardUni({
       for (let i = 0; i < varsArr.current.length; i++) {
         vars.push(req[varsArr.current[i]]);
       }
-      console.log(vars);
+      // console.log(vars);
 
       // 进入参数
       const waveptr = wasm1.current.ccall('getPointWave', 'number', [], []);
@@ -179,6 +181,9 @@ export default function FastScreenBoardUni({
           dwidth,
           dheight
         );
+
+        const endTime = new Date();
+        console.log('Time:', endTime.getTime() - startTime.getTime());
       } catch {
         return;
       }
