@@ -84,8 +84,8 @@ export default function Scene() {
       },
       BoardPolar: {
         px2mm: 1,
-        totalWidthmm: 240,
-        totalHeightmm: 240,
+        totalWidthmm: 120,
+        totalHeightmm: 120,
         scaleX: 3,
         scaleY: 3,
         leftMargin: 205,
@@ -102,8 +102,8 @@ export default function Scene() {
       },
       FastBoardUni: {
         mm2px: 1,
-        totalWidthmm: 240,
-        totalHeightmm: 240,
+        totalWidthmm: 120,
+        totalHeightmm: 120,
         scaleX: 3,
         scaleY: 3,
         leftMargin: 205,
