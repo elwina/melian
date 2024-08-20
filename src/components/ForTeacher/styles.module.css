@@ -1,0 +1,26 @@
+.heroBanner{
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.features {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    padding: 1rem 0;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+.featureSvg {
+    height: 200px;
+    width: 200px;
+  }
+  
+.rightbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
