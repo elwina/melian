@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmelian_web=self.webpackChunkmelian_web||[]).push([[903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/melian/blog","blogTitle":"Blog","authorsListPath":"/melian/blog/authors"}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmelian_web=self.webpackChunkmelian_web||[]).push([[20],{4973:e=>{e.exports=JSON.parse('{"tags":[{"label":"facebook","permalink":"/melian/blog/tags/facebook","count":1},{"label":"hello","permalink":"/melian/blog/tags/hello","count":1},{"label":"docusaurus","permalink":"/melian/blog/tags/docusaurus","count":1}]}')}}]);
