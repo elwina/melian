@@ -12,18 +12,20 @@ import Create from "../components/Create";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
+
+  const Svglogo = require("@site/static/img/logo.svg").default;
   return (
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
       <div className="container">
-        <img
+        <Svglogo
           height={300}
           width={300}
           style={{
             marginBottom: 50,
           }}
-          src="/img/logo.svg"
-          alt="logo"
+          role="img"
         />
+
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
