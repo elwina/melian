@@ -13,10 +13,10 @@ const config = {
   favicon: "img/logo.ico",
 
   // Set the production url of your site here
-  url: "https://melian.elwina.work",
+  url: "https://elwina.github.io/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: " /melian/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
