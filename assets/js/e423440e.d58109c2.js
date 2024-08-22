@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmelian_web=self.webpackChunkmelian_web||[]).push([[20],{4973:e=>{e.exports=JSON.parse('{"tags":[{"label":"website","permalink":"/melian/blog/tags/website","count":1}]}')}}]);

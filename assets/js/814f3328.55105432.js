@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmelian_web=self.webpackChunkmelian_web||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"\u6240\u6709\u6587\u7ae0","items":[{"title":"Welcome","permalink":"/melian/blog/welcome","unlisted":false,"date":"2021-08-26T00:00:00.000Z"}]}')}}]);
