@@ -16,16 +16,13 @@
 .featureSvg {
     height: 200px;
     width: 200px;
+    background-color: white;
+    border-radius: 30%;
   }
   
-.rightbox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.nomargin {
-  margin: 0;
-  padding: 0;
+.icons {
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    width: 100%;
 }

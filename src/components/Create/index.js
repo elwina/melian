@@ -1,9 +1,6 @@
 import clsx from "clsx";
 import styles from "./styles.module.css";
-import Slider from "react-slick";
-import Heading from "@theme/Heading";
-
-import { MdOutlineAdsClick } from "react-icons/md";
+import Link from "@docusaurus/Link";
 
 export default function Create() {
   const Svg1 =
@@ -18,7 +15,24 @@ export default function Create() {
       <div className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">创造更多</h1>
-          <p className="hero__subtitle">Not all heroes wear capes</p>
+          <p className="hero__subtitle">
+            通过自定义接口，创造各种实验情境，通过文件分享你的设计
+          </p>
+          <div style={{ marginBottom: 40 }}>
+            <Link
+              className="button button--secondary button--lg"
+              to="docs/docs/intro"
+            >
+              文档
+            </Link>
+            <span style={{ margin: 20 }} />
+            <Link
+              className="button button--secondary button--lg"
+              to="docs/share/intro"
+            >
+              集锦
+            </Link>
+          </div>
           <div className={clsx("col col--12", styles.icons)}>
             <Svg1 className={styles.featureSvg} role="img" />
             <Svg2 className={styles.featureSvg} role="img" />

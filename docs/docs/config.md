@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# 光具座样式
+# 配置详解
 
 :::info
 

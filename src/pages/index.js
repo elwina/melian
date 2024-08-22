@@ -9,6 +9,7 @@ import styles from "./index.module.css";
 import MoreIMG from "@site/src/components/MoreIMG";
 import ForTeacher from "@site/src/components/ForTeacher";
 import Create from "../components/Create";
+import Free from "../components/Free";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -33,9 +34,13 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="https://melian.elwina.work/"
+            to="https://app.melian.elwina.work/"
           >
             网页版体验
+          </Link>
+          <div style={{ margin: 20 }} />
+          <Link className="button button--secondary button--lg" to="#qrcode">
+            加入QQ群
           </Link>
         </div>
       </div>
@@ -53,6 +58,7 @@ export default function Home() {
         <MoreIMG />
         <ForTeacher />
         <Create />
+        <Free />
       </main>
     </Layout>
   );

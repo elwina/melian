@@ -6,6 +6,11 @@
 
 import { themes as prismThemes } from "prism-react-renderer";
 
+const staticSite = ["https://elwina.github.io", "https://melian.elwina.work"];
+const staticSiteBase = ["/melian/", "/"];
+const buildForStr = process.env.BUILD_FOR || "0";
+const buildFor = Number.parseInt(buildForStr);
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "波动光学可视化演示系统",
@@ -13,10 +18,10 @@ const config = {
   favicon: "img/logo.ico",
 
   // Set the production url of your site here
-  url: "https://elwina.github.io/",
+  url: staticSite[buildFor],
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/melian/",
+  baseUrl: staticSiteBase[buildFor],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.

@@ -2,14 +2,13 @@ import clsx from "clsx";
 import styles from "./styles.module.css";
 import Slider from "react-slick";
 
+import imageUrl1 from "@site/static/img/highlights/highlight1.png";
+import imageUrl2 from "@site/static/img/highlights/highlight2.png";
+import imageUrl3 from "@site/static/img/highlights/highlight3.png";
+import imageUrl4 from "@site/static/img/highlights/highlight4.png";
+
 export default function MoreIMG() {
-  const imgs = [
-    "img/social.png",
-    "img/docusaurus.png",
-    "img/undraw_docusaurus_tree.svg",
-    "img/undraw_docusaurus_react.svg",
-    "img/undraw_docusaurus_mountain.svg",
-  ];
+  const imgs = [imageUrl1, imageUrl2, imageUrl3, imageUrl4];
   const settings = {
     dots: true,
     fade: true,
@@ -29,7 +28,7 @@ export default function MoreIMG() {
           <p className="hero__subtitle">Not all heroes wear capes</p>
           <Slider {...settings}>
             {imgs.map((img, i) => (
-              <img key={i} height={500} src={img} alt="test" />
+              <img key={img} src={img} alt="test" />
             ))}
           </Slider>
         </div>

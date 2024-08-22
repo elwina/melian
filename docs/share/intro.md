@@ -2,6 +2,8 @@
 sidebar_position: 1
 ---
 
-# Share
+# 集锦
 
-Let's discover **Docusaurus in less than 5 minutes**.
+集锦页面记录一些已经编辑好的自定义实验，可供大家翻阅、下载、演示。
+
+同时欢迎广大用户提交自己创造的精品实验，我们会完善后将其收录在此页面。
