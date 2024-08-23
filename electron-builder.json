@@ -6,7 +6,7 @@
   "extraResources": ["./staticback/**"],
   "win": {
     "target": ["portable"],
-    "icon": "staticback/icon.ico"
+    "icon": "staticback/icon.png"
   },
   "mac": {
     "target": {
