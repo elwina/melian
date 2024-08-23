@@ -1,0 +1,188 @@
+<svg id="组_1" data-name="组 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2262" height="1383" viewBox="0 0 2262 1383">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 10px;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        stroke-dasharray: 40 20;
+      }
+
+      .cls-5 {
+        font-size: 37.5px;
+      }
+
+      .cls-5, .cls-7 {
+        font-family: "Acumin Variable Concept";
+      }
+
+      .cls-6, .cls-7 {
+        font-size: 20.833px;
+      }
+    </style>
+    <path id="text-path" d="Z"/>
+  </defs>
+  <path id="形状_75" data-name="形状 75" class="cls-1" d="M833,421V544h19l503-182V310l-24-69Z"/>
+  <path id="形状_82" data-name="形状 82" class="cls-1" d="M681,1074l528.9-188.277m266.1-.078V909L679,1197"/>
+  <path id="形状_94" data-name="形状 94" class="cls-2" d="M1335,476h10V838h-10V476Z"/>
+  <path id="形状_98" data-name="形状 98" class="cls-2" d="M1441,466h10V801h-10V466Z"/>
+  <path id="形状_96" data-name="形状 96" class="cls-2" d="M1102.69,928.706L1182,892l296.31-108.706,3.38,9.412Z"/>
+  <path id="形状_97" data-name="形状 97" class="cls-2" d="M1471,786h10V908h-10V786Z"/>
+  <path id="形状_87" data-name="形状 87" class="cls-1" d="M1340,362s0.19,45.921.46,109.207"/>
+  <path id="形状_78" data-name="形状 78" class="cls-1" d="M675,333H647V536h24"/>
+  <path id="形状_79" data-name="形状 79" class="cls-1" d="M1481,39h-25L644,333"/>
+  <path id="形状_80" data-name="形状 80" class="cls-1" d="M644,355H575l3,842H678V1079l-53,53-3-616h24"/>
+  <path id="形状_76" data-name="形状 76" class="cls-1" d="M849,422c5,21.666,10,41.333,15,63v49m504-226-13,1L858,489"/>
+  <path id="形状_81" data-name="形状 81" class="cls-1" d="M840,429l-79,79v532l70-25V531"/>
+  <path id="形状_77" data-name="形状 77" class="cls-1" d="M834.367,476.293L675,534V333L1479,43V246s-125.3,44.281-136.6,48.373"/>
+  <path id="形状_85" data-name="形状 85" class="cls-1" d="M574,355L1435,40"/>
+  <path id="形状_88" data-name="形状 88" class="cls-1" d="M1456,40h-24"/>
+  <path id="形状_86" data-name="形状 86" class="cls-1" d="M1445,263s0.35,95.224.76,205.92M1447,806"/>
+  <path id="形状_84" data-name="形状 84" class="cls-1" d="M1611,472c-49.88-28.306-140.21,37.836-140,212,0.29,240.274,134.5,209.65,139,196"/>
+  <path id="形状_89" data-name="形状 89" class="cls-1" d="M1113,472l449-1M1116,887l441-1"/>
+  <path id="形状_83_拷贝" data-name="形状 83 拷贝" class="cls-1" d="M1950,475H1613c-72.28,29.313-95.41,149.188-96,213-0.49,52.326,21.49,148.309,95,195h334"/>
+  <path id="椭圆_3" data-name="椭圆 3" class="cls-1" d="M1128,891c-91.68,0-166-95.14-166-212.5S1036.32,466,1128,466"/>
+  <path id="椭圆_3_拷贝" data-name="椭圆 3 拷贝" class="cls-2" d="M1128,466c91.68,0,166,95.139,166,212.5S1219.68,891,1128,891,962,795.86,962,678.5,1036.32,466,1128,466Z"/>
+  <path id="椭圆_4" data-name="椭圆 4" class="cls-1" d="M2074,915c-7.92,0-62.37,1.482-70,0-81.74-15.888-145-113.289-145-232,0-116.051,60.94-215.895,140-235,9.36-2.262,60.18-2,70-2"/>
+  <ellipse id="椭圆_4_拷贝" data-name="椭圆 4 拷贝" class="cls-3" cx="2065" cy="681" rx="168" ry="235"/>
+  <ellipse id="椭圆_4_拷贝_2" data-name="椭圆 4 拷贝 2" class="cls-3" cx="2065" cy="681" rx="168" ry="235"/>
+  <ellipse id="椭圆_5" data-name="椭圆 5" class="cls-3" cx="2074" cy="676.5" rx="49" ry="72.5"/>
+  <path id="形状_92" data-name="形状 92" class="cls-4" d="M1967,466v-4h52v4h-52Z"/>
+  <path id="形状_93" data-name="形状 93" class="cls-4" d="M1955,476v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝" data-name="形状 93 拷贝" class="cls-4" d="M1942,486v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_2" data-name="形状 93 拷贝 2" class="cls-4" d="M1929,496v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_3" data-name="形状 93 拷贝 3" class="cls-4" d="M1923,506v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_4" data-name="形状 93 拷贝 4" class="cls-4" d="M1877,606v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_5" data-name="形状 93 拷贝 5" class="cls-4" d="M1903,536v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_6" data-name="形状 93 拷贝 6" class="cls-4" d="M1907,526v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_7" data-name="形状 93 拷贝 7" class="cls-4" d="M1872,616v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_9" data-name="形状 93 拷贝 9" class="cls-4" d="M1915,516v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_10" data-name="形状 93 拷贝 10" class="cls-4" d="M1896,546v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_11" data-name="形状 93 拷贝 11" class="cls-4" d="M1868,626v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_12" data-name="形状 93 拷贝 12" class="cls-4" d="M1891,556v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_13" data-name="形状 93 拷贝 13" class="cls-4" d="M1887,566v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_14" data-name="形状 93 拷贝 14" class="cls-4" d="M1878,576v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_15" data-name="形状 93 拷贝 15" class="cls-4" d="M1872,596v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_16" data-name="形状 93 拷贝 16" class="cls-4" d="M1878,586v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_17" data-name="形状 93 拷贝 17" class="cls-4" d="M1865,686v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_18" data-name="形状 93 拷贝 18" class="cls-4" d="M1871,636v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_19" data-name="形状 93 拷贝 19" class="cls-4" d="M1867,646v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_20" data-name="形状 93 拷贝 20" class="cls-4" d="M1865,656v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_21" data-name="形状 93 拷贝 21" class="cls-4" d="M1865,676v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_22" data-name="形状 93 拷贝 22" class="cls-4" d="M1867,666v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_23" data-name="形状 93 拷贝 23" class="cls-4" d="M1869,696v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_24" data-name="形状 93 拷贝 24" class="cls-4" d="M1867,706v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_25" data-name="形状 93 拷贝 25" class="cls-4" d="M1867,726v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_26" data-name="形状 93 拷贝 26" class="cls-4" d="M1869,716v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_27" data-name="形状 93 拷贝 27" class="cls-4" d="M1871,736v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_28" data-name="形状 93 拷贝 28" class="cls-4" d="M1869,746v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_29" data-name="形状 93 拷贝 29" class="cls-4" d="M1872,766v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_30" data-name="形状 93 拷贝 30" class="cls-4" d="M1871,756v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_31" data-name="形状 93 拷贝 31" class="cls-4" d="M1879,776v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_32" data-name="形状 93 拷贝 32" class="cls-4" d="M1877,786v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_33" data-name="形状 93 拷贝 33" class="cls-4" d="M1888,806v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_34" data-name="形状 93 拷贝 34" class="cls-4" d="M1884,796v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_35" data-name="形状 93 拷贝 35" class="cls-4" d="M1896,816v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_36" data-name="形状 93 拷贝 36" class="cls-4" d="M1896,826v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_37" data-name="形状 93 拷贝 37" class="cls-4" d="M1910,846v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_38" data-name="形状 93 拷贝 38" class="cls-4" d="M1901,836v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_39" data-name="形状 93 拷贝 39" class="cls-4" d="M1923,856v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_40" data-name="形状 93 拷贝 40" class="cls-4" d="M1926,866v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_41" data-name="形状 93 拷贝 41" class="cls-4" d="M1950,886v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_42" data-name="形状 93 拷贝 42" class="cls-4" d="M1934,876v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_43" data-name="形状 93 拷贝 43" class="cls-4" d="M1964,896v-4h38v4h-38Z"/>
+  <path id="形状_93_拷贝_44" data-name="形状 93 拷贝 44" class="cls-4" d="M1983,906v-4h38v4h-38Z"/>
+  <path id="形状_90_拷贝" data-name="形状 90 拷贝" class="cls-4" d="M705,389h5V496h-5V389Z"/>
+  <text id="_0" data-name="0" class="cls-5" x="697.334" y="356.999">0</text>
+  <text id="_1" data-name="1" class="cls-5" x="805.333" y="318">1</text>
+  <text id="_2" data-name="2" class="cls-5" x="905.334" y="278">2</text>
+  <text id="_3" data-name="3" class="cls-5" x="1009.334" y="242">3</text>
+  <text id="_4" data-name="4" class="cls-5" x="1113.334" y="202">4</text>
+  <text id="_5" data-name="5" class="cls-5" x="1217.334" y="165">5</text>
+  <text id="_6" data-name="6" class="cls-5" x="1321.334" y="130">6</text>
+  <text id="_7" data-name="7" class="cls-5" x="1429.333" y="90">7</text>
+  <path id="形状_90_拷贝_2" data-name="形状 90 拷贝 2" class="cls-4" d="M809,350h5v92l-5,4V350Z"/>
+  <path id="形状_90_拷贝_3" data-name="形状 90 拷贝 3" class="cls-4" d="M913,311h5v81l-5,1V311Z"/>
+  <path id="形状_90_拷贝_4" data-name="形状 90 拷贝 4" class="cls-4" d="M1017,275h5v80l-5,2V275Z"/>
+  <path id="形状_90_拷贝_5" data-name="形状 90 拷贝 5" class="cls-4" d="M1121,236h5v83l-5,1V236Z"/>
+  <path id="形状_90_拷贝_6" data-name="形状 90 拷贝 6" class="cls-4" d="M1225,198h5v82l-5,2V198Z"/>
+  <path id="形状_90_拷贝_7" data-name="形状 90 拷贝 7" class="cls-4" d="M1329,163h5v96h-5V163Z"/>
+  <path id="形状_90_拷贝_8" data-name="形状 90 拷贝 8" class="cls-4" d="M1433,125h5V232h-5V125Z"/>
+  <image id="形状_91_拷贝_9" data-name="形状 91 拷贝 9" x="718" y="395" width="83" height="99" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABjCAYAAADnyDytAAABtklEQVR4nO3dwU0CQRhH8cVYgz1gGXahbUgZ2AZ0gV1oEbZgguEAmYuBCW/222/m/U57QFheMv9wQVaT7nU8//2DKTnGBD0muMf34vpjya+bYTOPxfWc93vr67qZLRgTlGEzabvi+d7I5x5xM6u30M0MYExQT5v5VVw/R9xAT5sZ/jiPOciYIGOCjAkyJijyo9G6uP4OvA9M5EejNB95/GgUwJigFpv5WlzvZ39HgVpsZndb6GYGMCaoZjO3xfVmse8oUM1mDruFbmYAY4JOm3konu4l/TsKtHILucd5zEHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEyQMUHGBBkTZEzQiP9Yj3b5tp7ftrj/cRcec5AxQW7m/6q/redmgjzmIGOCRtzMp1ZPPOJmNuMxB/V0zH+ib6CnYx7OYw4yJijDZn4u4B5ukmEz0/CYg4wJitzMOX8PbRaRm9kdjznImKAWm4n+LlkmLTZzWB5zkDFBNZsZ8rtkmdRspq7wmINOx/y3m3cTaZqmP3jxXFLZbGg+AAAAAElFTkSuQmCC"/>
+  <image id="形状_91_拷贝_10" data-name="形状 91 拷贝 10" x="822" y="358" width="83" height="84" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABUCAYAAAD+twu4AAACo0lEQVR4nO2cP4vUQBiHn7tbwUK9xsZKFNFPYGllIRbnx9AvYmOrlRa2NiIiFtYWIlqIoKAW/gHxCj3B8w+Ke7sSmMVByE3GvLOTyfweCEwxyc485H3zZpLsCqIv88X+q1Jph2QaMilgjHe89rkh/24JOXPutZc53q6/q5yZAsk0pIScac0773iHLY9dY86MzoXKmRkYU5jv89rfcgxgTGGevZ/C3BDJNEQyDZFMQyTTEMk0JGeded5rX8s4DjNy1pnF1I+qMzMgmYakyJlXvfaFpc8oIyly5uhyoXJmBiTTkJic+dhrnxzsjDISkzOrzYXKmRmQTEOanPnVO9z+4meUkck/D6JEDxTmhkimIZJpiGQaIpmGSKYhkmmIZBoimYbU+OawNc2q0U6zSWZ/ngMfgM0VrVP27rcBfAS2JbN/vz3AtDmuwnx3GqE/An1+LxqS2c4M2ALud91BMtt5CdwGbsXsNPc29fvLKWA9phav+QK0E4jMVRfqnakxzJsLyhfgWaBflEgqlXkJeOiKbXNqy5l7U61JjOnM/OW20Kd+P1MNYEwyb7jPn5/mHEQp4Ru6IBwFDgBrgX5JGbrMmQvNt0t08l+UEOafgSfAvQGMJcjQz8wrwGngYOS8sjB0mcdKebxSwu1kMeTMmVN3YdkuzFkrOWU+Al64pa7RkCoXTgP9zgLHx/aCrbXMZnX6VcwK9VhIEeaXXehu1iaTBGfmIbcyU92/xqYojaolNswbod9rl9ZGjMy5u09+sNwhlkXXXPgJuOlKGtFCV5mNyDP6bmh3usrckMgwXWWuD2GwQyamNBIB9Bq2IZJpiC8zlDNFgEXRPnMFuejBxL0N9h64K5H9eQ1cBE6UPpHcrLlHqNeBN8qb/TmS+5WSMSGRFgB/AJuPBmIzcs4hAAAAAElFTkSuQmCC"/>
+  <image id="形状_91_拷贝_11" data-name="形状 91 拷贝 11" x="926" y="322" width="83" height="73" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABJCAYAAABB/xr9AAACYUlEQVR4nO2czWoWMRSGnxZ/EMWudK3u3IpbEQWvQbwBl16KGy/AlXgLXRQFFwriTkRRdCGIf4gW629bRwamJZR+nUnn5DuT5H1Wge9MJnnJe76TMDMLiLH82rpeYo6n2ephMeNJTI4DmY1xY8r3zcHm60H74ATvu23zHMRsgvY8xzv0vsqZKcghZ1pzNujvuWXfNdo82r6yuQMS05CScua1oH3XYwAl5Uz3ONncEIlpiMQ0RGIaIjENkZiGeNaZ94L2ZcdxmOFZZ2ZTP6rOdEBiGpIiZ34K2ifnPiNHUuTM4nKhcqYDMTY/EbQ/Zz/zBMTYvFr7yuYOSExD2px5KejufvYzcmRBudAuTjY3RGIaIjENkZiGSExDJKYhEtMQiWlHU+PDrtZsAmvAB4k5nifAY+Ah3Xao2bHN2g3F7c4FYAntzU3itpHNZ/Ozey/y69ALJOZsbgFPgWdDL5DNZ7NTm15qXZlN+GrzHjFR1CjmKvAeeJCi89pKnpvAFeB4T9y+qE3Mwz2/75uSbN6+E/5vgJh/Ug2gJDEfAR+BF56DKMW+p4Fj3idhOYjZWvhLT5w7Odi8fUjsJbA8gbH0MvWVeRU4AxyKnJcL3mL+7YnL5ttLnjb/AbwBVnriord1nnitzBvAqZLKM89To8WuyC4Gz5qsKCFJLOb3hH1PkhT5qv13fgXcLkCfaKz/WO4A52s9eB4q0mZ34vKtJ27JcGxZEbN6XgNvu9pwL1ZrFZOIlXkdOJfqhLoEYupM0UNYGs3zq6lF0ubM38C77uEjMZL2yYWLwFEJOZ4juU9gEgD/AZ/sA7ftQlbGAAAAAElFTkSuQmCC"/>
+  <image id="形状_91_拷贝_12" data-name="形状 91 拷贝 12" x="1030" y="286" width="83" height="69" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABFCAYAAAA2PdqGAAACZUlEQVR4nO2cu4oUQRSGvxF1AkETgwVTQRZDn0B8BoM19RE08R30MVQEQ00MFANhFzUQBNHVQLwkKrKwuo4z2tJSLsUwY1Uxp/p0dZ0PGgrmdPWpn6q/LjM9I4xVaf7df8CklMPEFORgATme9coP+vzcEjyz8cpd5hv7XPPMHJiYgpTgmdJc8uq7Jll3jZ6Z7IXmmQqYmIIMyTNveOULGgkMyTPV42yYC2JiCmJiCmJiCmJiCqK5NPKfPVPMQwxNMfe88iHFPMToS88cBOaZguToHete+UXnLVIkx3aymO2fHcH1GBNTkBTP3PDKN3vbIkVSPLNaLzTPVMDEFKT1zKtedZeLb5EiI/NCuTgb5oKYmIKYmIKYmIKYmIKYmHL8qvEnhdL8BHaADybm6jwCnrrr76KzmVvMLsLiFnMOOI7tgETi9rEJSBDzzOX8dpPL19gbTMzl3AW2gIcpN9nEspgjqd/e1tozm4jfN31LrbRGMX8AX4DX0hXXKOYtt9BO8sJYavPCtZydaEhiztw+WYUhDfNPwMtcwzeWofTM9gXTM8DRQFxWhiLmOPB5dkram4fEnHSUx1JK8MyJE1JtYolFU8z2IGE696LAIu64mGc6acajKeYr4A2wHYi7AuwCnzvKayW0JozzwGngWEftzE6Ok/apu2aBZcr8s4snxzC/DbwFPgbiBiUkmXrmCTdhtKcz3wVyLIpUL5wG4qr958OUYd64A9PnEXFVkiLme+A+cL1WsWJovAX0/7gInAQO97o1yrQL4nfAZiCNcc1+GEM7zO8BT4DHgXj1g4QSOGXfnwsA/AF1Wvjbwc08LQAAAABJRU5ErkJggg=="/>
+  <image id="形状_91_拷贝_13" data-name="形状 91 拷贝 13" x="1134" y="250" width="83" height="68" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABECAYAAAD9YQkjAAACSklEQVR4nO2czUocQRDHf6sGBfEYIXkEvYkvYM4+gZCnME+Qc/IQueSgmKOCXxECAcGjJgdzCyRBiCQkl7hJRgZGaWTHntmt3prurt+pl63tqfnT9e+aD7aHMSrFze8nTEo5TExBpiLI8YUzftbl48bgmYUzHme+TY9rnhkCE1OQGDxTmkNnvieSc+foma290DxTARNTkJQ888IZz2skkJJnqsdZmQtiYgpiYgpiYgpiYgqi2RqtOOO3inmIodkaRdPyWGukgIkpSAjPXHfGL8d+RoqE8MzkvNA8UwETU5A2nvnaGa919owUaeOZ2XqheaYCJqYgpWd+cKZbiP6MFOmZF8rFWZkLYmIKYmLKUeT4rlEI/gOXJubolEJ+Bw5MzNE5rR67bFBt7cWdlmEQFjeYR8B02T7ZyqynFPE38MkT99X9YCtuMK+AVeChJ+4WuwKq5wHwt4Hot1iZ19Nv+4NcxbwCvklPmqOY5V2yHWAzxOSpbSz/PHGPgUlPzFCktDJLEX8Bnz1xX0IlkJKYb4A94L1mEqmU+bT2O/qxrMyyhH96Yv6MKZdaYhDzEjgDtjuQi5eul+9zYDGWKuq6mDOe7ztDDNfm0aBZOkW1afg2lmjQFPMjcAIcRabZvWh54RIwl0qJ3xBCzH7V0mRFiDI/B46B3dzEJMDKXAZmUyvfJoRojbJlmNdjGj8TyY02ntmvesLz3EWro42YW8A+8G68KcZF041lPtTt/lQoV+aPqnx9T+su0jntcDyt2hmVv69JjQlrdQQArgE4qvNsA3g0BAAAAABJRU5ErkJggg=="/>
+  <image id="形状_91_拷贝_14" data-name="形状 91 拷贝 14" x="1238" y="210" width="83" height="73" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABJCAYAAABB/xr9AAACU0lEQVR4nO2cv2pUQRTGf5GkECWFfwofQUklpLC08CF8Dn0NH8FWSzFYWCmaRq0ERQkiiEVErKKBFNlk5cK9Mspu7o57Jmf+fD9YmGLu7Jlv5zt7Zu7eXUEsy8FwvcRcnukwwpmCJ5EdqwXEeDlo/8j5fUuw+TRon2a8i76vbJ4CiWlICTnTmpvBeM8tx24xZ0bnQuVMBySmITXlzDtB+55HADXlTPd+srkhEtMQiWmIxDREYhoiMQ3xrDM/BO1rjnGY4VlnFlM/qs50IIXNwzEn2c48ASnEPAjaa24zcyD1ymwK5UxDYlbR1aD9MdsZORJTGlVXyqg0yhiJaUiXM28Hwz0sfkaOrCgX2vWTzQ2RmIZITEMkpiES0xCJaYjENKTZ4zJjjrt6U2Iuz3fgJ7AnMZfnPvAV2KXfDk3/2WbNQv1mc3bYbmpljnM40uPPPS+JeTK/gPeLdpaY8/kEPAUexFykXDibW8C5kT5/0fJ55sT6vn6LNu9qwm/AuxSDt2bfu8AmcHGkXzQt2nxtgXLnv2jxoCOJkFSWM7vDhn1gxyuAmsR8AzwBHnkGUcsXy4b3Txhr+gJypwSbH/W5cDeDWE6kBDEfAy+AVxnEMkruufBC/6EX8YdWnmJO+mOuKvC0eXfE9RZ4VouYOK7M68B6bbuwVPbdN4yxCFLYfKd/gOB1hXqNYr0ybwCXWnugaiBWzKPTC60sYmx+2JcxX1oXbR4xYm4BL/uXmMOiNr/Sah6MYShl9soJOU86m3/udyLbrYthQXen7rz+GdsGiWgB8BuQE/VN6M2ShgAAAABJRU5ErkJggg=="/>
+  <image id="形状_91_拷贝_15" data-name="形状 91 拷贝 15" x="1342" y="167" width="83" height="99" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABjCAYAAADnyDytAAABvUlEQVR4nO3dwU3DQBBAUQdxoQDoAbqgDGgDyiB1UAZl0AOUAFIQh0R7QXjlv5md3f9OPgTH/sqMfAnZLdrq6/j3xtzucDzDReKb6M5lgmu8LY7fe37fDGN+KI7Peb1r39cxb8GYoAw7k/ZQnO+VPPeMO7N6F7ozAxgTNNLOfCmOnyMuYKSdGf46xxxkTJAxQcYEGRNkTFDkc+ZHcXwTeB2YyOfMNM+PPmcGaDHm18XxZ7d33kCLMR9ufB3zAMYE1ezM++L4rds7ClSzM6fdhe7MAMYE/e7Mp+J0+/R3FGjnLuRe55iDjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYIGOCjAkyJsiYoBn/sR7t9G09v22x/XUnjjnImCB35t+qv63nzgQ55iBjgmbcmY+tTjzjzmzGMQcZEzTSzryLvoCRdmY4xxyUYcy/O7iGVTLEvOrgGlbxkwlyZ4IiP5nn/D20s4h8NBqOYw4yJqjFzkR/lyyTFjtzWo45yJigmp0Z8rtkmdTsTP3DMQcZk7Isyw+XN1qPFEa8agAAAABJRU5ErkJggg=="/>
+  <path id="形状_91" data-name="形状 91" class="cls-4" d="M898.06,399.485l3.88-.97,7,28-3.881.97Z"/>
+  <path id="形状_91_拷贝" data-name="形状 91 拷贝" class="cls-4" d="M862,412l3.94-.485L875,447l-4,1Z"/>
+  <path id="形状_91_拷贝_57" data-name="形状 91 拷贝 57" class="cls-4" d="M907,396l3.94-.485L920,431l-4,1Z"/>
+  <path id="形状_91_拷贝_58" data-name="形状 91 拷贝 58" class="cls-4" d="M952,380l3.94-.485L965,415l-4,1Z"/>
+  <path id="形状_91_拷贝_59" data-name="形状 91 拷贝 59" class="cls-4" d="M997,364l3.94-.485L1010,399l-4,1Z"/>
+  <path id="形状_91_拷贝_60" data-name="形状 91 拷贝 60" class="cls-4" d="M1042,348l3.94-.485L1055,383l-4,1Z"/>
+  <path id="形状_91_拷贝_61" data-name="形状 91 拷贝 61" class="cls-4" d="M1078,334l3.94-.485L1091,369l-4,1Z"/>
+  <path id="形状_91_拷贝_62" data-name="形状 91 拷贝 62" class="cls-4" d="M1123,320l3.94-.485L1136,355l-4,1Z"/>
+  <path id="形状_91_拷贝_63" data-name="形状 91 拷贝 63" class="cls-4" d="M1168,302l3.94-.485L1181,337l-4,1Z"/>
+  <path id="形状_91_拷贝_64" data-name="形状 91 拷贝 64" class="cls-4" d="M1213,286l3.94-.485L1226,321l-4,1Z"/>
+  <path id="形状_91_拷贝_65" data-name="形状 91 拷贝 65" class="cls-4" d="M1258,269l3.94-.485L1271,304l-4,1Z"/>
+  <path id="形状_91_拷贝_66" data-name="形状 91 拷贝 66" class="cls-4" d="M1303,254l3.94-.485L1316,289l-4,1Z"/>
+  <path id="形状_91_拷贝_3" data-name="形状 91 拷贝 3" class="cls-4" d="M871.06,409.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_4" data-name="形状 91 拷贝 4" class="cls-4" d="M880.06,406.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_5" data-name="形状 91 拷贝 5" class="cls-4" d="M889.06,403.485l3.88-.97,7,28-3.881.97Z"/>
+  <path id="形状_91_拷贝_2" data-name="形状 91 拷贝 2" class="cls-4" d="M943.06,383.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_6" data-name="形状 91 拷贝 6" class="cls-4" d="M907.06,396.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_7" data-name="形状 91 拷贝 7" class="cls-4" d="M916.06,393.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_8" data-name="形状 91 拷贝 8" class="cls-4" d="M925.06,389.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_16" data-name="形状 91 拷贝 16" class="cls-4" d="M934.06,386.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_17" data-name="形状 91 拷贝 17" class="cls-4" d="M988.059,366.485l3.881-.97,7,28-3.881.97Z"/>
+  <path id="形状_91_拷贝_18" data-name="形状 91 拷贝 18" class="cls-4" d="M952.059,379.485l3.881-.97,7,28-3.881.97Z"/>
+  <path id="形状_91_拷贝_19" data-name="形状 91 拷贝 19" class="cls-4" d="M961.059,376.485l3.881-.97,7,28-3.881.97Z"/>
+  <path id="形状_91_拷贝_20" data-name="形状 91 拷贝 20" class="cls-4" d="M970.059,373.485l3.881-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_21" data-name="形状 91 拷贝 21" class="cls-4" d="M979.059,370.485l3.881-.97,7,28-3.881.97Z"/>
+  <path id="形状_91_拷贝_22" data-name="形状 91 拷贝 22" class="cls-4" d="M1033.06,350.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_23" data-name="形状 91 拷贝 23" class="cls-4" d="M997.059,363.485l3.881-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_24" data-name="形状 91 拷贝 24" class="cls-4" d="M1006.06,360.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_25" data-name="形状 91 拷贝 25" class="cls-4" d="M1015.06,356.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_26" data-name="形状 91 拷贝 26" class="cls-4" d="M1024.06,353.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_27" data-name="形状 91 拷贝 27" class="cls-4" d="M1078.06,334.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_28" data-name="形状 91 拷贝 28" class="cls-4" d="M1042.06,347.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_29" data-name="形状 91 拷贝 29" class="cls-4" d="M1051.06,344.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_30" data-name="形状 91 拷贝 30" class="cls-4" d="M1060.06,341.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_31" data-name="形状 91 拷贝 31" class="cls-4" d="M1069.06,338.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_32" data-name="形状 91 拷贝 32" class="cls-4" d="M1123.06,318.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_33" data-name="形状 91 拷贝 33" class="cls-4" d="M1087.06,331.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_34" data-name="形状 91 拷贝 34" class="cls-4" d="M1096.06,328.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_35" data-name="形状 91 拷贝 35" class="cls-4" d="M1105.06,324.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_36" data-name="形状 91 拷贝 36" class="cls-4" d="M1114.06,321.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_37" data-name="形状 91 拷贝 37" class="cls-4" d="M1168.06,301.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_38" data-name="形状 91 拷贝 38" class="cls-4" d="M1132.06,314.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_39" data-name="形状 91 拷贝 39" class="cls-4" d="M1141.06,311.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_40" data-name="形状 91 拷贝 40" class="cls-4" d="M1150.06,308.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_41" data-name="形状 91 拷贝 41" class="cls-4" d="M1159.06,305.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_42" data-name="形状 91 拷贝 42" class="cls-4" d="M1213.06,285.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_43" data-name="形状 91 拷贝 43" class="cls-4" d="M1177.06,298.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_44" data-name="形状 91 拷贝 44" class="cls-4" d="M1186.06,295.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_45" data-name="形状 91 拷贝 45" class="cls-4" d="M1195.06,291.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_46" data-name="形状 91 拷贝 46" class="cls-4" d="M1204.06,288.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_47" data-name="形状 91 拷贝 47" class="cls-4" d="M1258.06,269.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_48" data-name="形状 91 拷贝 48" class="cls-4" d="M1222.06,282.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_49" data-name="形状 91 拷贝 49" class="cls-4" d="M1231.06,279.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_50" data-name="形状 91 拷贝 50" class="cls-4" d="M1240.06,276.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_51" data-name="形状 91 拷贝 51" class="cls-4" d="M1249.06,273.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_52" data-name="形状 91 拷贝 52" class="cls-4" d="M1303.06,253.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_53" data-name="形状 91 拷贝 53" class="cls-4" d="M1267.06,266.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_54" data-name="形状 91 拷贝 54" class="cls-4" d="M1276.06,263.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_55" data-name="形状 91 拷贝 55" class="cls-4" d="M1285.06,259.485l3.88-.97,7,28-3.88.97Z"/>
+  <path id="形状_91_拷贝_56" data-name="形状 91 拷贝 56" class="cls-4" d="M1294.06,256.485l3.88-.97,7,28-3.88.97Z"/>
+  <text class="cls-6"><textPath xlink:href="#text-path"><tspan class="cls-7"> 0     1      2     3     4    5     6     7     8     9     0</tspan></textPath></text>
+  <path id="形状_99" data-name="形状 99" class="cls-4" d="M1080,1053l10-6v336h-10V1053Z"/>
+  <path id="形状_100" data-name="形状 100" class="cls-4" d="M1172,1014h10v369h-10V1014Z"/>
+</svg>

@@ -1,0 +1,189 @@
+{
+  "name": "杨氏双缝干涉",
+  "des": {
+    "type": "image",
+    "content": ["[young1]", "[young2]", "[young3]"]
+  },
+  "lens": [
+    {
+      "id": 0,
+      "uname": "light01",
+      "name": "光源",
+      "distancemm": 0,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 1,
+      "uname": "convex_lens01",
+      "name": "透镜",
+      "distancemm": 100,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 2,
+      "uname": "filter01",
+      "name": "滤光片",
+      "distancemm": 220,
+      "hide": false,
+      "option": {
+        "wave": "660"
+      }
+    },
+    {
+      "id": 3,
+      "uname": "single_slit01",
+      "name": "单缝",
+      "distancemm": 245,
+      "hide": false,
+      "option": {}
+    },
+    {
+      "id": 4,
+      "uname": "double_slit01",
+      "name": "双缝",
+      "distancemm": 365,
+      "hide": false,
+      "option": {
+        "d": 0.1
+      }
+    },
+    {
+      "id": 5,
+      "uname": "measure_head02",
+      "name": "测量头",
+      "distancemm": 865,
+      "hide": false,
+      "option": {}
+    }
+  ],
+  "light": {
+    "type": "D65",
+    "filter": -1
+  },
+  "screen": {
+    "type": "FixedCircle",
+    "options": {
+      "seemm": 8,
+      "offsetmm": 0,
+      "mmwidth": 50,
+      "mmheight": 20,
+      "require": {
+        "d": "{4}.d",
+        "r0_2": "[5]",
+        "r0_1": "[4]"
+      },
+      "func": "cos(2 * PI / l * d * y / (r0_2 - r0_1) / 2)^2"
+    }
+  },
+  "measure": {
+    "type": "Circle",
+    "options": {
+      "initmm": 10,
+      "offsetmm": 0
+    }
+  },
+  "control": {
+    "showmm": [0, 4, 5],
+    "move": [4, 5]
+  },
+  "setting": [
+    {
+      "name": "滤光片",
+      "type": "ButtonSlider",
+      "des": "确定滤光片颜色，选择透过滤光片的光的波长。如选“无”则表示不设置滤光片。",
+      "target": ["light.filter", "{2}.wave"],
+      "options": {
+        "options": [
+          {
+            "name": "无",
+            "value": -1
+          },
+          {
+            "name": "红",
+            "value": 660
+          },
+          {
+            "name": "绿",
+            "value": 550
+          },
+          {
+            "name": "蓝",
+            "value": 450
+          }
+        ],
+        "min": 420,
+        "max": 720,
+        "step": 1,
+        "toFixedPoint": 0,
+        "unit": "nm"
+      }
+    },
+    {
+      "name": "双缝间距d",
+      "type": "ButtonSlider",
+      "des": "缝S1和S2之间的距离。",
+      "target": ["{4}.d"],
+      "options": {
+        "options": [
+          {
+            "name": "0.2mm",
+            "value": 0.2
+          },
+          {
+            "name": "0.02mm",
+
+            "value": 0.02
+          }
+        ],
+        "min": 0.01,
+        "max": 0.5,
+        "step": 0.01,
+        "toFixedPoint": 2,
+        "unit": "mm",
+        "showValue": true
+      }
+    },
+    {
+      "name": "目镜粗调",
+      "type": "CircleSlider",
+      "des": "圆圈示意精密螺纹旋转位置，阶梯控件可改变粗调步频，鼠标放置在滚轮上左右移动进行粗调。",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001,
+        "round": 0.5
+      }
+    },
+    {
+      "name": "目镜细调",
+      "type": "TwoArrow",
+      "target": ["measure.offsetmm", "screen.offsetmm"],
+      "options": {
+        "min": -5,
+        "max": 5,
+        "step": 0.001
+      }
+    },
+    {
+      "name": "测量头类型",
+      "type": "ButtonSelect",
+      "des": "使用不同的测量工具，1代表螺旋测微器，2代表游标卡尺。",
+      "target": ["measure.type"],
+      "options": {
+        "options": [
+          {
+            "name": "1",
+            "values": ["Circle"]
+          },
+          {
+            "name": "2",
+            "values": ["Square"]
+          }
+        ]
+      }
+    }
+  ]
+}
