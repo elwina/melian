@@ -18,6 +18,7 @@ import "./Welcome.css";
 import { VscChromeClose } from "react-icons/vsc";
 import type { ElectronHandler } from "../preload";
 import backjpg from "@static/back1.jpg";
+import { APP_VERSION } from "../version";
 
 interface propsType {
 	styleConfig: StyleConfig;
@@ -171,6 +172,7 @@ export function Welcome({
 					zIndex: 100001,
 				}}
 			>
+				<span style={{ color: "white" }}>v{APP_VERSION}&emsp;</span>
 				<Space.Compact>
 					<Button
 						icon={<TranslationOutlined />}
