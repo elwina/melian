@@ -19,9 +19,11 @@
     "@types/react-dom": "^18.3.0",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "electron": "^31.3.0",
     "electron-builder": "^24.13.3",
     "electron-reloader": "^1.2.3",
+    "ssh2": "^1.15.0",
     "typescript": "^5.0.0"
   },
   "dependencies": {
@@ -46,6 +48,7 @@
     "buildapp": "npm run buildback && npm run buildfront && electron-builder build --publish never",
     "buildci": "npm run buildback && npm run buildfront && electron-builder build -- --publish always --win --mac --linux",
     "wasm": "bun run scripts/wasm.ts",
-    "version": "bun run scripts/version.ts"
+    "version": "bun run scripts/version.ts",
+    "tencent": "bun run buildfront && bun run scripts/tencent.js"
   }
 }
