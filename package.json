@@ -44,6 +44,7 @@
     "devweb": "rsbuild dev --open",
     "dev": "cross-env IF_DEBUG=1 concurrently \"tsc -w -p tsconfig.backend.json\" \"rsbuild dev\" \"electron .\"",
     "buildapp": "npm run buildback && npm run buildfront && electron-builder build --publish never",
+    "buildci": "npm run buildback && npm run buildfront && electron-builder build -- --publish always --win --mac --linux",
     "wasm": "bun run scripts/wasm.ts",
     "version": "bun run scripts/version.ts"
   }

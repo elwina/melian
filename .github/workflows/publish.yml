@@ -24,10 +24,9 @@ jobs:
         run: |
           bun install
           bun run postinstall
-          bun run buildapp
 
       - name: Publish releases
         env:
           GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
         run: |
-          bun exec electron-builder -- --publish always --win --mac --linux
+          bun run buildapp
