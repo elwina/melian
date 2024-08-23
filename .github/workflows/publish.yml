@@ -14,18 +14,18 @@ jobs:
   publish:
     runs-on: macos-latest   
     steps:
-      - name: Checkout git repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Install and build
+      - name: Install
         run: |
           bun install
           bun run postinstall
 
-      - name: Publish releases
+      - name: Build and Publish
         env:
           GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
         run: |
