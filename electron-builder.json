@@ -5,7 +5,7 @@
   "files": ["build/**/*", "node_modules", "package.json", "staticback/**/*"],
   "extraResources": ["./staticback/**"],
   "win": {
-    "target": ["portable"],
+    "target": ["nsis", "portable"],
     "icon": "staticback/icon.ico"
   },
   "mac": {
