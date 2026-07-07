@@ -2,6 +2,8 @@
 
 # 波动光学可视化演示系统 Melian
 
+# 新版项目MelianX已经启动，详见[新项目地址](https://github.com/elwina/MelianX)
+
 一个基于 Electron + React + WebAssembly 的波动光学可视化演示系统，用于展示波动光学的基本原理和现象，服务于一线高中教师。
 
 详情请见[项目官网](https://melian.elwina.work)
